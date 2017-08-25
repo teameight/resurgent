@@ -1,0 +1,70 @@
+.area-title {
+    @include labelfont(bold);
+    font-size: 18px;
+    line-height: 20px;
+    margin:$vru*3 auto $vru*1;
+    text-align: center;
+    max-width:600px;
+    color:$magenta;
+}
+.area-description{
+    color:white;
+    text-align: center;
+    max-width:600px;
+    margin:0 auto $vru*4;
+    font-size: 13px;
+    line-height: 16px;
+    padding:0 30px;
+}
+.providers {
+
+}
+.provider {
+    background: $gray-mid;
+    width:96vw;
+    max-width:320px;
+    margin-right:2vw;
+    text-align: center;
+    border-radius: $vru*2;
+    padding:16px 30px;
+    box-sizing: border-box;
+
+    .profile-img {
+        width:150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin:0 auto $vru*2;
+
+        -webkit-box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.25);
+        box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.25);
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    > h1 {
+        color: $magenta;
+        font-style: italic;
+        font-size: 22px;
+        line-height: 24px;
+        margin:0 0 $vru*1; 
+    }
+    .bio {
+        max-height:100px;
+        overflow: hidden;
+        position: relative;
+
+        p {
+            font-size: 15px;
+            line-height: 20px;
+        }
+    }
+    .bio-handle {
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+}

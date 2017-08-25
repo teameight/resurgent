@@ -1,0 +1,59 @@
+.section-areas {
+    overflow:hidden;
+}
+
+h2.section-label {
+    color: white;
+    font-size: 17px;
+    line-height: 18px;
+    @include labelfont(thin);
+    margin-bottom: $vru;
+    margin-left: 15px;
+
+    @include tablet {
+        text-align:center;
+        margin-top: $vru*4;
+        margin-bottom: $vru*3;
+    }
+}
+
+.section-row {
+    display: block;
+    position: relative;
+}
+
+.area {
+    width: 155px;
+    text-align: center;
+    padding-left: 15px;
+    margin-bottom: 15px;
+    color: white;
+    position: relative;
+    display: inline-block;
+    white-space: normal;
+    text-decoration: none;
+
+    img {
+        width:100%;
+        height:auto;
+    }
+
+    h3 {
+        font-size: 9px;
+    @include labelfont(thin);
+        margin-top:0;
+        margin-bottom: 4px;
+        color:#808080;
+        padding:0;
+        line-height: 12px;
+    }
+
+    p {
+        font-size: 10px;
+    @include labelfont(thin);
+        margin:0;
+        padding:0;
+        line-height: 12px;
+    }
+
+}

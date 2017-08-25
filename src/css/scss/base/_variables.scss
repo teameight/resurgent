@@ -1,0 +1,48 @@
+$magenta:     #df4678; 
+$red:  				#da2c1d; 
+$blue:  				#3a77b2; 
+$gray-lt:			#ddd;
+$gray-mid:		#bebebe;
+$gray-dark:		#262626;
+
+$font-primary: Lato, Helvetica, Arial, sans-serif; 
+$font-label: Montserrat, Helvetica, Arial, sans-serif;
+
+$spacer: 32px;
+$vru: 4px; // vertical rhythm unit
+
+
+
+@mixin labelfont($weight) {
+
+	@if $weight == "thin" {
+  	font-weight: 200;
+	} @else {
+  	font-weight: 700;
+	}
+	font-family:$font-label;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+@mixin smoothfont {
+	text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+

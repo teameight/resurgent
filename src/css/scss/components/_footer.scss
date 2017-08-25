@@ -1,0 +1,39 @@
+$footheight: 50px;
+footer {
+    width:100%;
+    bottom: 0;
+    height:$footheight;
+    position: fixed;
+    z-index:10;
+    display: flex;
+    justify-content: space-between;
+    background:white;
+    align-items: center;
+    padding:0 15px;
+    box-sizing: border-box;
+    border-top:1px solid $gray-lt;
+
+    .logo {
+        width: 41.666%;
+        img {
+            width: 100%;
+            height:auto;
+            display: block;
+            max-width:170px; 
+            float: right;
+        }
+    }
+
+    .terms {
+
+        color: $magenta;
+        font-size: 14px;
+        text-transform: uppercase;
+
+        &:hover{
+
+            color: $blue;
+
+        }
+    }
+}

@@ -1,0 +1,49 @@
+.flickity-prev-next-button{
+    z-index: 2;
+    -webkit-transform: translateY(-50%);
+    transform: none;
+    top: 38px; 
+    background: transparent;
+
+    &:before {
+        content:'';
+        position: absolute;
+        height: 30px;
+        width:30px;
+        background: hsla(0, 0%, 100%, 0.65);
+        border-radius:50%;
+        top:7px;
+        left:7px;
+    }
+
+    svg {
+        left: 30%;
+        top: 30%;
+        width: 40%;
+        height: 40%;
+    }
+
+    .arrow {
+        fill: #fff;
+    }
+
+}
+
+.section-areas .slide-wrap {
+    &:after{
+        content:'';
+
+        background: -moz-linear-gradient(left, rgba(38,38,38,0) 0%, rgba(38,38,38,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, rgba(38,38,38,0) 0%,rgba(38,38,38,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba(38,38,38,0) 0%,rgba(38,38,38,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00262626', endColorstr='#262626',GradientType=1 ); /* IE6-9 */
+
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width:20vw;
+        top: 0;
+        pointer-events: none;
+
+    }
+}
