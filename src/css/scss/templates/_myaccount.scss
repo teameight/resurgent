@@ -1,0 +1,19 @@
+.flow-account {
+    background: $mint;
+
+    .tcon-remove{
+
+        &:after, &:before {
+            background: $gray-mid2;
+        }
+    }
+
+    .details-box {
+
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+}

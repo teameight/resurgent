@@ -1,24 +1,15 @@
 .modal {
 
-  .main {
-    padding:0 15px;
-  }
-
   .tcon-remove {
     float: right;
     margin-top: $vru*2;
     cursor: pointer;
   }
 
-  .subtitle {
-    clear:both;
-  }
-
   h1.page-title {
     color:white;
     text-align: center;
     max-width:600px;
-    clear:both;
   }
 
   .form-intro{
