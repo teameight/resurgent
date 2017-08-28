@@ -13,11 +13,12 @@ strong {
 	font-size:14px;
 	padding:$vru*2 1em;
 	background: $magenta;
-	border-radius: $vru;
+	border-radius: $vru*2;
 	@include dropshadow;
 	letter-spacing: 1px;
   text-decoration: none;
   text-align: center;
+  border: none;
 
   &:active, &:hover{
   	background:$blue;
