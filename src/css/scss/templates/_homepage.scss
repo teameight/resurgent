@@ -32,6 +32,8 @@ h2.section-label {
     display: inline-block;
     white-space: normal;
     text-decoration: none;
+    min-width: 0;
+    min-height: 0;
 
     img {
         width:100%;
@@ -56,4 +58,8 @@ h2.section-label {
         line-height: 12px;
     }
 
+}
+
+.area-slide {
+    display: inline-block;
 }

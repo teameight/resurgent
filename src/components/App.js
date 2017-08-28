@@ -1,12 +1,13 @@
 import React from 'react';
+import { Route, Router } from 'react-router-dom';
 import Header from './Header';
 import Login from './Login';
 import base from '../base';
-import { Link } from 'react-router-dom';
 import Auth from '../Auth/Auth';
 import styles from '../css/style.css';
-import sampleAreas from '../sample-areas';
 import AreaPicker from './AreaPicker';
+import ProviderPicker from './ProviderPicker';
+
 
 class App extends React.Component {
 	constructor() {
@@ -18,7 +19,7 @@ class App extends React.Component {
 			areas: {}
 		}
 
-		this.loadSamples = this.loadSamples.bind(this);
+		// this.loadSamples = this.loadSamples.bind(this);
 
 	}
 
@@ -50,18 +51,19 @@ class App extends React.Component {
 		base.removeBinding(this.ref);
 	}
 
-	loadSamples() {
-		this.setState({
-			areas: sampleAreas
-		});
-	}
+	// loadSamples() {
+	// 	this.setState({
+	// 		areas: sampleAreas
+	// 	});
+	// }
 
 	render() {
 		const { isAuthenticated } = this.props.auth;
 
 		return (
 			<div className="resurgent-app">
-				<AreaPicker areas={this.state.areas} />
+				<Route exact path="/" render={(props) => <AreaPicker goTo={this.goTo} areas={this.state.areas} {...props} />} />
+				<Route path="/providers" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
 				{
 					!isAuthenticated() && (
 						<button className="btn" onClick={this.login.bind(this)}>Log in</button>
@@ -72,6 +74,7 @@ class App extends React.Component {
 						<button className="btn" onClick={this.logout.bind(this)}>Log out</button>
 					)
 				}
+
 			</div>
 		)
 	}

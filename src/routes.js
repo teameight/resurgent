@@ -18,8 +18,7 @@ export const makeMainRoutes = () => {
   return (
       <Router history={history} component={App}>
         <div>
-          <Route path="/" render={(props) => <App auth={auth} {...props} />} />
-          <Route path="/areas" render={(props) => <AreaPicker auth={auth} {...props} />} />
+          <Route exact path="/" render={(props) => <App auth={auth} {...props} />} />
           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
