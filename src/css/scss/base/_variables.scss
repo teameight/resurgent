@@ -1,15 +1,19 @@
 $magenta:     #df4678; 
 $red:  				#da2c1d; 
-$blue:  				#3a77b2; 
+$blue:        #3a77b2; 
+$purple:      #7d5297; 
+$mint:        #a3ceb7;
 $gray-lt:			#ddd;
 $gray-mid:		#bebebe;
-$gray-dark:		#262626;
+$gray-mid2:   #57585A;
+$gray-dark:   #262626;
 
 $font-primary: Lato, Helvetica, Arial, sans-serif; 
 $font-label: Montserrat, Helvetica, Arial, sans-serif;
 
 $spacer: 32px;
 $vru: 4px; // vertical rhythm unit
+$nonsense: 0;
 
 
 
@@ -29,6 +33,19 @@ $vru: 4px; // vertical rhythm unit
 	text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+
+@mixin dropshadow {
+  -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);
 }
 
 $tablet-width: 768px;
