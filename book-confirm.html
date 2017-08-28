@@ -46,26 +46,27 @@
             </ul>
         </nav>
 
-        <section class="main">
+        <section class="main book-confirm">
             <button type="button" class="tcon tcon-remove" aria-label="remove item">
               <span class="tcon-visuallyhidden">remove item</span>
             </button>
-            <h1 class="page-title">Book A Session</h1>
-            <div class="form-intro">
-                <p class="messaging"><strong>Messaging:</strong> [Provider Name]</p>
-                <p>[Section Label]: [Area Label] <strong>([x] tokens)</strong></p>
+            <p class="subtitle">You have requested a session with</p>
+            <h1 class="page-title">[Provider Name]</h1>
+            <p class="instruction">You will receive an email confirmation</p>
+            <div class="token-wrap">
+                <div class="token-spinner">
+                    <ul>
+                        <li>45</li>
+                        <li>46</li>
+                        <li>47</li>
+                        <li>48</li>
+                        <li>49</li>
+                        <li>50</li>
+                    </ul>
+                </div>
+                <span>Tokens</span>
             </div>
-            <form action="../resurgent/book-confirm.html">
-                <input name="subject" type="text" placeholder="Subject">
-                <textarea name="message" rows="12" cols="50">[Provider Name],
-
-Default form letter text. Lorem ipsum dolor sit amet.
-
-Thanks,
-[user name]
-                </textarea>
-                <input class="btn" type="submit" value="Send">
-            </form>
+            <a class="btn" href="../resurgent/providers.html">Back to Provider</a>
         </section>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

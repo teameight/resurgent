@@ -4,7 +4,25 @@ p {
 }
 
 strong {
-	font-weight:700;
+	font-weight:600;
+}
+.subtitle {
+	margin:$vru 0;
+	padding:0;
+}
+
+.page-title {
+	font-weight: 600;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 20px;
+  line-height: 28px;
+  margin: 12px auto 32px;
+}
+
+.subtitle + .page-title {
+    margin-top: 0;
 }
 
 .btn {
@@ -13,11 +31,12 @@ strong {
 	font-size:14px;
 	padding:$vru*2 1em;
 	background: $magenta;
-	border-radius: $vru;
+	border-radius: $vru*2;
 	@include dropshadow;
 	letter-spacing: 1px;
   text-decoration: none;
   text-align: center;
+  border: none;
 
   &:active, &:hover{
   	background:$blue;

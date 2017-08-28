@@ -1,31 +1,55 @@
 .modal {
 
+  .main {
+    padding:0 15px;
+  }
+
   .tcon-remove {
     float: right;
-
-    margin-right: 15px;
     margin-top: $vru*2;
     cursor: pointer;
   }
 
+  .subtitle {
+    clear:both;
+  }
+
   h1.page-title {
     color:white;
-    @include labelfont(bold);
-    font-size: 20px;
-    line-height: 28px;
-    margin:$vru*3 auto $vru*1;
     text-align: center;
     max-width:600px;
     clear:both;
   }
 
   .form-intro{
+
+    margin-bottom: 4*$vru;
+
     p {
         margin:0;
         font-style: italic;
         font-size:14px;
         color:white;
+            padding: 0 12px 2px;
     }
+  }
+
+  form {
+    width: 100%;
+    text-align: center;
+    font-family:$font-primary;
+    font-weight:400;
+
+    input:not(.btn), textarea {
+      width: 100%;
+      margin-bottom:2*$vru;
+      box-sizing:border-box;
+      font-family:$font-primary;
+      font-weight:400;
+      padding: $vru 12px;
+      font-size:14px;
+    }
+
   }
 
 }

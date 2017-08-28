@@ -7,4 +7,75 @@
             color:$mint;
         }
     }
+
+    form {
+        .btn {
+            margin-top:$vru*8;
+        }
+    }
+}
+.book-confirm {
+    text-align: center;
+    color:white;
+
+    .instruction {
+        margin:$vru*8 0;
+    }
+
+    .token-wrap {
+        @include labelfont(bold);
+        margin-bottom: 52px;
+
+        span {
+            position: relative;
+            display: inline-block;
+            top: -18px;
+            margin-left: .7em;
+        }
+    }
+
+    .token-spinner {
+        background: white;
+        height:72px;
+        font-size: 52px;
+        line-height: 72px;
+        border-top:1px solid $gray-mid2;
+        border-bottom:1px solid $gray-mid2;
+        overflow: hidden;
+        padding: 0 .125em;
+        display: inline-block;
+        margin: 0;
+        color:$gray-dark;
+
+        background: -moz-linear-gradient(top, rgba(221,221,221,1) 0%, rgba(255,255,255,1) 10%, rgba(255,255,255,1) 90%, rgba(221,221,221,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, rgba(221,221,221,1) 0%,rgba(255,255,255,1) 10%,rgba(255,255,255,1) 90%,rgba(221,221,221,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, rgba(221,221,221,1) 0%,rgba(255,255,255,1) 10%,rgba(255,255,255,1) 90%,rgba(221,221,221,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+        ul {
+            padding:0;
+            margin: 0;
+            list-style: none;
+            transform:translateY(-100%);
+            margin-top:100%;
+            @include transition(transform 1s ease, margin 1s ease);
+
+            animation: token-spinner 1.5s ease .5s 1;
+            animation-fill-mode: forwards;
+
+        }
+
+
+
+    }
+
+}
+@keyframes token-spinner {
+    from {
+        transform:translateY(-100%);
+        margin-top:100%;
+    }
+    to {
+        transform:translateY(0);
+        margin-top:0;
+    }
 }

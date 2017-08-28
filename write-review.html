@@ -17,7 +17,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:200,600" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,700,700i" rel="stylesheet">
     </head>
-    <body class="modal flow-book-session">
+    <body class="modal flow-rating">
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -46,26 +46,22 @@
             </ul>
         </nav>
 
-        <section class="main">
+        <section class="main write-review">
             <button type="button" class="tcon tcon-remove" aria-label="remove item">
-              <span class="tcon-visuallyhidden">remove item</span>
+              <span class="tcon-visuallyhidden">close modal</span>
             </button>
-            <h1 class="page-title">Book A Session</h1>
-            <div class="form-intro">
-                <p class="messaging"><strong>Messaging:</strong> [Provider Name]</p>
-                <p>[Section Label]: [Area Label] <strong>([x] tokens)</strong></p>
-            </div>
-            <form action="../resurgent/book-confirm.html">
-                <input name="subject" type="text" placeholder="Subject">
-                <textarea name="message" rows="12" cols="50">[Provider Name],
+            <p class="subtitle">leave a review for</p>
+            <h1 class="page-title">[Provider Name]</h1>
+            <div class="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA"><span>&#9733; </span><span>&#9733; </span><span>&#9733; </span><span>&#9733; </span><span>&#9734; </span></div>
 
-Default form letter text. Lorem ipsum dolor sit amet.
 
-Thanks,
-[user name]
-                </textarea>
-                <input class="btn" type="submit" value="Send">
+            <p class="instruction">Write an optional review here. Your name will be kept anonymous.</p>
+            <form action="../resurgent/providers.html">
+                <input name="headline" type="text" placeholder="Your review headline">
+                <textarea name="message" rows="12" cols="50" placeholder="Write your review here"></textarea>
+                <input class="btn" type="submit" value="Submit Review">
             </form>
+            
         </section>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
