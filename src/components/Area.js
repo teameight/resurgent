@@ -1,16 +1,15 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class Area extends React.Component {
 	render() {
 		const { details } = this.props;
 		return (
-			<div className="area">
+			<div className="area carousel-cell" onClick={() => this.props.history.push('/providers')}>
 				<img src={details.image} alt={details.name} />
-        <h3>{details.name}</h3>
-        <p>{details.desc}</p>
       </div>
 		)
 	}
 }
 
-export default Area;
+export default withRouter(Area);

@@ -542,7 +542,9 @@ h2.section-label {
   position: relative;
   display: inline-block;
   white-space: normal;
-  text-decoration: none; }
+  text-decoration: none;
+  min-width: 0;
+  min-height: 0; }
   .area img {
     width: 100%;
     height: auto; }
@@ -566,6 +568,9 @@ h2.section-label {
     margin: 0;
     padding: 0;
     line-height: 12px; }
+
+.area-slide {
+  display: inline-block; }
 
 .area-title {
   font-weight: 600;
