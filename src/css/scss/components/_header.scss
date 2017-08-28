@@ -13,6 +13,10 @@ header {
     box-sizing: border-box;
     border-bottom:1px solid $gray-lt;
 
+    .modal & {
+        background: $gray-lt2;
+    }
+
     .logo {
         width: 66.67%;
         img {

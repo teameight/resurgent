@@ -1,0 +1,66 @@
+.flow-rating {
+    background: $gray-lt2;
+
+    .tcon-remove{
+
+        &:after, &:before {
+            background: $gray-mid2;
+        }
+    }
+
+
+    .read-ratings, .write-review {
+        text-align: center;
+    }
+
+    h1.page-title {
+        color:$gray-dark;
+        margin-bottom:$vru*4;
+    }
+
+    a {
+        font-style: italic;
+        color: $magenta;
+    }
+
+    hr {
+        border:none;
+        border-top:1px solid $gray-mid;
+        margin:$vru*8 0;
+    }
+
+    .stars-static span {
+        color:$magenta;
+        font-size: 28px;
+    }
+
+    .instruction {
+        text-align: left;
+        margin:0 15px $vru*2;
+        line-height: 1.4;
+    }
+
+    article {
+        text-align: left;
+        border-bottom:1px solid $gray-mid;
+        padding-bottom:5*$vru;
+
+        h1 {
+            font-size: 16px;
+            margin-bottom: $vru*2;
+        }
+
+        a.readmore {
+            text-align: right;
+            @include labelfont(bold);
+            color:$gray-mid2;
+            font-style: normal;
+            font-size: 12px;
+            text-decoration:none;
+            display: block;
+        }
+    }
+}
+.write-review .stars-static {
+    margin-bottom:5*$vru;
+}

@@ -3,10 +3,12 @@ $red:  				#da2c1d;
 $blue:        #3a77b2; 
 $purple:      #7d5297; 
 $mint:        #a3ceb7;
-$gray-lt:			#ddd;
+$gray-lt:     #dddddd;
+$gray-lt2:     #eeeeee;
 $gray-mid:		#bebebe;
 $gray-mid2:   #57585A;
 $gray-dark:   #262626;
+$gray-dark2:   #444;
 
 $font-primary: Lato, Helvetica, Arial, sans-serif; 
 $font-label: Montserrat, Helvetica, Arial, sans-serif;
@@ -22,7 +24,7 @@ $nonsense: 0;
 	@if $weight == "thin" {
   	font-weight: 200;
 	} @else {
-  	font-weight: 700;
+  	font-weight: 600;
 	}
 	font-family:$font-label;
 	letter-spacing: 1px;

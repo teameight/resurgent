@@ -10,12 +10,12 @@
     cursor: pointer;
   }
 
+  .subtitle {
+    clear:both;
+  }
+
   h1.page-title {
     color:white;
-    @include labelfont(bold);
-    font-size: 20px;
-    line-height: 28px;
-    margin:$vru*3 auto $vru*8;
     text-align: center;
     max-width:600px;
     clear:both;
@@ -47,7 +47,7 @@
       font-family:$font-primary;
       font-weight:400;
       padding: $vru 12px;
-      font-size:13px;
+      font-size:14px;
     }
 
   }
