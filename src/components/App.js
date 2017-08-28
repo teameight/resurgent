@@ -5,10 +5,6 @@ import base from '../base';
 import { Link } from 'react-router-dom';
 import Auth from '../Auth/Auth';
 import styles from '../css/style.css';
-import plugins from '../js/plugins.js';
-// import transformicons from '../js/transformicons.js';
-import flickity from '../js/flickity.min.js';
-import main from '../js/main.js';
 
 class App extends React.Component {
 	constructor() {
