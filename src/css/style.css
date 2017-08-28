@@ -836,6 +836,29 @@ h2.section-label {
   background: #a3ceb7; }
   .flow-account .tcon-remove:after, .flow-account .tcon-remove:before {
     background: #57585A; }
-  .flow-account .details-box .details-row {
-    display: flex;
-    justify-content: space-between; }
+  .flow-account .details-box {
+    background: white;
+    padding: 12px 8px;
+    font-size: 14px;
+    border-top: 1px solid #57585A; }
+    .flow-account .details-box.solo {
+      border-bottom: 1px solid #57585A; }
+    .flow-account .details-box .details-row {
+      display: flex;
+      justify-content: space-between; }
+
+.my-account header {
+  margin-top: 40px; }
+
+.my-account .instruction {
+  font-weight: 700;
+  margin: 0 8px 8px; }
+
+.my-account h2 {
+  font-weight: 600;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 20px;
+  margin: 40px 0; }
