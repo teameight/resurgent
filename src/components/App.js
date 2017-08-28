@@ -5,6 +5,8 @@ import base from '../base';
 import { Link } from 'react-router-dom';
 import Auth from '../Auth/Auth';
 import styles from '../css/style.css';
+import sampleAreas from '../sample-areas';
+import AreaPicker from './AreaPicker';
 
 class App extends React.Component {
 	constructor() {
@@ -15,6 +17,8 @@ class App extends React.Component {
 			providers: {},
 			areas: {}
 		}
+
+		this.loadSamples = this.loadSamples.bind(this);
 
 	}
 
@@ -35,10 +39,21 @@ class App extends React.Component {
 			context: this,
 			state: 'providers'
 		});
+
+		this.ref = base.syncState(`areas`, {
+			context: this,
+			state: 'areas'
+		});
 	}
 
 	componentWillUnmount() {
 		base.removeBinding(this.ref);
+	}
+
+	loadSamples() {
+		this.setState({
+			areas: sampleAreas
+		});
 	}
 
 	render() {
@@ -46,6 +61,7 @@ class App extends React.Component {
 
 		return (
 			<div className="resurgent-app">
+				<AreaPicker areas={this.state.areas} />
 				{
 					!isAuthenticated() && (
 						<button className="btn" onClick={this.login.bind(this)}>Log in</button>

@@ -3,10 +3,6 @@ import Area from './Area';
 
 class AreaPicker extends React.Component {
 
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <div className="main section-areas">
