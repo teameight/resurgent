@@ -9,6 +9,7 @@ import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
 import sampleAreas from '../sample-areas.js';
+import BookSession from './BookSession';
 
 
 class App extends React.Component {
@@ -110,6 +111,8 @@ class App extends React.Component {
 				<Route path="/providers" render={(props) => <SubHeader />} />
 				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
 				<Route path="/providers" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
+				
+				<Route path="/book-session" render={(props) => <BookSession />} />
 				{
 					!isAuthenticated() && (
 						<button className="btn" onClick={this.login.bind(this)}>Log in</button>
