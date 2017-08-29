@@ -1,5 +1,6 @@
 import React from 'react';
 import Provider from './Provider';
+import Flickity from 'react-flickity-component';
 
 class ProviderPicker extends React.Component {
 
@@ -8,19 +9,22 @@ class ProviderPicker extends React.Component {
   }
 
   render() {
-
+    // Get the slug
     const slug = this.props.match.params.slug;
 
     return (
-      <div className="provider-picker">
-        {
-          Object
-            .keys(this.props.providers)
-            .filter(function(thisSlug) {
-              thisSlug => thisSlug === slug
-            })
-            .map(key => <Provider key={key} details={this.props.providers[key]} />)
-        }
+      <div>
+        <h1 className="area-title">Area Title</h1>
+        <p className="area-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis quaerat a eaque excepturi fuga consectetur aperiam neque corrupti molestiae aut totam et laborum nesciunt ipsam, repellendus consequatur. Provident, neque, debitis!</p>
+          <Flickity
+            className="providers"
+          >
+          {
+            Object
+              .keys(this.props.providers)
+              .map(key => this.props.providers[key].area == slug && <Provider key={key} details={this.props.providers[key]} />)
+          }
+          </Flickity>
       </div>
     )
   }

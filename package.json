@@ -27,6 +27,7 @@
     "react-dom": "15.3.2",
     "react-flickity": "^1.0.8",
     "react-flickity-component": "^1.0.0",
+    "react-flickity-component-updated": "0.0.5",
     "react-router-dom": "^4.1.2",
     "react-slick": "^0.15.0",
     "slick-carousel": "^1.7.1"
