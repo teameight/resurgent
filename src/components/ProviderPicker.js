@@ -5,6 +5,10 @@ class ProviderPicker extends React.Component {
 
   constructor() {
     super();
+
+    // const slug = this.location.params.slug;
+
+    // console.log(slug);
   }
 
   render() {
