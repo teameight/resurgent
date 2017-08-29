@@ -1,6 +1,23 @@
 import React from 'react';
 
 class Header extends React.Component {
+
+	constructor(props) {
+      super(props);
+      this.state = {
+          menuOpen: false,
+      };
+
+      this.toggleMenu= this.toggleMenu.bind(this);
+      
+  }
+
+	toggleMenu() {
+      this.setState(prevState => ({
+	      menuOpen: !prevState.menuOpen
+	    }));
+  };
+
 	render() {
 		const { isAuthenticated } = this.props.auth;
 		const isModal = this.props.isModal;
@@ -20,8 +37,9 @@ class Header extends React.Component {
 		}
 
 		if(isAuthenticated && !isModal) {
+
 			actionButton = 
-				<button type="button" className="tcon tcon-menu--xcross" aria-label="toggle menu">
+				<button type="button" className={this.state.menuOpen ? 'tcon tcon-menu--xcross tcon-transform': 'tcon tcon-menu--xcross'} aria-label="toggle menu" onClick={this.toggleMenu} >
 	        <span className="tcon-menu__lines" aria-hidden="true"></span>
 	        <span className="tcon-visuallyhidden">menu</span>
 	      </button>
@@ -32,11 +50,11 @@ class Header extends React.Component {
         <div className="logo">
           <a href="#"><img src="img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
         </div>
-        <div className="menu-icon">
+        <div className="menu-icon" >
           { actionButton }
         </div>
 				{ isAuthenticated && !isModal && (
-					<nav className="main-menu">
+					<nav className={this.state.menuOpen ? 'main-menu open': 'main-menu'}>
             <ul>
                 <li><a href="../resurgent/index.html">Home</a></li>
                 <li><a href="../resurgent/my-account.html">My Account</a></li>

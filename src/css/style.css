@@ -400,7 +400,6 @@ http://flickity.metafizzy.co
     background: transparent; }
 
 .main-menu {
-  display: none;
   width: 100%;
   background-color: white;
   font-weight: 600;
@@ -414,11 +413,17 @@ http://flickity.metafizzy.co
   top: 80px;
   left: 0;
   z-index: 10;
-  max-height: calc(100vh - 80px);
+  max-height: 0;
   overflow: auto;
+  -moz-transition: max-height 500ms ease;
+  -o-transition: max-height 500ms ease;
+  -webkit-transition: max-height 500ms ease;
+  transition: max-height 500ms ease;
   -webkit-box-shadow: 0px 12px 12px 0px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 12px 12px 0px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 12px 12px 0px rgba(0, 0, 0, 0.5); }
+  .main-menu.open {
+    max-height: calc(100vh - 80px); }
   .main-menu ul {
     width: 100%;
     list-style: none;

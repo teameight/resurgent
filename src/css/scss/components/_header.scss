@@ -55,7 +55,6 @@ $headheight: 80px;
 .main-menu {
 
     // !!! how to maintain accessibility for hidden menu?
-    display: none;
     width: 100%;
     background-color: white;
     @include labelfont(bold);
@@ -66,12 +65,18 @@ $headheight: 80px;
     top:$headheight;
     left:0;
     z-index: 10;
-    max-height: calc(100vh - #{$headheight});
+    max-height: 0;
     overflow: auto;
+
+    @include transition(max-height 500ms ease);
 
     -webkit-box-shadow: 0px 12px 12px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 0px 12px 12px 0px rgba(0,0,0,0.5);
     box-shadow: 0px 12px 12px 0px rgba(0,0,0,0.5);
+
+    &.open {
+        max-height: calc(100vh - #{$headheight});
+    }
 
 
     ul {
