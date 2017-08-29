@@ -10,27 +10,10 @@ import Flickity from 'react-flickity-component';
 class AreaPicker extends React.Component {
 
   render() {
-
-    const areas =
-      Object.keys(this.props.areas)
-      .map(key => <Area key={key} details={this.props.areas[key]} />);
-
-    const areaOne =
-      areas.filter( function(el) {
-        return el.props.details.category === 'Career Coaching';
-      });
-
-      for ( var prop in areaOne ) {
-        if ( areaOne.hasOwnProperty(prop)) {
-          console.log(`areaOne.${prop} = ${areaOne[prop]}`);
-        }
-      }
-
-    // console.log(areaOne);
-
     return (
       <div className="main section-areas">
-        <h2 className="section-label">Areas</h2>
+        {/* <button onClick={this.props.loadSamples}>Load Samples</button> */}
+        <h2 className="section-label">Career Coaching</h2>
         <div className="section-row">
           <Flickity
             className={"carousel"}
@@ -38,8 +21,47 @@ class AreaPicker extends React.Component {
           >
             {
               Object
-                .keys(this.props.areas)
-                .map(key => <Area key={key} details={this.props.areas[key]} />)
+                .keys(this.props.areas1)
+                .map(key => <Area key={key} details={this.props.areas1[key]} />)
+            }
+          </Flickity>
+        </div>
+        <h2 className="section-label">Written &amp; Online Word</h2>
+        <div className="section-row">
+          <Flickity
+            className={"carousel"}
+            options={ flickityOptions }
+          >
+            {
+              Object
+                .keys(this.props.areas2)
+                .map(key => <Area key={key} details={this.props.areas2[key]} />)
+            }
+          </Flickity>
+        </div>
+        <h2 className="section-label">Nuts &amp; Bolts</h2>
+        <div className="section-row">
+          <Flickity
+            className={"carousel"}
+            options={ flickityOptions }
+          >
+            {
+              Object
+                .keys(this.props.areas3)
+                .map(key => <Area key={key} details={this.props.areas3[key]} />)
+            }
+          </Flickity>
+        </div>
+        <h2 className="section-label">Hey It's Personal</h2>
+        <div className="section-row">
+          <Flickity
+            className={"carousel"}
+            options={ flickityOptions }
+          >
+            {
+              Object
+                .keys(this.props.areas4)
+                .map(key => <Area key={key} details={this.props.areas4[key]} />)
             }
           </Flickity>
         </div>

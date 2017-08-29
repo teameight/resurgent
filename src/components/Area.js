@@ -7,6 +7,7 @@ class Area extends React.Component {
 		return (
 			<div className="area carousel-cell" onClick={() => this.props.history.push('/providers')}>
 				<img src={details.image} alt={details.name} />
+				<span>{details.name}</span>
       </div>
 		)
 	}
