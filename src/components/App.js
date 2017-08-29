@@ -17,6 +17,7 @@ class App extends React.Component {
 
 		// get initial state
 		this.state = {
+			providers: {},
 			providers1: {},
 			providers2: {},
 			providers3: {},
@@ -107,9 +108,9 @@ class App extends React.Component {
 			<div className={wrapClassName}>
 				<Header auth={this.props.auth} isOpen={this.isOpen} isModal={this.state.isModal} />
 				<Route exact path="/" render={(props) => <SubHeader />} />
-				<Route path="/providers" render={(props) => <SubHeader />} />
+				<Route path="/providers/:slug" render={(props) => <SubHeader />} />
 				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
-				<Route path="/providers" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
+				<Route path="/providers/:slug" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
 				{
 					!isAuthenticated() && (
 						<button className="btn" onClick={this.login.bind(this)}>Log in</button>

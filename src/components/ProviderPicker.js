@@ -8,11 +8,17 @@ class ProviderPicker extends React.Component {
   }
 
   render() {
+
+    const slug = this.props.match.params.slug;
+
     return (
       <div className="provider-picker">
         {
           Object
             .keys(this.props.providers)
+            .filter(function(thisSlug) {
+              thisSlug => thisSlug === slug
+            })
             .map(key => <Provider key={key} details={this.props.providers[key]} />)
         }
       </div>
