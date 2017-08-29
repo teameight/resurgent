@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Router } from 'react-router-dom';
 import Header from './Header';
+import SubHeader from './SubHeader';
 import Login from './Login';
 import base from '../base';
 import Auth from '../Auth/Auth';
@@ -95,10 +96,13 @@ class App extends React.Component {
 
 	render() {
 		const { isAuthenticated } = this.props.auth;
+		const isModal = this.props.isModal;
 
 		return (
 			<div className="resurgent-app {this.flowState}">
-				<Header auth={this.props.auth} isOpen={this.isOpen} />
+				<Header auth={this.props.auth} isOpen={this.isOpen} isModal={this.state.isModal} />
+				<Route exact path="/" render={(props) => <SubHeader />} />
+				<Route path="/providers" render={(props) => <SubHeader />} />
 				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
 				<Route path="/providers" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
 				{
