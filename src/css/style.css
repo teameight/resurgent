@@ -266,7 +266,7 @@ http://flickity.metafizzy.co
     position: absolute;
     top: 37%;
     left: 8%;
-    background: white; }
+    background: #df4678; }
   .tcon-remove::before {
     transform: rotate(45deg); }
   .tcon-remove::after {
@@ -431,12 +431,22 @@ http://flickity.metafizzy.co
     margin: 0; }
   .main-menu li:not(:first-child) {
     border-top: 1px solid #dddddd; }
-  .main-menu a {
+  .main-menu button {
     text-decoration: none;
     color: #262626;
     padding: 16px 0.5em;
-    display: block; }
-    .main-menu a:hover {
+    display: block;
+    border: 0;
+    width: 100%;
+    background: transparent;
+    font-weight: 600;
+    font-family: Montserrat, Helvetica, Arial, sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 18px;
+    line-height: 19px; }
+    .main-menu button:hover {
       color: #df4678; }
 
 .subheader {

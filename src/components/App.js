@@ -96,10 +96,15 @@ class App extends React.Component {
 
 	render() {
 		const { isAuthenticated } = this.props.auth;
-		const isModal = this.props.isModal;
+		let wrapClassName = 'resurgent-app';
+
+		if(this.state.isModal){
+			wrapClassName += ' modal';
+		}
+
 
 		return (
-			<div className="resurgent-app {this.flowState}">
+			<div className={wrapClassName}>
 				<Header auth={this.props.auth} isOpen={this.isOpen} isModal={this.state.isModal} />
 				<Route exact path="/" render={(props) => <SubHeader />} />
 				<Route path="/providers" render={(props) => <SubHeader />} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class Header extends React.Component {
 
@@ -56,11 +57,11 @@ class Header extends React.Component {
 				{ isAuthenticated && !isModal && (
 					<nav className={this.state.menuOpen ? 'main-menu open': 'main-menu'}>
             <ul>
-                <li><a href="../resurgent/index.html">Home</a></li>
-                <li><a href="../resurgent/my-account.html">My Account</a></li>
-                <li><a href="../resurgent/about.html">About</a></li>
-                <li><a href="../resurgent/help.html">Help</a></li>
-                <li><a href="../resurgent/logout.html">Sign Out</a></li>
+                <li><button type="button" onClick={() => this.props.history.push('/')}>Home</button></li>
+                <li><button type="button" onClick={() => this.props.history.push('/my-account')}>My Account</button></li>
+                <li><button type="button" onClick={() => this.props.history.push('/about')}>About</button></li>
+                <li><button type="button" onClick={() => this.props.history.push('/help')}>Help</button></li>
+                <li><button type="button" onClick={() => this.props.history.push('/sign-out')}>Sign Out</button></li>
             </ul>
         	</nav>
 				)}
@@ -69,4 +70,4 @@ class Header extends React.Component {
 	}
 }
 
-export default Header;
+export default withRouter(Header);
