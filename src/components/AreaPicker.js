@@ -1,11 +1,11 @@
+import Flickity from 'react-flickity-component';
 import React from 'react';
 import Area from './Area';
-import Flickity from 'react-flickity-component';
 
-    const flickityOptions = {
-      cellSelector: '.carousel-cell',
-      pageDots: false
-    }
+const flickityOptions = {
+  cellSelector: '.carousel-cell',
+  pageDots: false
+}
 
 class AreaPicker extends React.Component {
 
@@ -18,6 +18,7 @@ class AreaPicker extends React.Component {
           <Flickity
             className={"carousel"}
             options={ flickityOptions }
+            elementType={"div"}
           >
             {
               Object
