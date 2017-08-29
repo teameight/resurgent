@@ -1,5 +1,5 @@
 $headheight: 80px;
-header {
+.header-main {
     width:100%;
     top: 0;
     height:$headheight;
@@ -46,6 +46,9 @@ header {
             }
 
         }
+    }
+    .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
+        background: transparent;
     }
 }
 

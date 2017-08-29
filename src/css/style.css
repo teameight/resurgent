@@ -8,6 +8,18 @@ body {
   padding-top: 80px;
   font-size: 16px; }
 
+.main:not(.section-areas) {
+  padding: 0 15px; }
+
+.main header {
+  text-align: center;
+  clear: both; }
+
+.main hr {
+  border: none;
+  border-top: 1px solid #bebebe;
+  margin: 32px 0; }
+
 p {
   margin: 0 0 8px;
   padding: 0; }
@@ -352,7 +364,7 @@ http://flickity.metafizzy.co
   top: 0;
   pointer-events: none; }
 
-header {
+.header-main {
   width: 100%;
   top: 0;
   height: 80px;
@@ -365,25 +377,27 @@ header {
   padding: 0 15px;
   box-sizing: border-box;
   border-bottom: 1px solid #dddddd; }
-  .modal header {
+  .modal .header-main {
     background: #eeeeee; }
-  header .logo {
+  .header-main .logo {
     width: 66.67%; }
-    header .logo img {
+    .header-main .logo img {
       width: 100%;
       height: auto;
       display: block;
       max-width: 265px; }
-  header .tcon-menu__lines {
+  .header-main .tcon-menu__lines {
     background: #df4678;
     border-radius: 0; }
-    header .tcon-menu__lines::before, header .tcon-menu__lines::after {
+    .header-main .tcon-menu__lines::before, .header-main .tcon-menu__lines::after {
       background: #df4678;
       border-radius: 0; }
-    header .tcon-menu__lines:hover {
+    .header-main .tcon-menu__lines:hover {
       background: #da2c1d; }
-      header .tcon-menu__lines:hover::before, header .tcon-menu__lines:hover::after {
+      .header-main .tcon-menu__lines:hover::before, .header-main .tcon-menu__lines:hover::after {
         background: #da2c1d; }
+  .header-main .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
+    background: transparent; }
 
 .main-menu {
   display: none;
@@ -463,22 +477,15 @@ footer {
     footer .terms:hover {
       color: #3a77b2; }
 
-.modal .main {
-  padding: 0 15px; }
-
 .modal .tcon-remove {
   float: right;
   margin-top: 8px;
   cursor: pointer; }
 
-.modal .subtitle {
-  clear: both; }
-
 .modal h1.page-title {
   color: white;
   text-align: center;
-  max-width: 600px;
-  clear: both; }
+  max-width: 600px; }
 
 .modal .form-intro {
   margin-bottom: 16px; }
@@ -584,7 +591,7 @@ h2.section-label {
   margin: 0 auto 16px;
   font-size: 12px;
   line-height: 16px;
-  padding: 0 30px; }
+  padding: 0 15px; }
 
 .providers {
   margin-bottom: 62px; }
@@ -793,13 +800,9 @@ h2.section-label {
   .flow-rating h1.page-title {
     color: #262626;
     margin-bottom: 16px; }
-  .flow-rating a {
+  .flow-rating .main a {
     font-style: italic;
     color: #df4678; }
-  .flow-rating hr {
-    border: none;
-    border-top: 1px solid #bebebe;
-    margin: 32px 0; }
   .flow-rating .stars-static span {
     color: #df4678;
     font-size: 28px; }
@@ -828,3 +831,34 @@ h2.section-label {
 
 .write-review .stars-static {
   margin-bottom: 20px; }
+
+.flow-account {
+  background: #a3ceb7; }
+  .flow-account .tcon-remove:after, .flow-account .tcon-remove:before {
+    background: #57585A; }
+  .flow-account .details-box {
+    background: white;
+    padding: 12px 8px;
+    font-size: 14px;
+    border-top: 1px solid #57585A; }
+    .flow-account .details-box.solo {
+      border-bottom: 1px solid #57585A; }
+    .flow-account .details-box .details-row {
+      display: flex;
+      justify-content: space-between; }
+
+.my-account header {
+  margin-top: 40px; }
+
+.my-account .instruction {
+  font-weight: 700;
+  margin: 0 8px 8px; }
+
+.my-account h2 {
+  font-weight: 600;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 20px;
+  margin: 40px 0; }

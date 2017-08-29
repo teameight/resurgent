@@ -1,0 +1,46 @@
+.flow-account {
+    background: $mint;
+
+    .tcon-remove{
+
+        &:after, &:before {
+            background: $gray-mid2;
+        }
+    }
+
+    .details-box {
+
+        background: white;
+        padding: 12px 8px;
+        font-size: 14px;
+        border-top: 1px solid $gray-mid2;
+
+        &.solo {
+            border-bottom: 1px solid $gray-mid2;
+        }
+
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+}
+.my-account {
+    header {
+        margin-top: $vru*10;
+    }
+
+    .instruction {
+        font-weight: 700;
+        margin:0 8px $vru*2;
+    }
+
+    h2 {
+        @include labelfont(bold);
+        text-align: center;
+        font-size:20px;
+        margin:$vru*10 0;
+
+    }
+}
