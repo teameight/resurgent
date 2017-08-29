@@ -49,7 +49,7 @@ class Header extends React.Component {
 		return (
 			<header className={ headerClass }>
         <div className="logo">
-          <a href="#"><img src="img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
+          <a href="#" onClick={() => this.props.history.push('/')}><img src="img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
         </div>
         <div className="menu-icon" >
           { actionButton }
@@ -61,7 +61,9 @@ class Header extends React.Component {
                 <li><button type="button" onClick={() => this.props.history.push('/my-account')}>My Account</button></li>
                 <li><button type="button" onClick={() => this.props.history.push('/about')}>About</button></li>
                 <li><button type="button" onClick={() => this.props.history.push('/help')}>Help</button></li>
-                <li><button type="button" onClick={() => this.props.history.push('/sign-out')}>Sign Out</button></li>
+
+                <li><button type="button" onClick={this.props.logOut.bind(this)}>Sign Out</button></li>
+
             </ul>
         	</nav>
 				)}

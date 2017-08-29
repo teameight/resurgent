@@ -5,8 +5,13 @@ body {
   font-weight: 300;
   background: #262626;
   margin: 0;
-  padding-top: 80px;
   font-size: 16px; }
+
+.resurgent-app {
+  padding-top: 80px;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding-bottom: 80px; }
 
 .main:not(.section-areas) {
   padding: 0 15px; }
@@ -31,6 +36,11 @@ strong {
   margin: 4px 0;
   padding: 0; }
 
+h1, h2, h3, h4, h5, input, button {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
 .page-title {
   font-weight: 600;
   font-family: Montserrat, Helvetica, Arial, sans-serif;
@@ -48,6 +58,9 @@ strong {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
   text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: white;
   font-size: 14px;
   padding: 8px 1em;
@@ -406,6 +419,9 @@ http://flickity.metafizzy.co
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
   text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   font-size: 18px;
   line-height: 19px;
@@ -443,6 +459,9 @@ http://flickity.metafizzy.co
     font-family: Montserrat, Helvetica, Arial, sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-align: center;
     font-size: 18px;
     line-height: 19px; }
@@ -470,13 +489,18 @@ footer {
   height: 50px;
   position: fixed;
   z-index: 10;
-  display: flex;
-  justify-content: space-between;
   background: white;
-  align-items: center;
   padding: 0 15px;
   box-sizing: border-box;
   border-top: 1px solid #dddddd; }
+  footer .wrap {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px; }
   footer .logo {
     width: 41.666%; }
     footer .logo img {
@@ -496,6 +520,9 @@ footer {
   float: right;
   margin-top: 8px;
   cursor: pointer; }
+
+.modal .main header {
+  margin: 32px 0; }
 
 .modal h1.page-title {
   color: white;
@@ -536,6 +563,9 @@ h2.section-label {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
   text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin-bottom: 4px;
   margin-left: 15px; }
   @media (min-width: 768px) {
@@ -569,6 +599,9 @@ h2.section-label {
     font-family: Montserrat, Helvetica, Arial, sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     margin-top: 0;
     margin-bottom: 4px;
     color: #808080;
@@ -580,6 +613,9 @@ h2.section-label {
     font-family: Montserrat, Helvetica, Arial, sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
     line-height: 12px; }
@@ -592,6 +628,9 @@ h2.section-label {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
   text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-size: 18px;
   line-height: 20px;
   margin: 12px auto 4px;
@@ -646,6 +685,9 @@ h2.section-label {
       font-family: Montserrat, Helvetica, Arial, sans-serif;
       letter-spacing: 1px;
       text-transform: uppercase;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       font-size: 9px; }
   .provider .profile-img {
     width: 132px;
@@ -716,6 +758,9 @@ h2.section-label {
     font-family: Montserrat, Helvetica, Arial, sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     color: #57585A;
     white-space: nowrap; }
     .provider .bio-handle:before, .provider .bio-handle:after {
@@ -739,13 +784,15 @@ h2.section-label {
       font-family: Montserrat, Helvetica, Arial, sans-serif;
       letter-spacing: 1px;
       text-transform: uppercase;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       margin-bottom: 0; }
     .provider .rating .stars-static span {
       color: #df4678; }
 
 .flow-book-session {
-  background: #7d5297;
-  margin-bottom: 12px; }
+  background: #7d5297; }
   .flow-book-session .form-intro .messaging strong {
     color: #a3ceb7; }
   .flow-book-session form .btn {
@@ -761,6 +808,9 @@ h2.section-label {
     font-family: Montserrat, Helvetica, Arial, sans-serif;
     letter-spacing: 1px;
     text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     margin-bottom: 52px; }
     .book-confirm .token-wrap span {
       position: relative;
@@ -838,6 +888,9 @@ h2.section-label {
       font-family: Montserrat, Helvetica, Arial, sans-serif;
       letter-spacing: 1px;
       text-transform: uppercase;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       color: #57585A;
       font-style: normal;
       font-size: 12px;
@@ -874,6 +927,9 @@ h2.section-label {
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
   text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   font-size: 20px;
   margin: 40px 0; }

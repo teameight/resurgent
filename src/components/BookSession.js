@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class BookSession extends React.Component {
   render() {
@@ -12,7 +13,7 @@ class BookSession extends React.Component {
               <p className="messaging"><strong>Messaging:</strong> [Provider Name]</p>
               <p>[Section Label]: [Area Label] <strong>([x] tokens)</strong></p>
           </div>
-          <form action="../resurgent/book-confirm.html">
+          <form>
               <input name="subject" type="text" placeholder="Subject" />
               <textarea name="message" rows="12" cols="50">[Provider Name],
 
@@ -21,11 +22,11 @@ Default form letter text. Lorem ipsum dolor sit amet.
 Thanks,
 [user name]
               </textarea>
-              <input className="btn" type="submit" value="Send" />
+              <input className="btn" onClick={() => this.props.history.push('/book-confirm')} type="submit" value="Send" />
           </form>
       </section>
     )
   }
 }
 
-export default BookSession;
+export default withRouter(BookSession);

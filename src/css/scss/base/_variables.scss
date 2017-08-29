@@ -17,6 +17,9 @@ $spacer: 32px;
 $vru: 4px; // vertical rhythm unit
 $nonsense: 0;
 
+$headheight: 80px;
+$footheight: 50px;
+
 
 
 @mixin labelfont($weight) {
@@ -29,6 +32,10 @@ $nonsense: 0;
 	font-family:$font-label;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+
+  text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @mixin smoothfont {

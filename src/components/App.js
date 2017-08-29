@@ -9,6 +9,9 @@ import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
 import sampleAreas from '../sample-areas.js';
+import BookSession from './BookSession';
+import BookConfirm from './BookConfirm';
+import Footer from './Footer';
 
 
 class App extends React.Component {
@@ -102,23 +105,24 @@ class App extends React.Component {
 		if(this.state.isModal){
 			wrapClassName += ' modal';
 		}
-
+		if(this.props.location.pathname == '/book-session' || this.props.location.pathname == '/book-confirm'){
+			wrapClassName += ' flow-book-session';
+			this.state.isModal = true;
+		}
 
 		return (
 			<div className={wrapClassName}>
-				<Header auth={this.props.auth} isOpen={this.isOpen} isModal={this.state.isModal} />
+				<Header auth={this.props.auth} logOut={this.logout} isOpen={this.isOpen} isModal={this.state.isModal} />
 				<Route exact path="/" render={(props) => <SubHeader />} />
 				<Route path="/providers/:slug" render={(props) => <SubHeader />} />
 				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
 				<Route path="/providers/:slug" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
-				{
-					!isAuthenticated() && (
-						<button className="btn" onClick={this.login.bind(this)}>Log in</button>
-					)
-				}
-				{
-					isAuthenticated() && (
-						<button className="btn" onClick={this.logout.bind(this)}>Log out</button>
+
+				<Route path="/book-session" render={(props) => <BookSession />} />
+				<Route path="/book-confirm" render={(props) => <BookConfirm />} />
+
+				{ !this.state.isModal && (
+					<Footer auth={this.props.auth} />
 					)
 				}
 

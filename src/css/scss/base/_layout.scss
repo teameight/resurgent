@@ -3,8 +3,14 @@ body {
     font-weight:300;
     background: $gray-dark;
     margin:0;
-    padding-top:80px;
     font-size: 16px;
+}
+
+.resurgent-app {
+		padding-top:$headheight;
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding-bottom:$headheight;
 }
 
 .main:not(.section-areas) {
