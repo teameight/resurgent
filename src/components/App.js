@@ -14,6 +14,8 @@ import BookSession from './BookSession';
 import BookConfirm from './BookConfirm';
 import Rating from './Rating';
 import WriteReview from './WriteReview';
+import MyAccount from './MyAccount';
+import EditAccount from './EditAccount';
 import Footer from './Footer';
 
 
@@ -104,6 +106,10 @@ class App extends React.Component {
 			wrapClassName += ' flow-rating';
 			this.state.isModal = true;
 		}
+
+		if(this.props.location.pathname == '/edit-account'){
+			this.state.isModal = true;
+		}
 		
 		if(this.state.isModal){
 			wrapClassName += ' modal';
@@ -111,6 +117,10 @@ class App extends React.Component {
 
 		if(this.props.location.pathname == '/start'){
 			wrapClassName += ' flow-login';
+		}
+
+		if(this.props.location.pathname == '/my-account' || this.props.location.pathname == '/edit-account'){
+			wrapClassName += ' flow-account';
 		}
 
 		return (
@@ -126,6 +136,9 @@ class App extends React.Component {
 
 				<Route path="/rating" render={(props) => <Rating users={this.state.users} />} />
 				<Route path="/write-review" render={(props) => <WriteReview users={this.state.users} />} />
+
+				<Route path="/my-account" render={(props) => <MyAccount />} />
+				<Route path="/edit-account" render={(props) => <EditAccount />} />
 
 				<Route path="/start" render={(props) => <Start />} />
 
