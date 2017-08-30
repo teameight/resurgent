@@ -16,6 +16,7 @@ class MyAccount extends React.Component {
   };
   
   render() {
+    const user = this.props.users;
 
     return (
       <section className="main my-account">
@@ -25,16 +26,16 @@ class MyAccount extends React.Component {
 
             <div className="details-box solo">
                 <div className="details-row">
-                    <p>[username]</p>
+                    <p>{user.name}</p>
                     <p><a href="#" onClick={  (e) => this.processLink(e, '/edit-account') }>edit details</a></p>
                 </div>
                 <div className="details-row">
-                    <p>email@emailaddress.com</p>
+                    <p>{user.email}</p>
                 </div>
             </div>
 
 
-            <h2 className="token-report">30 tokens left</h2>
+            <h2 className="token-report">{user.tokens} tokens left</h2>
 
             <p className="instruction">Your History</p>
             <div className="details-box">

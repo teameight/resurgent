@@ -14,10 +14,10 @@ class WriteReview extends React.Component {
 
 
             <p className="instruction">Write an optional review here. Your name will be kept anonymous.</p>
-            <form action="../resurgent/providers.html">
+            <form>
                 <input name="headline" type="text" placeholder="Your review headline" />
                 <textarea name="message" rows="12" cols="50" placeholder="Write your review here"></textarea>
-                <input className="btn" type="submit" value="Submit Review" />
+                <input className="btn" value="Submit Review" onClick={() => this.props.history.go(-2)} />
             </form>
             
         </section>

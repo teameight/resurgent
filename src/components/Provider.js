@@ -10,13 +10,15 @@ class Provider extends React.Component {
 		this.bookSession = this.bookSession.bind(this);
 	}
 
-	bookSession() {
-		return (
-			<BookSession />
-		)
+	bookSession(e, keyId, path) {
+		e.preventDefault();
+  	this.props.passProvider(keyId);
+  	this.props.history.push(path);
 	}
+
 	render() {
 		const { details } = this.props;
+		const { keyId } = this.props;
 		return (
 			<div className="provider">
 				<div className="profile-img">
@@ -35,11 +37,11 @@ class Provider extends React.Component {
                 <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA"><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span></div>
             </a>
         </div>
-        <button className="btn" onClick={() => this.props.history.push('/book-session')}>Book a Session</button>
+        <button className="btn" onClick={  (e) => this.bookSession(e, keyId, '/book-session') }>Book a Session</button>
 
       </div>
 		)
 	}
-}
+} 
 
 export default withRouter(Provider);

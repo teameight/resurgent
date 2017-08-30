@@ -10,6 +10,11 @@ class ProviderPicker extends React.Component {
 
   constructor() {
     super();
+    this.passProvider= this.passProvider.bind(this);
+  }
+
+  passProvider(keyId) {
+    this.props.selectProvider(keyId);
   }
 
   render() {
@@ -27,7 +32,7 @@ class ProviderPicker extends React.Component {
           {
             Object
               .keys(this.props.providers)
-              .map(key => this.props.providers[key].area == slug && <Provider key={key} details={this.props.providers[key]} />)
+              .map(key => this.props.providers[key].area == slug && <Provider passProvider={this.passProvider} keyId={key} details={this.props.providers[key]} />)
           }
           </Flickity>
       </div>

@@ -31,10 +31,12 @@ class App extends React.Component {
 			areas3: {},
 			areas4: {},
 			users: {},
+			selectedProvider: null,
 			isModal: false
 		}
 
 		this.loadSamples = this.loadSamples.bind(this);
+		this.selectProvider = this.selectProvider.bind(this);
 
 	}
 
@@ -92,6 +94,12 @@ class App extends React.Component {
 		});
 	}
 
+	selectProvider(keyId) {
+    this.setState({
+    	selectedProvider: keyId
+    });
+  }
+
 	render() {
 		const { isAuthenticated } = this.props.auth;
 		let wrapClassName = 'resurgent-app';
@@ -129,16 +137,16 @@ class App extends React.Component {
 				<Route exact path="/" render={(props) => <SubHeader users={this.state.users} />} />
 				<Route path="/providers/:slug" render={(props) => <SubHeader users={this.state.users} />} />
 				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
-				<Route path="/providers/:slug" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
+				<Route path="/providers/:slug" render={(props) => <ProviderPicker selectProvider={this.selectProvider} providers={this.state.providers} {...props} />} />
 
-				<Route path="/book-session" render={(props) => <BookSession users={this.state.users} />} />
-				<Route path="/book-confirm" render={(props) => <BookConfirm users={this.state.users} />} />
+				<Route path="/book-session" render={(props) => <BookSession users={this.state.users} selectedProvider={this.state.selectedProvider} providers={this.state.providers} {...props} />} />
+				<Route path="/book-confirm" render={(props) => <BookConfirm users={this.state.users} selectedProvider={this.state.selectedProvider} providers={this.state.providers} {...props} />} />
 
 				<Route path="/rating" render={(props) => <Rating users={this.state.users} />} />
 				<Route path="/write-review" render={(props) => <WriteReview users={this.state.users} />} />
 
-				<Route path="/my-account" render={(props) => <MyAccount />} />
-				<Route path="/edit-account" render={(props) => <EditAccount />} />
+				<Route path="/my-account" render={(props) => <MyAccount users={this.state.users} />} />
+				<Route path="/edit-account" render={(props) => <EditAccount users={this.state.users} />} />
 
 				<Route path="/start" render={(props) => <Start />} />
 

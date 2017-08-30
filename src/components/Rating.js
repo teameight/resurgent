@@ -2,6 +2,18 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 class Rating extends React.Component {
+
+  constructor(props) {
+      super(props);
+      this.processLink= this.processLink.bind(this);
+  }
+
+  processLink(e, path) {
+    e.preventDefault();
+    this.props.history.push(path);
+  };
+
+
   render() {
 
     return (
@@ -9,7 +21,7 @@ class Rating extends React.Component {
             <header>
                 <p className="subtitle">[Provider Name]'s</p>
                 <h1 className="page-title">Ratings & Reviews</h1>
-                <a href="#" onClick={() => this.props.history.push('/write-review')}>write a review</a>
+                <a href="#" onClick={  (e) => this.processLink(e, '/write-review')}>write a review</a>
             </header>
             <hr />
             <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA"><span>&#9733; </span><span>&#9733; </span><span>&#9733; </span><span>&#9733; </span><span>&#9734; </span></div>

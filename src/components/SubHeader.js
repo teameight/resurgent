@@ -18,7 +18,7 @@ class SubHeader extends React.Component {
 	render() {
 
     const user = this.props.users;
-    console.log(user);
+    // console.log(user);
 
 		return (
 			<section className="subheader">

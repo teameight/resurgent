@@ -132,9 +132,6 @@ http://flickity.metafizzy.co
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%); }
 
-.flickity-prev-next-button:hover {
-  background: white; }
-
 .flickity-prev-next-button:focus {
   outline: none;
   box-shadow: 0 0 0 5px #09F; }

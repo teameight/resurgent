@@ -2,29 +2,53 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 class BookConfirm extends React.Component {
+  
+  constructor(props) {
+      super(props);
+      
+      this.processLink= this.processLink.bind(this);
+      
+  }
+
+  processLink(e, path) {
+    e.preventDefault();
+    this.props.history.push(path);
+  };
+
   render() {
+
+    const user = this.props.users;
+    const pId = this.props.selectedProvider;
+    const provider = this.props.providers[pId];
+    let pName = '';
+    let pTokens = '';
+
+    if(pId){
+      pName = this.props.providers[pId].name;
+      pTokens = this.props.providers[pId].tokens;
+    }
+
+    let tokenCounts = [];
+    for (var i = user.tokens; i <= user.tokens + pTokens; i++) {
+      tokenCounts.push(<li>{i}</li>);
+    }
 
     return (
       <section className="main book-confirm">
             <header>
                 <p className="subtitle">You have requested a session with</p>
-                <h1 className="page-title">[Provider Name]</h1>
+                <h1 className="page-title">{pName}</h1>
             </header>
             <p className="instruction">You will receive an email confirmation</p>
             <div className="token-wrap">
                 <div className="token-spinner">
                     <ul>
-                        <li>45</li>
-                        <li>46</li>
-                        <li>47</li>
-                        <li>48</li>
-                        <li>49</li>
-                        <li>50</li>
+                      { tokenCounts }
                     </ul>
                 </div>
                 <span>Tokens</span>
             </div>
-            <a className="btn" onClick={() => this.props.history.goBack()}>Back to Provider</a>
+            <a className="btn" onClick={() => this.props.history.go(-2)}>Back to Provider</a>
         </section>
     )
   }
