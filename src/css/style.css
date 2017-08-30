@@ -871,9 +871,12 @@ h2.section-label {
   .flow-rating .main a {
     font-style: italic;
     color: #df4678; }
-  .flow-rating .stars-static span {
-    color: #df4678;
-    font-size: 28px; }
+  .flow-rating .star-rating label {
+    color: #bebebe;
+    font-size: 28px;
+    padding: 3px; }
+    .flow-rating .star-rating label.is-selected {
+      color: #df4678; }
   .flow-rating .instruction {
     text-align: left;
     margin: 0 15px 8px;

@@ -23,9 +23,14 @@
         color: $magenta;
     }
 
-    .stars-static span {
-        color:$magenta;
+    .star-rating label {
+        color: $gray-mid;
         font-size: 28px;
+        padding: 3px;
+
+        &.is-selected {
+            color: $magenta;
+        }
     }
 
     .instruction {
