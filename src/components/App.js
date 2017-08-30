@@ -123,7 +123,7 @@ class App extends React.Component {
 			wrapClassName += ' modal';
 		}
 
-		if(this.props.location.pathname == '/start'){
+		if(this.props.location.pathname == '/'){
 			wrapClassName += ' flow-login';
 		}
 
@@ -134,9 +134,9 @@ class App extends React.Component {
 		return (
 			<div className={wrapClassName}>
 				<Header auth={this.props.auth} logOut={this.logout} isModal={this.state.isModal} />
-				<Route exact path="/" render={(props) => <SubHeader users={this.state.users} />} />
+				<Route exact path="/home" render={(props) => <SubHeader users={this.state.users} />} />
 				<Route path="/providers/:slug" render={(props) => <SubHeader users={this.state.users} />} />
-				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
+				<Route exact path="/home" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
 				<Route path="/providers/:slug" render={(props) => <ProviderPicker selectProvider={this.selectProvider} providers={this.state.providers} {...props} />} />
 
 				<Route path="/book-session" render={(props) => <BookSession users={this.state.users} selectedProvider={this.state.selectedProvider} providers={this.state.providers} {...props} />} />
@@ -148,7 +148,7 @@ class App extends React.Component {
 				<Route path="/my-account" render={(props) => <MyAccount users={this.state.users} />} />
 				<Route path="/edit-account" render={(props) => <EditAccount users={this.state.users} />} />
 
-				<Route path="/start" render={(props) => <Start />} />
+				<Route exact path="/" render={(props) => <Start />} />
 
 				{ !this.state.isModal && (
 					<Footer auth={this.props.auth} />

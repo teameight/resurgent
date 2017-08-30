@@ -72,7 +72,7 @@ class Header extends React.Component {
 		return (
 			<header className={ headerClass }>
         <div className="logo">
-          <a href="#" onClick={	(e) => this.processLink(e, '/') }><img src="img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
+          <a href="#" onClick={	(e) => this.processLink(e, '/home') }><img src="img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
         </div>
         <div className="menu-icon" >
           { actionButton }
@@ -80,11 +80,11 @@ class Header extends React.Component {
 				{ isAuthenticated && !isModal && (
 					<nav className={this.state.menuOpen ? 'main-menu open': 'main-menu'}>
             <ul>
-                <li><button type="button" onClick={	(e) => this.processLink(e, '/') }>Home</button></li>
+                <li><button type="button" onClick={	(e) => this.processLink(e, '/home') }>Home</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/my-account')}>My Account</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/about')}>About</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/help')}>Help</button></li>
-                <li><button type="button" onClick={	(e) => this.processLink(e, '/start')}>Sign Out</button></li>
+                <li><button type="button" onClick={	(e) => this.processLink(e, '/')}>Sign Out</button></li>
 
             </ul>
         	</nav>
