@@ -6,7 +6,7 @@ class Provider extends React.Component {
 		return (
 			<div className="provider">
 				<div className="profile-img">
-					<img src={details.image} alt={details.name} />
+					<img src="../img/profile-pic.jpg" alt={details.name} />
 				</div>
         <a className="video-link" src="#" title="Play Video"></a>
         <p className="token-cost"><span>tokens</span><br />5</p>
