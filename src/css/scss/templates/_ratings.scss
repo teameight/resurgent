@@ -23,12 +23,29 @@
         color: $magenta;
     }
 
-    .star-rating label {
+    .stars-static {
+        position: relative;
+        width: 170px;
+        margin: 0 auto;
+    }
+
+    .star-rating label,
+    .stars-static span {
         color: $gray-mid;
         font-size: 28px;
         padding: 3px;
 
         &.is-selected {
+            color: $magenta;
+        }
+    }
+
+    .stars-static-top {
+        position: absolute;
+        z-index: 1;
+        overflow: hidden;
+
+        span {
             color: $magenta;
         }
     }
