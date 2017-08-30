@@ -4,7 +4,8 @@ import Area from './Area';
 
 const flickityOptions = {
   cellSelector: '.carousel-cell',
-  pageDots: false
+  pageDots: false,
+  groupCells: true
 }
 
 class AreaPicker extends React.Component {
