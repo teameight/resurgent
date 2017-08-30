@@ -9,7 +9,7 @@ import Auth from '../Auth/Auth';
 import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
-import sampleUsers from '../sample-users.js';
+import sampleProviders from '../sample-providers.js';
 import BookSession from './BookSession';
 import BookConfirm from './BookConfirm';
 import Rating from './Rating';
@@ -90,7 +90,7 @@ class App extends React.Component {
 
 	loadSamples() {
 		this.setState({
-			users: sampleUsers
+			providers: sampleProviders
 		});
 	}
 
@@ -118,7 +118,7 @@ class App extends React.Component {
 		if(this.props.location.pathname == '/edit-account'){
 			this.state.isModal = true;
 		}
-		
+
 		if(this.state.isModal){
 			wrapClassName += ' modal';
 		}
