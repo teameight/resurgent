@@ -11,6 +11,8 @@ import ProviderPicker from './ProviderPicker';
 import sampleAreas from '../sample-areas.js';
 import BookSession from './BookSession';
 import BookConfirm from './BookConfirm';
+import Rating from './Rating';
+import WriteReview from './WriteReview';
 import Footer from './Footer';
 
 
@@ -110,6 +112,11 @@ class App extends React.Component {
 			this.state.isModal = true;
 		}
 
+		if(this.props.location.pathname == '/rating' || this.props.location.pathname == '/write-review'){
+			wrapClassName += ' flow-rating';
+			this.state.isModal = true;
+		}
+
 		return (
 			<div className={wrapClassName}>
 				<Header auth={this.props.auth} logOut={this.logout} isOpen={this.isOpen} isModal={this.state.isModal} />
@@ -120,6 +127,9 @@ class App extends React.Component {
 
 				<Route path="/book-session" render={(props) => <BookSession />} />
 				<Route path="/book-confirm" render={(props) => <BookConfirm />} />
+
+				<Route path="/rating" render={(props) => <Rating />} />
+				<Route path="/write-review" render={(props) => <WriteReview />} />
 
 				{ !this.state.isModal && (
 					<Footer auth={this.props.auth} />
