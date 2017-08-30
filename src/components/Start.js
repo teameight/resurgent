@@ -13,7 +13,7 @@ class Start extends React.Component {
           <form>
               <input name="email" type="email" placeholder="e-mail" />
               <input name="password" type="text" placeholder="password" />
-              <input className="btn" onClick={() => this.props.history.push('/')} type="submit" value="Sign In" />
+              <input className="btn" onClick={() => this.props.history.push('/home')} value="Sign In" />
           </form>
           <div className="prefooter">
             <p>Need Help?</p>
