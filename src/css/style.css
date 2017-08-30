@@ -39,7 +39,8 @@ strong {
 h1, h2, h3, h4, h5, input, button {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
+  -moz-osx-font-smoothing: grayscale;
+  color: #444; }
 
 .page-title {
   font-weight: 600;
@@ -551,6 +552,8 @@ footer {
     font-weight: 400;
     padding: 4px 12px;
     font-size: 14px; }
+    .modal form input:not(.btn)::placeholder, .modal form textarea::placeholder {
+      font-style: italic; }
 
 .section-areas {
   overflow: hidden; }
@@ -900,10 +903,58 @@ h2.section-label {
 .write-review .stars-static {
   margin-bottom: 20px; }
 
+.flow-login {
+  background: #a3ceb7; }
+  .flow-login .tcon-remove {
+    float: right;
+    margin-top: 8px;
+    cursor: pointer; }
+  .flow-login .main header {
+    margin: 32px 0;
+    text-align: center;
+    max-width: 600px; }
+  .flow-login .form-intro {
+    margin-bottom: 16px; }
+    .flow-login .form-intro p {
+      margin: 0;
+      font-style: italic;
+      font-size: 14px;
+      color: white;
+      padding: 0 12px 2px; }
+  .flow-login form {
+    width: 100%;
+    text-align: center;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    font-weight: 400; }
+    .flow-login form input:not(.btn), .flow-login form textarea {
+      width: 100%;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+      font-family: Lato, Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      padding: 4px 12px;
+      font-size: 14px; }
+      .flow-login form input:not(.btn)::placeholder, .flow-login form textarea::placeholder {
+        font-style: italic; }
+  .flow-login .btn {
+    margin-top: 12px; }
+  .flow-login .prefooter {
+    text-align: center;
+    margin-top: 13vh; }
+
+.sign-in header {
+  margin-top: 15vh !important; }
+
+.sign-in h1.page-title {
+  margin-bottom: 4px; }
+
+.sign-in form {
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto; }
+
 .flow-account {
   background: #a3ceb7; }
-  .flow-account .tcon-remove:after, .flow-account .tcon-remove:before {
-    background: #57585A; }
   .flow-account .details-box {
     background: white;
     padding: 12px 8px;
