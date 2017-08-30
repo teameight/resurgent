@@ -9,7 +9,7 @@ import Auth from '../Auth/Auth';
 import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
-import sampleAreas from '../sample-areas.js';
+import sampleUsers from '../sample-users.js';
 import BookSession from './BookSession';
 import BookConfirm from './BookConfirm';
 import Rating from './Rating';
@@ -24,27 +24,11 @@ class App extends React.Component {
 		// get initial state
 		this.state = {
 			providers: {},
-			providers1: {},
-			providers2: {},
-			providers3: {},
-			providers4: {},
-			providers5: {},
-			providers6: {},
-			providers7: {},
-			providers8: {},
-			providers9: {},
-			providers10: {},
-			providers11: {},
-			providers12: {},
-			providers13: {},
-			providers14: {},
-			providers15: {},
-			providers16: {},
-			providers17: {},
 			areas1: {},
 			areas2: {},
 			areas3: {},
 			areas4: {},
+			users: {},
 			isModal: false
 		}
 
@@ -89,6 +73,11 @@ class App extends React.Component {
 			context: this,
 			state: 'areas4'
 		});
+
+		this.ref = base.syncState(`users`, {
+			context: this,
+			state: 'users'
+		});
 	}
 
 	componentWillUnmount() {
@@ -97,7 +86,7 @@ class App extends React.Component {
 
 	loadSamples() {
 		this.setState({
-			areas4: sampleAreas
+			users: sampleUsers
 		});
 	}
 
@@ -127,8 +116,8 @@ class App extends React.Component {
 		return (
 			<div className={wrapClassName}>
 				<Header auth={this.props.auth} logOut={this.logout} isOpen={this.isOpen} isModal={this.state.isModal} />
-				<Route exact path="/" render={(props) => <SubHeader />} />
-				<Route path="/providers/:slug" render={(props) => <SubHeader />} />
+				<Route exact path="/" render={(props) => <SubHeader users={this.state.users} />} />
+				<Route path="/providers/:slug" render={(props) => <SubHeader users={this.state.users} />} />
 				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
 				<Route path="/providers/:slug" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
 
@@ -138,7 +127,7 @@ class App extends React.Component {
 				<Route path="/rating" render={(props) => <Rating />} />
 				<Route path="/write-review" render={(props) => <WriteReview />} />
 
-				<Route path="/Start" render={(props) => <Start />} />
+				<Route path="/start" render={(props) => <Start />} />
 
 				{ !this.state.isModal && (
 					<Footer auth={this.props.auth} />

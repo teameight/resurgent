@@ -3,7 +3,6 @@ import React from 'react';
 import Area from './Area';
 
 const flickityOptions = {
-  cellSelector: '.carousel-cell',
   pageDots: false,
   groupCells: true
 }
