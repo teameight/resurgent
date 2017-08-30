@@ -3,6 +3,7 @@ import { Route, Router } from 'react-router-dom';
 import Header from './Header';
 import SubHeader from './SubHeader';
 import Login from './Login';
+import Start from './Start'; //dummy login page for now
 import base from '../base';
 import Auth from '../Auth/Auth';
 import styles from '../css/style.css';
@@ -117,6 +118,10 @@ class App extends React.Component {
 			this.state.isModal = true;
 		}
 
+		if(this.props.location.pathname == '/start'){
+			wrapClassName += ' flow-login';
+		}
+
 		return (
 			<div className={wrapClassName}>
 				<Header auth={this.props.auth} logOut={this.logout} isOpen={this.isOpen} isModal={this.state.isModal} />
@@ -130,6 +135,8 @@ class App extends React.Component {
 
 				<Route path="/rating" render={(props) => <Rating />} />
 				<Route path="/write-review" render={(props) => <WriteReview />} />
+
+				<Route path="/Start" render={(props) => <Start />} />
 
 				{ !this.state.isModal && (
 					<Footer auth={this.props.auth} />

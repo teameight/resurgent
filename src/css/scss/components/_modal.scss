@@ -43,6 +43,10 @@
       font-weight:400;
       padding: $vru 12px;
       font-size:14px;
+
+      &::placeholder{
+        font-style:italic;
+      }
     }
 
   }
