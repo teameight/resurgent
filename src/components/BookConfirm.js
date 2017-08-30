@@ -24,7 +24,7 @@ class BookConfirm extends React.Component {
                 </div>
                 <span>Tokens</span>
             </div>
-            <a className="btn" href="../resurgent/providers.html">Back to Provider</a>
+            <a className="btn" onClick={() => this.props.history.goBack()}>Back to Provider</a>
         </section>
     )
   }

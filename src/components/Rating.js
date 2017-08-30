@@ -35,7 +35,7 @@ class Rating extends React.Component {
                 <p>Vestibulum volutpat, enim vel tempus finibus, velit odio mattis sem, vel luctus arcu velit ut elit. Sed non cursus sem, eget iaculis massa. Nam sit amet risus et ligula eleifend laoreet ut in neque. Proin sed maximus nibh. Donec vel rhoncus lectus. Sed porttitor quam et risus varius finibus fermentum et dolor...</p>
                 <a className="readmore" href="#">Read More</a>
             </article>
-            
+
         </section>
     )
   }

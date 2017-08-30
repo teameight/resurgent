@@ -2,6 +2,27 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 class BookSession extends React.Component {
+
+  constructor() {
+    super();
+
+    this.handleSend = this.handleSend.bind(this);
+  }
+
+  handleSend = function(e) {
+    e.preventDefault();
+    const user = this.props.users;
+    const tokens = user.tokens;
+    console.log(tokens);
+    user.tokens = tokens - 5;
+
+    this.setState({
+      users: user
+    });
+
+    this.props.history.push('/book-confirm');
+  }
+
   render() {
 
     return (
@@ -20,8 +41,9 @@ class BookSession extends React.Component {
 Default form letter text. Lorem ipsum dolor sit amet.
 
 Thanks,
-[user name]              </textarea>
-              <input className="btn" onClick={() => this.props.history.push('/book-confirm')} type="submit" value="Send" />
+[user name]
+              </textarea>
+              <input className="btn" onClick={this.handleSend} type="submit" value="Send" />
           </form>
       </section>
     )
