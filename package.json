@@ -2,7 +2,7 @@
   "name": "resurgent",
   "version": "0.0.1",
   "private": true,
-  "homepage": "http://team-eight.com/dev/resurgent/",
+  "homepage": "http://resurgent.team-eight.com",
   "devDependencies": {
     "autoprefixer-stylus": "0.10.0",
     "babel-eslint": "^7.1.1",
