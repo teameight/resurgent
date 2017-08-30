@@ -115,7 +115,7 @@ class App extends React.Component {
 
 		return (
 			<div className={wrapClassName}>
-				<Header auth={this.props.auth} logOut={this.logout} isOpen={this.isOpen} isModal={this.state.isModal} />
+				<Header auth={this.props.auth} logOut={this.logout} isModal={this.state.isModal} />
 				<Route exact path="/" render={(props) => <SubHeader users={this.state.users} />} />
 				<Route path="/providers/:slug" render={(props) => <SubHeader users={this.state.users} />} />
 				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />

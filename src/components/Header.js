@@ -10,6 +10,7 @@ class Header extends React.Component {
       };
 
       this.toggleMenu= this.toggleMenu.bind(this);
+      this.closeMenu= this.closeMenu.bind(this);
       this.processLink= this.processLink.bind(this);
       
   }
@@ -20,10 +21,17 @@ class Header extends React.Component {
 	    }));
   };
 
+
+	closeMenu() {
+      this.setState(prevState => ({
+	      menuOpen: false
+	    }));
+  };
+
   processLink(e, path) {
   	e.preventDefault();
   	this.props.history.push(path);
-  	this.toggleMenu();
+  	this.closeMenu();
   };
 
 	render() {
