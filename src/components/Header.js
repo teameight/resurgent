@@ -9,15 +9,20 @@ class Header extends React.Component {
           menuOpen: false,
       };
 
-      this.toggleMenu= this.toggleMenu.bind(this);
-      
+      this.toggleMenu = this.toggleMenu.bind(this);
+      this.closeModal = this.closeModal.bind(this);
+
   }
 
 	toggleMenu() {
       this.setState(prevState => ({
 	      menuOpen: !prevState.menuOpen
 	    }));
-  };
+  }
+
+  closeModal() {
+  	this.props.history.goBack();
+  }
 
 	render() {
 		const { isAuthenticated } = this.props.auth;
@@ -31,15 +36,15 @@ class Header extends React.Component {
 		}
 
 		if(isAuthenticated && isModal) {
-			actionButton = 
-				<button type="button" className="tcon tcon-remove" aria-label="remove item">
+			actionButton =
+				<button type="button" className="tcon tcon-remove" aria-label="remove item" onClick={this.closeModal}>
           <span className="tcon-visuallyhidden">remove item</span>
         </button>
 		}
 
 		if(isAuthenticated && !isModal) {
 
-			actionButton = 
+			actionButton =
 				<button type="button" className={this.state.menuOpen ? 'tcon tcon-menu--xcross tcon-transform': 'tcon tcon-menu--xcross'} aria-label="toggle menu" onClick={this.toggleMenu} >
 	        <span className="tcon-menu__lines" aria-hidden="true"></span>
 	        <span className="tcon-visuallyhidden">menu</span>

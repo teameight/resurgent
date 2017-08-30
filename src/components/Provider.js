@@ -1,6 +1,20 @@
 import React from 'react';
+import BookSession from './BookSession';
+import { withRouter } from 'react-router-dom';
 
 class Provider extends React.Component {
+
+	constructor() {
+		super();
+
+		this.bookSession = this.bookSession.bind(this);
+	}
+
+	bookSession() {
+		return (
+			<BookSession />
+		)
+	}
 	render() {
 		const { details } = this.props;
 		return (
@@ -16,16 +30,16 @@ class Provider extends React.Component {
         </div>
         <a href="#" className="bio-handle">Read More</a>
         <div className="rating">
-            <a href="../resurgent/rating.html">
+            <a onClick={() => this.props.history.push('/rating')}>
                 <h3>Ratings & Reviews</h3>
                 <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA"><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span></div>
             </a>
         </div>
-        <a className="btn" href="../resurgent/book-a-session.html">Book a Session</a>
+        <button className="btn" onClick={() => this.props.history.push('/book-session')}>Book a Session</button>
 
       </div>
 		)
 	}
 }
 
-export default Provider;
+export default withRouter(Provider);

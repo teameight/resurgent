@@ -119,11 +119,11 @@ class App extends React.Component {
 				<Route exact path="/" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
 				<Route path="/providers/:slug" render={(props) => <ProviderPicker providers={this.state.providers} {...props} />} />
 
-				<Route path="/book-session" render={(props) => <BookSession />} />
-				<Route path="/book-confirm" render={(props) => <BookConfirm />} />
+				<Route path="/book-session" render={(props) => <BookSession users={this.state.users} />} />
+				<Route path="/book-confirm" render={(props) => <BookConfirm users={this.state.users} />} />
 
-				<Route path="/rating" render={(props) => <Rating />} />
-				<Route path="/write-review" render={(props) => <WriteReview />} />
+				<Route path="/rating" render={(props) => <Rating users={this.state.users} />} />
+				<Route path="/write-review" render={(props) => <WriteReview users={this.state.users} />} />
 
 				<Route path="/start" render={(props) => <Start />} />
 
