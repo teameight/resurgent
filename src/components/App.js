@@ -125,7 +125,7 @@ class App extends React.Component {
 				<Route path="/rating" render={(props) => <Rating />} />
 				<Route path="/write-review" render={(props) => <WriteReview />} />
 
-				<Route path="/Start" render={(props) => <Start />} />
+				<Route path="/start" render={(props) => <Start />} />
 
 				{ !this.state.isModal && (
 					<Footer auth={this.props.auth} />
