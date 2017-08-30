@@ -104,10 +104,8 @@ class App extends React.Component {
 	render() {
 		const { isAuthenticated } = this.props.auth;
 		let wrapClassName = 'resurgent-app';
+		this.state.isModal = false;
 
-		if(this.state.isModal){
-			wrapClassName += ' modal';
-		}
 		if(this.props.location.pathname == '/book-session' || this.props.location.pathname == '/book-confirm'){
 			wrapClassName += ' flow-book-session';
 			this.state.isModal = true;
@@ -116,6 +114,10 @@ class App extends React.Component {
 		if(this.props.location.pathname == '/rating' || this.props.location.pathname == '/write-review'){
 			wrapClassName += ' flow-rating';
 			this.state.isModal = true;
+		}
+		
+		if(this.state.isModal){
+			wrapClassName += ' modal';
 		}
 
 		if(this.props.location.pathname == '/start'){

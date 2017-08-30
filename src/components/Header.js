@@ -10,6 +10,7 @@ class Header extends React.Component {
       };
 
       this.toggleMenu= this.toggleMenu.bind(this);
+      this.processLink= this.processLink.bind(this);
       
   }
 
@@ -17,6 +18,12 @@ class Header extends React.Component {
       this.setState(prevState => ({
 	      menuOpen: !prevState.menuOpen
 	    }));
+  };
+
+  processLink(e, path) {
+  	e.preventDefault();
+  	this.props.history.push(path);
+  	this.toggleMenu();
   };
 
 	render() {
@@ -49,7 +56,7 @@ class Header extends React.Component {
 		return (
 			<header className={ headerClass }>
         <div className="logo">
-          <a href="#" onClick={() => this.props.history.push('/')}><img src="img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
+          <a href="#" onClick={	(e) => this.processLink(e, '/') }><img src="img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
         </div>
         <div className="menu-icon" >
           { actionButton }
@@ -57,12 +64,11 @@ class Header extends React.Component {
 				{ isAuthenticated && !isModal && (
 					<nav className={this.state.menuOpen ? 'main-menu open': 'main-menu'}>
             <ul>
-                <li><button type="button" onClick={() => this.props.history.push('/')}>Home</button></li>
-                <li><button type="button" onClick={() => this.props.history.push('/my-account')}>My Account</button></li>
-                <li><button type="button" onClick={() => this.props.history.push('/about')}>About</button></li>
-                <li><button type="button" onClick={() => this.props.history.push('/help')}>Help</button></li>
-
-                <li><button type="button" onClick={this.props.logOut.bind(this)}>Sign Out</button></li>
+                <li><button type="button" onClick={	(e) => this.processLink(e, '/') }>Home</button></li>
+                <li><button type="button" onClick={	(e) => this.processLink(e, '/my-account')}>My Account</button></li>
+                <li><button type="button" onClick={	(e) => this.processLink(e, '/about')}>About</button></li>
+                <li><button type="button" onClick={	(e) => this.processLink(e, '/help')}>Help</button></li>
+                <li><button type="button" onClick={	(e) => this.processLink(e, '/start')}>Sign Out</button></li>
 
             </ul>
         	</nav>

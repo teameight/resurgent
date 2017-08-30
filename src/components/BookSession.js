@@ -20,8 +20,7 @@ class BookSession extends React.Component {
 Default form letter text. Lorem ipsum dolor sit amet.
 
 Thanks,
-[user name]
-              </textarea>
+[user name]              </textarea>
               <input className="btn" onClick={() => this.props.history.push('/book-confirm')} type="submit" value="Send" />
           </form>
       </section>
