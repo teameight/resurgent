@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import RatingStars from './RatingStars';
 
 class WriteReview extends React.Component {
   render() {
@@ -9,7 +10,7 @@ class WriteReview extends React.Component {
             <header>
                 <p className="subtitle">leave a review for</p>
                 <h1 className="page-title">[Provider Name]</h1>
-                <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA"><span>&#9733; </span><span>&#9733; </span><span>&#9733; </span><span>&#9733; </span><span>&#9734; </span></div>
+                <RatingStars />
             </header>
 
 
@@ -19,7 +20,7 @@ class WriteReview extends React.Component {
                 <textarea name="message" rows="12" cols="50" placeholder="Write your review here"></textarea>
                 <input className="btn" value="Submit Review" onClick={() => this.props.history.go(-2)} />
             </form>
-            
+
         </section>
     )
   }

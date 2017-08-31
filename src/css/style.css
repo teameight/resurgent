@@ -910,9 +910,24 @@ h2.section-label {
   .flow-rating .main a {
     font-style: italic;
     color: #df4678; }
+  .flow-rating .stars-static {
+    position: relative;
+    width: 170px;
+    margin: 0 auto; }
+  .flow-rating .star-rating label,
   .flow-rating .stars-static span {
-    color: #df4678;
-    font-size: 28px; }
+    color: #bebebe;
+    font-size: 28px;
+    padding: 3px; }
+    .flow-rating .star-rating label.is-selected,
+    .flow-rating .stars-static span.is-selected {
+      color: #df4678; }
+  .flow-rating .stars-static-top {
+    position: absolute;
+    z-index: 1;
+    overflow: hidden; }
+    .flow-rating .stars-static-top span {
+      color: #df4678; }
   .flow-rating .instruction {
     text-align: left;
     margin: 0 15px 8px;

@@ -11,7 +11,7 @@ class Rating extends React.Component {
   processLink(e, path) {
     e.preventDefault();
     this.props.history.push(path);
-  };
+  }
 
 
   render() {
@@ -24,7 +24,22 @@ class Rating extends React.Component {
                 <a href="#" onClick={  (e) => this.processLink(e, '/write-review')}>write a review</a>
             </header>
             <hr />
-            <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA"><span>&#9733; </span><span>&#9733; </span><span>&#9733; </span><span>&#9733; </span><span>&#9734; </span></div>
+            <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA">
+                <div className="stars-static-top" style={{width: '87%'}}>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                </div>
+                <div className="stars-static-bottom">
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                    <span>&#9733;</span>
+                </div>
+            </div>
             <p><em>(5 user ratings)</em></p>
             <hr />
             <article className="review">
