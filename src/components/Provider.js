@@ -7,12 +7,12 @@ class Provider extends React.Component {
 	constructor() {
 		super();
 
-		this.bookSession = this.bookSession.bind(this);
+		this.openModal = this.openModal.bind(this);
 	}
 
-	bookSession(e, keyId, path) {
+	openModal(e, keyId, mname) {
 		e.preventDefault();
-  	this.props.passProvider(keyId);
+  	this.props.passProvider(keyId, mname);
   	// this.props.history.push(path);
 	}
 
@@ -32,12 +32,12 @@ class Provider extends React.Component {
         </div>
         <a href="#" className="bio-handle">Read More</a>
         <div className="rating">
-            <a onClick={() => this.props.history.push('/rating')}>
+            <a onClick={ (e) => this.openModal(e, keyId, 'rating') }>
                 <h3>Ratings & Reviews</h3>
                 <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA"><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span></div>
             </a>
         </div>
-        <button className="btn" onClick={  (e) => this.bookSession(e, keyId, '/book-session') }>Book a Session</button>
+        <button className="btn" onClick={ (e) => this.openModal(e, keyId, 'book') }>Book a Session</button>
 
       </div>
 		)

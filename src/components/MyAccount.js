@@ -1,13 +1,40 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import ReactModal from 'react-modal';
 
 class MyAccount extends React.Component {
 
   constructor(props) {
       super(props);
+      this.state = {
+          showModal: false
+        };
+
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
       
       this.processLink= this.processLink.bind(this);
       
+  }
+
+
+  handleOpenModal() {
+      this.setState({ 
+        showModal: true
+      });
+    this.props.setModal(true);
+  }
+  
+  handleCloseModal() {
+    this.setState({ 
+      showModal: false
+    });
+    this.props.setModal(false);
+    setTimeout(() => {
+      this.setState({
+        zone : 1
+      })
+    }, 500);
   }
 
   processLink(e, path) {
@@ -18,27 +45,65 @@ class MyAccount extends React.Component {
   render() {
     const user = this.props.users;
 
-    return (
-      <section className="main my-account">
-            <header>
-                <h1 className="page-title">My Account</h1>
-            </header>
+    let zoneClass = 'modal-zones ';
+    zoneClass += 'm-zone-' + this.state.zone;
 
-            <div className="details-box solo">
+    return (
+        <div>
+            <ReactModal 
+            isOpen={this.state.showModal}
+            contentLabel="onRequestClose"
+            onRequestClose={this.handleCloseModal}
+            className="flow-account"
+            overlayClassName="Overlay"
+            closeTimeoutMS={500}
+            >
+                <header className="header-modal">
+                    <div className="logo">
+                    <a href="#" onClick={ (e) => this.processLink(e, '/home') }><img src="../img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
+                    </div>
+                    <div className="menu-icon" >
+                        <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
+                          <span className="tcon-visuallyhidden">Close</span>
+                        </button>
+                    </div>
+                </header>
+                <div className={zoneClass}>
+                    <section className="main edit-account">
+                        <header>
+                          <h1 className="page-title">Edit My Account</h1>
+                        </header>
+                        <form>
+                          <input name="username" type="text" placeholder="new username" />
+                          <input name="email" type="email" placeholder="new e-mail" />
+                          <input name="password" type="text" placeholder="new password" />
+                          <input className="btn" onClick={this.handleCloseModal} value="Save" />
+                          <p><a href="#" onClick={this.handleCloseModal}>cancel</a></p>
+                        </form>
+                    </section>
+                </div>
+            </ReactModal>
+
+            <section className="main my-account">
+                <header>
+                <h1 className="page-title">My Account</h1>
+                </header>
+
+                <div className="details-box solo">
                 <div className="details-row">
                     <p>{user.name}</p>
-                    <p><a href="#" onClick={  (e) => this.processLink(e, '/edit-account') }>edit details</a></p>
+                    <p><a href="#" onClick={this.handleOpenModal}>edit details</a></p>
                 </div>
                 <div className="details-row">
                     <p>{user.email}</p>
                 </div>
-            </div>
+                </div>
 
 
-            <h2 className="token-report">{user.tokens} tokens left</h2>
+                <h2 className="token-report">{user.tokens} tokens left</h2>
 
-            <p className="instruction">Your History</p>
-            <div className="details-box">
+                <p className="instruction">Your History</p>
+                <div className="details-box">
                 <div className="details-row">
                     <p>Career Coaching: Getting Unstuck</p>
                     <p><strong>5 tokens</strong></p>
@@ -47,8 +112,8 @@ class MyAccount extends React.Component {
                     <p><em>Lauren Laitlin</em></p>
                     <p>contacted Sep 12, 2017</p>
                 </div>
-            </div>
-            <div className="details-box">
+                </div>
+                <div className="details-box">
                 <div className="details-row">
                     <p>Career Coaching: Getting Unstuck</p>
                     <p><strong>5 tokens</strong></p>
@@ -57,8 +122,8 @@ class MyAccount extends React.Component {
                     <p><em>Lauren Laitlin</em></p>
                     <p>contacted Sep 12, 2017</p>
                 </div>
-            </div>
-            <div className="details-box">
+                </div>
+                <div className="details-box">
                 <div className="details-row">
                     <p>Career Coaching: Getting Unstuck</p>
                     <p><strong>5 tokens</strong></p>
@@ -67,8 +132,8 @@ class MyAccount extends React.Component {
                     <p><em>Lauren Laitlin</em></p>
                     <p>contacted Sep 12, 2017</p>
                 </div>
-            </div>
-            <div className="details-box">
+                </div>
+                <div className="details-box">
                 <div className="details-row">
                     <p>Career Coaching: Getting Unstuck</p>
                     <p><strong>5 tokens</strong></p>
@@ -77,8 +142,8 @@ class MyAccount extends React.Component {
                     <p><em>Lauren Laitlin</em></p>
                     <p>contacted Sep 12, 2017</p>
                 </div>
-            </div>
-            <div className="details-box">
+                </div>
+                <div className="details-box">
                 <div className="details-row">
                     <p>Career Coaching: Getting Unstuck</p>
                     <p><strong>5 tokens</strong></p>
@@ -87,8 +152,8 @@ class MyAccount extends React.Component {
                     <p><em>Lauren Laitlin</em></p>
                     <p>contacted Sep 12, 2017</p>
                 </div>
-            </div>
-            <div className="details-box">
+                </div>
+                <div className="details-box">
                 <div className="details-row">
                     <p>Career Coaching: Getting Unstuck</p>
                     <p><strong>5 tokens</strong></p>
@@ -97,9 +162,10 @@ class MyAccount extends React.Component {
                     <p><em>Lauren Laitlin</em></p>
                     <p>contacted Sep 12, 2017</p>
                 </div>
-            </div>
-            
-        </section>
+                </div>
+
+            </section>
+        </div>
     )
   }
 }

@@ -146,6 +146,7 @@ class App extends React.Component {
 				<Route exact path="/home" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
 				<Route path="/providers/:slug" render={(props) => 
 					<ProviderPicker 
+						users={this.state.users}
 						setModal={this.setModal} 
 						selectProvider={this.selectProvider} 
 						providers={this.state.providers} 

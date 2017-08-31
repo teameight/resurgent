@@ -1,3 +1,28 @@
+.ReactModal__Body--open {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.modal-zones {
+  height:calc( 100vh - #{$headheight} );
+  position: absolute;
+  top:$headheight;
+  left:0;
+  overflow-y: auto;
+  display: flex;
+  width: 200vw;
+  @include transition(transform 500ms ease);
+
+  &.m-zone-2 {
+    transform: translateX(-100vw);
+  }
+
+  > section {
+    width:100vw;
+    box-sizing: border-box;
+  }
+}
+
 .ReactModalPortal {
   width:100%;
   top:0;
@@ -12,7 +37,7 @@
     top:0;
     width:100%;
 
-    transition: opacity 500ms ease-in-out;
+    @include transition(opacity 500ms ease-in-out);
     opacity: 0;
 
     &--after-open {
@@ -25,7 +50,7 @@
   }
 
   .ReactModal__Content {
-    transition: all 500ms ease-in-out;
+    @include transition(all 500ms ease-in-out);
     transform: translateY(-100vh);
     opacity: 0;
     height:100vh;
@@ -49,14 +74,9 @@
 
 .modal, .ReactModal__Content {
 
-  .main {
-    position: relative;
-    top:$headheight;
-  }
-
   .tcon-remove {
     float: right;
-    margin-top: $vru*2;
+    margin-top: $vru;
     cursor: pointer;
   }
 

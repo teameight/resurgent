@@ -518,6 +518,28 @@ footer {
     footer .terms:hover {
       color: #3a77b2; }
 
+.ReactModal__Body--open {
+  height: 100vh;
+  overflow: hidden; }
+
+.modal-zones {
+  height: calc( 100vh - 60px);
+  position: absolute;
+  top: 60px;
+  left: 0;
+  overflow-y: auto;
+  display: flex;
+  width: 200vw;
+  -moz-transition: transform 500ms ease;
+  -o-transition: transform 500ms ease;
+  -webkit-transition: transform 500ms ease;
+  transition: transform 500ms ease; }
+  .modal-zones.m-zone-2 {
+    transform: translateX(-100vw); }
+  .modal-zones > section {
+    width: 100vw;
+    box-sizing: border-box; }
+
 .ReactModalPortal {
   width: 100%;
   top: 0;
@@ -529,6 +551,9 @@ footer {
     left: 0;
     top: 0;
     width: 100%;
+    -moz-transition: opacity 500ms ease-in-out;
+    -o-transition: opacity 500ms ease-in-out;
+    -webkit-transition: opacity 500ms ease-in-out;
     transition: opacity 500ms ease-in-out;
     opacity: 0; }
     .ReactModalPortal .ReactModal__Overlay--after-open {
@@ -536,6 +561,9 @@ footer {
     .ReactModalPortal .ReactModal__Overlay--before-close {
       opacity: 0; }
   .ReactModalPortal .ReactModal__Content {
+    -moz-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    -webkit-transition: all 500ms ease-in-out;
     transition: all 500ms ease-in-out;
     transform: translateY(-100vh);
     opacity: 0;
@@ -552,13 +580,9 @@ footer {
       opacity: 0;
       transform: translateY(-100vh); }
 
-.modal .main, .ReactModal__Content .main {
-  position: relative;
-  top: 60px; }
-
 .modal .tcon-remove, .ReactModal__Content .tcon-remove {
   float: right;
-  margin-top: 8px;
+  margin-top: 4px;
   cursor: pointer; }
 
 .modal .main header, .ReactModal__Content .main header {
@@ -882,12 +906,13 @@ h2.section-label {
       margin: 0;
       list-style: none;
       transform: translateY(-100%);
-      margin-top: 100%;
-      -moz-transition: transform 1s ease, margin 1s ease;
-      -o-transition: transform 1s ease, margin 1s ease;
-      -webkit-transition: transform 1s ease, margin 1s ease;
-      transition: transform 1s ease, margin 1s ease;
-      animation: token-spinner 1.5s ease .5s 1;
+      margin-top: 100%; }
+    .m-zone-2 .book-confirm .token-spinner ul {
+      -moz-transition: transform 1s ease, margin 0.3s ease;
+      -o-transition: transform 1s ease, margin 0.3s ease;
+      -webkit-transition: transform 1s ease, margin 0.3s ease;
+      transition: transform 1s ease, margin 0.3s ease;
+      animation: token-spinner 1.5s ease 1s 1;
       animation-fill-mode: forwards; }
 
 @keyframes token-spinner {
@@ -1003,16 +1028,16 @@ h2.section-label {
   margin-left: auto;
   margin-right: auto; }
 
-.flow-account {
+.ReactModalPortal .flow-account, .flow-account {
   background: #a3ceb7; }
-  .flow-account .details-box {
+  .ReactModalPortal .flow-account .details-box, .flow-account .details-box {
     background: white;
     padding: 12px 8px;
     font-size: 14px;
     border-top: 1px solid #57585A; }
-    .flow-account .details-box.solo {
+    .ReactModalPortal .flow-account .details-box.solo, .flow-account .details-box.solo {
       border-bottom: 1px solid #57585A; }
-    .flow-account .details-box .details-row {
+    .ReactModalPortal .flow-account .details-box .details-row, .flow-account .details-box .details-row {
       display: flex;
       justify-content: space-between; }
 
