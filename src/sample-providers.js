@@ -5,6 +5,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Getting Unstuck',
 		area: 'getting-unstuck'
 	},
 
@@ -14,6 +16,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Getting Unstuck',
 		area: 'getting-unstuck'
 	},
 
@@ -23,6 +27,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Getting Unstuck',
 		area: 'getting-unstuck'
 	},
 
@@ -32,6 +38,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Getting Unstuck',
 		area: 'getting-unstuck'
 	},
 
@@ -41,6 +49,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Getting Unstuck',
 		area: 'getting-unstuck'
 	},
 
@@ -50,6 +60,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Imagining a Change',
 		area: 'imagining-change'
 	},
 
@@ -59,6 +71,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Imagining a Change',
 		area: 'imagining-change'
 	},
 
@@ -68,6 +82,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Imagining a Change',
 		area: 'imagining-change'
 	},
 
@@ -77,6 +93,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Imagining a Change',
 		area: 'imagining-change'
 	},
 
@@ -86,6 +104,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Imagining a Change',
 		area: 'imagining-change'
 	},
 
@@ -95,6 +115,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring your Best Job',
 		area: 'exploring-your-best-job'
 	},
 
@@ -104,6 +126,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring your Best Job',
 		area: 'exploring-your-best-job'
 	},
 
@@ -113,6 +137,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring your Best Job',
 		area: 'exploring-your-best-job'
 	},
 
@@ -122,6 +148,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring your Best Job',
 		area: 'exploring-your-best-job'
 	},
 
@@ -131,6 +159,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring your Best Job',
 		area: 'exploring-your-best-job'
 	},
 
@@ -140,6 +170,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring Non-traditional Careers',
 		area: 'exploring-non-traditional-careers'
 	},
 
@@ -149,6 +181,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring Non-traditional Careers',
 		area: 'exploring-non-traditional-careers'
 	},
 
@@ -158,6 +192,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring Non-traditional Careers',
 		area: 'exploring-non-traditional-careers'
 	},
 
@@ -167,6 +203,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring Non-traditional Careers',
 		area: 'exploring-non-traditional-careers'
 	},
 
@@ -176,6 +214,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Career Coaching',
+		areaName: 'Exploring Non-traditional Careers',
 		area: 'exploring-non-traditional-careers'
 	},
 
@@ -185,6 +225,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Professional Resumes for Federal Jobs',
 		area: 'professional-resumes-for-federal-jobs'
 	},
 
@@ -194,6 +236,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Professional Resumes for Federal Jobs',
 		area: 'professional-resumes-for-federal-jobs'
 	},
 
@@ -203,6 +247,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Professional Resumes for Federal Jobs',
 		area: 'professional-resumes-for-federal-jobs'
 	},
 
@@ -212,6 +258,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Professional Resumes for Federal Jobs',
 		area: 'professional-resumes-for-federal-jobs'
 	},
 
@@ -221,6 +269,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Professional Resumes for Federal Jobs',
 		area: 'professional-resumes-for-federal-jobs'
 	},
 
@@ -230,6 +280,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Polishing Private Sector Resumes',
 		area: 'polishing-private-sector-resumes'
 	},
 
@@ -239,6 +291,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Polishing Private Sector Resumes',
 		area: 'polishing-private-sector-resumes'
 	},
 
@@ -248,6 +302,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Polishing Private Sector Resumes',
 		area: 'polishing-private-sector-resumes'
 	},
 
@@ -257,6 +313,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Polishing Private Sector Resumes',
 		area: 'polishing-private-sector-resumes'
 	},
 
@@ -266,6 +324,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Polishing Private Sector Resumes',
 		area: 'polishing-private-sector-resumes'
 	},
 
@@ -275,6 +335,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Cover Letters & Thank You Notes',
 		area: 'cover-letters-thank-you-notes'
 	},
 
@@ -284,6 +346,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Cover Letters & Thank You Notes',
 		area: 'cover-letters-thank-you-notes'
 	},
 
@@ -293,6 +357,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Cover Letters & Thank You Notes',
 		area: 'cover-letters-thank-you-notes'
 	},
 
@@ -302,6 +368,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Cover Letters & Thank You Notes',
 		area: 'cover-letters-thank-you-notes'
 	},
 
@@ -311,6 +379,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Cover Letters & Thank You Notes',
 		area: 'cover-letters-thank-you-notes'
 	},
 
@@ -320,6 +390,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Leverage your Online Resume',
 		area: 'leverage-your-online-resume'
 	},
 
@@ -329,6 +401,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Leverage your Online Resume',
 		area: 'leverage-your-online-resume'
 	},
 
@@ -338,6 +412,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Leverage your Online Resume',
 		area: 'leverage-your-online-resume'
 	},
 
@@ -347,6 +423,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Leverage your Online Resume',
 		area: 'leverage-your-online-resume'
 	},
 
@@ -356,6 +434,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Leverage your Online Resume',
 		area: 'leverage-your-online-resume'
 	},
 
@@ -365,6 +445,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Writing Samples for Job Applications',
 		area: 'writing-samples-for-job-applications'
 	},
 
@@ -374,6 +456,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Writing Samples for Job Applications',
 		area: 'writing-samples-for-job-applications'
 	},
 
@@ -383,6 +467,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Writing Samples for Job Applications',
 		area: 'writing-samples-for-job-applications'
 	},
 
@@ -392,6 +478,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Writing Samples for Job Applications',
 		area: 'writing-samples-for-job-applications'
 	},
 
@@ -401,6 +489,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Written & Online Word',
+		areaName: 'Writing Samples for Job Applications',
 		area: 'writing-samples-for-job-applications'
 	},
 
@@ -410,6 +500,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Set up your Custom Search',
 		area: 'set-up-your-custom-search'
 	},
 
@@ -419,6 +511,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Set up your Custom Search',
 		area: 'set-up-your-custom-search'
 	},
 
@@ -428,6 +522,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Set up your Custom Search',
 		area: 'set-up-your-custom-search'
 	},
 
@@ -437,6 +533,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Set up your Custom Search',
 		area: 'set-up-your-custom-search'
 	},
 
@@ -446,6 +544,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Set up your Custom Search',
 		area: 'set-up-your-custom-search'
 	},
 
@@ -455,6 +555,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Mock Interviews',
 		area: 'mock-interview'
 	},
 
@@ -464,6 +566,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Mock Interviews',
 		area: 'mock-interview'
 	},
 
@@ -473,6 +577,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Mock Interviews',
 		area: 'mock-interview'
 	},
 
@@ -482,6 +588,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Mock Interviews',
 		area: 'mock-interview'
 	},
 
@@ -491,6 +599,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Mock Interviews',
 		area: 'mock-interview'
 	},
 
@@ -500,6 +610,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Finding your Headhunter',
 		area: 'finding-your-headhunter'
 	},
 
@@ -509,6 +621,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Finding your Headhunter',
 		area: 'finding-your-headhunter'
 	},
 
@@ -518,6 +632,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Finding your Headhunter',
 		area: 'finding-your-headhunter'
 	},
 
@@ -527,6 +643,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Finding your Headhunter',
 		area: 'finding-your-headhunter'
 	},
 
@@ -536,6 +654,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Finding your Headhunter',
 		area: 'finding-your-headhunter'
 	},
 
@@ -545,6 +665,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Negotiating an Offer',
 		area: 'negotiating-an-offer'
 	},
 
@@ -554,6 +676,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Negotiating an Offer',
 		area: 'negotiating-an-offer'
 	},
 
@@ -563,6 +687,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Negotiating an Offer',
 		area: 'negotiating-an-offer'
 	},
 
@@ -572,6 +698,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Negotiating an Offer',
 		area: 'negotiating-an-offer'
 	},
 
@@ -581,6 +709,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Nuts & Bolts',
+		areaName: 'Negotiating an Offer',
 		area: 'negotiating-an-offer'
 	},
 
@@ -590,6 +720,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		areaName: 'Structuring Short-term Finances',
+		sectionName: 'Hey It\'s Personal',
 		area: 'structuring-short-term-finances'
 	},
 
@@ -599,6 +731,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		areaName: 'Structuring Short-term Finances',
+		sectionName: 'Hey It\'s Personal',
 		area: 'structuring-short-term-finances'
 	},
 
@@ -608,6 +742,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		areaName: 'Structuring Short-term Finances',
+		sectionName: 'Hey It\'s Personal',
 		area: 'structuring-short-term-finances'
 	},
 
@@ -617,6 +753,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		areaName: 'Structuring Short-term Finances',
+		sectionName: 'Hey It\'s Personal',
 		area: 'structuring-short-term-finances'
 	},
 
@@ -626,6 +764,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		areaName: 'Structuring Short-term Finances',
+		sectionName: 'Hey It\'s Personal',
 		area: 'structuring-short-term-finances'
 	},
 
@@ -635,6 +775,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Wardrobe and Personal Appearance',
 		area: 'wardrobe-and-personal-appearance'
 	},
 
@@ -644,6 +786,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Wardrobe and Personal Appearance',
 		area: 'wardrobe-and-personal-appearance'
 	},
 
@@ -653,6 +797,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Wardrobe and Personal Appearance',
 		area: 'wardrobe-and-personal-appearance'
 	},
 
@@ -662,6 +808,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Wardrobe and Personal Appearance',
 		area: 'wardrobe-and-personal-appearance'
 	},
 
@@ -671,6 +819,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Wardrobe and Personal Appearance',
 		area: 'wardrobe-and-personal-appearance'
 	},
 
@@ -680,6 +830,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Answering the Dreaded Question',
 		area: 'answering-dreaded-question'
 	},
 
@@ -689,6 +841,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Answering the Dreaded Question',
 		area: 'answering-dreaded-question'
 	},
 
@@ -698,6 +852,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Answering the Dreaded Question',
 		area: 'answering-dreaded-question'
 	},
 
@@ -707,6 +863,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Answering the Dreaded Question',
 		area: 'answering-dreaded-question'
 	},
 
@@ -716,6 +874,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Answering the Dreaded Question',
 		area: 'answering-dreaded-question'
 	},
 
@@ -725,6 +885,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Psychology of Losing a Job',
 		area: 'psychology-of-losing-job'
 	},
 
@@ -734,6 +896,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Psychology of Losing a Job',
 		area: 'psychology-of-losing-job'
 	},
 
@@ -743,6 +907,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Psychology of Losing a Job',
 		area: 'psychology-of-losing-job'
 	},
 
@@ -752,6 +918,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Psychology of Losing a Job',
 		area: 'psychology-of-losing-job'
 	},
 
@@ -761,6 +929,8 @@ module.exports = {
 		desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero quas odio alias, sint iure dolor temporibus neque aperiam ullam. Error harum aliquid quae iure iusto facere odio, autem! Delectus, provident!',
 		rating: 4,
 		tokens: 5,
+		sectionName: 'Hey It\'s Personal',
+		areaName: 'Psychology of Losing a Job',
 		area: 'psychology-of-losing-job'
 	}
 }

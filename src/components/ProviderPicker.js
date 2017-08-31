@@ -24,7 +24,6 @@ class ProviderPicker extends React.Component {
     return (
       <div>
         <h1 className="area-title">Area Title</h1>
-        <p className="area-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis quaerat a eaque excepturi fuga consectetur aperiam neque corrupti molestiae aut totam et laborum nesciunt ipsam, repellendus consequatur. Provident, neque, debitis!</p>
           <Flickity
             className="providers"
             options = { flickityOptions }
