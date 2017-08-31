@@ -37,6 +37,7 @@ class App extends React.Component {
 
 		this.loadSamples = this.loadSamples.bind(this);
 		this.selectProvider = this.selectProvider.bind(this);
+		this.setModal = this.setModal.bind(this);
 
 	}
 
@@ -100,23 +101,29 @@ class App extends React.Component {
     });
   }
 
+  setModal(mstate) {
+  	this.setState({
+    	isModal: mstate
+    });
+  }
+
 	render() {
 		const { isAuthenticated } = this.props.auth;
 		let wrapClassName = 'resurgent-app';
-		this.state.isModal = false;
+		// this.state.isModal = false;
 
 		if(this.props.location.pathname == '/book-session' || this.props.location.pathname == '/book-confirm'){
 			wrapClassName += ' flow-book-session';
-			this.state.isModal = true;
+			// this.state.isModal = true;
 		}
 
 		if(this.props.location.pathname == '/rating' || this.props.location.pathname == '/write-review'){
 			wrapClassName += ' flow-rating';
-			this.state.isModal = true;
+			// this.state.isModal = true;
 		}
 
 		if(this.props.location.pathname == '/edit-account'){
-			this.state.isModal = true;
+			// this.state.isModal = true;
 		}
 
 		if(this.state.isModal){
@@ -137,7 +144,14 @@ class App extends React.Component {
 				<Route exact path="/home" render={(props) => <SubHeader users={this.state.users} />} />
 				<Route path="/providers/:slug" render={(props) => <SubHeader users={this.state.users} />} />
 				<Route exact path="/home" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
-				<Route path="/providers/:slug" render={(props) => <ProviderPicker selectProvider={this.selectProvider} providers={this.state.providers} {...props} />} />
+				<Route path="/providers/:slug" render={(props) => 
+					<ProviderPicker 
+						setModal={this.setModal} 
+						selectProvider={this.selectProvider} 
+						providers={this.state.providers} 
+						{...props} 
+					/>} 
+				/>
 
 				<Route path="/book-session" render={(props) => <BookSession users={this.state.users} selectedProvider={this.state.selectedProvider} providers={this.state.providers} {...props} />} />
 				<Route path="/book-confirm" render={(props) => <BookConfirm users={this.state.users} selectedProvider={this.state.selectedProvider} providers={this.state.providers} {...props} />} />

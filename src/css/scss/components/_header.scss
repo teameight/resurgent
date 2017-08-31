@@ -1,5 +1,5 @@
 
-.header-main {
+.header-main, .header-modal {
     width:100%;
     top: 0;
     height:$headheight;
@@ -13,17 +13,13 @@
     box-sizing: border-box;
     border-bottom:1px solid $gray-lt;
 
-    .modal & {
-        background: $gray-lt2;
-    }
-
     .logo {
         width: 66.67%;
         img {
             width: 100%;
             height:auto;
             display: block;
-            max-width:265px; 
+            max-width:185px; 
         }
     }
 
@@ -50,6 +46,10 @@
     .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
         background: transparent;
     }
+}
+
+.header-modal {
+    background: $gray-lt2;
 }
 
 .main-menu {

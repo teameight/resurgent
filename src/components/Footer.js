@@ -14,7 +14,7 @@ class Footer extends React.Component {
 	      <div className="wrap">
 		      <a className="terms" href="/terms">Terms</a>
 		      <div className="logo">
-		          <a href="https://www.districtlegalstaffing.com/"><img src="img/dls-logo.png" alt="DLS - District Legal Staffing" /></a> 
+		          <a href="https://www.districtlegalstaffing.com/"><img src="../img/dls-logo.png" alt="DLS - District Legal Staffing" /></a> 
 		      </div>
 	      </div>
 		}
@@ -22,7 +22,7 @@ class Footer extends React.Component {
 			footerContent = 
 				<div className="wrap">
 					<div className="logo">
-	          <a href="https://www.districtlegalstaffing.com/"><img src="img/dls-logo.png" alt="DLS - District Legal Staffing" /></a> 
+	          <a href="https://www.districtlegalstaffing.com/"><img src="../img/dls-logo.png" alt="DLS - District Legal Staffing" /></a> 
 	      	</div>
 	      </div>
 		}

@@ -1,4 +1,58 @@
-.modal {
+.ReactModalPortal {
+  width:100%;
+  top:0;
+  left:0;
+  z-index: 11;
+  position:fixed;
+
+  .ReactModal__Overlay {
+
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+
+    transition: opacity 500ms ease-in-out;
+    opacity: 0;
+
+    &--after-open {
+      opacity: 1;
+    }
+
+    &--before-close {
+      opacity: 0;
+    }
+  }
+
+  .ReactModal__Content {
+    transition: all 500ms ease-in-out;
+    transform: translateY(-100vh);
+    opacity: 0;
+    height:100vh;
+    background: $gray-lt2;
+    position:absolute;
+    width: 100%;
+    left:0;
+    top:0;
+
+    &--after-open {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &--before-close {
+      opacity: 0;
+      transform: translateY(-100vh);
+    }
+  }
+}
+
+.modal, .ReactModal__Content {
+
+  .main {
+    position: relative;
+    top:$headheight;
+  }
 
   .tcon-remove {
     float: right;

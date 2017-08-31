@@ -30,6 +30,7 @@
     "react-flickity-component-updated": "0.0.5",
     "react-router-dom": "^4.1.2",
     "react-slick": "^0.15.0",
+    "react-transition-group": "^2.2.0",
     "slick-carousel": "^1.7.1"
   },
   "scripts": {

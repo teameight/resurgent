@@ -8,10 +8,10 @@ body {
   font-size: 16px; }
 
 .resurgent-app {
-  padding-top: 80px;
+  padding-top: 60px;
   box-sizing: border-box;
   min-height: 100vh;
-  padding-bottom: 80px; }
+  padding-bottom: 60px; }
 
 .main:not(.section-areas) {
   padding: 0 15px; }
@@ -202,10 +202,10 @@ http://flickity.metafizzy.co
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
+  height: 32px;
   transition: 0.3s;
   user-select: none;
-  width: 40px;
+  width: 32px;
   background: transparent;
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -219,28 +219,28 @@ http://flickity.metafizzy.co
 
 .tcon-menu__lines {
   display: inline-block;
-  height: 5.71429px;
-  width: 40px;
-  border-radius: 2.85714px;
+  height: 4.57143px;
+  width: 32px;
+  border-radius: 2.28571px;
   transition: 0.3s;
   background: black;
   position: relative; }
   .tcon-menu__lines::before, .tcon-menu__lines::after {
     display: inline-block;
-    height: 5.71429px;
-    width: 40px;
-    border-radius: 2.85714px;
+    height: 4.57143px;
+    width: 32px;
+    border-radius: 2.28571px;
     transition: 0.3s;
     background: black;
     content: '';
     position: absolute;
     left: 0;
-    transform-origin: 2.85714px center;
+    transform-origin: 2.28571px center;
     width: 100%; }
   .tcon-menu__lines::before {
-    top: 10px; }
+    top: 8px; }
   .tcon-menu__lines::after {
-    top: -10px; }
+    top: -8px; }
   .tcon-transform .tcon-menu__lines {
     transform: scale3d(0.8, 0.8, 0.8); }
 
@@ -251,7 +251,7 @@ http://flickity.metafizzy.co
     .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before, .tcon-menu--xcross.tcon-transform .tcon-menu__lines::after {
       transform-origin: 50% 50%;
       top: 0;
-      width: 40px; }
+      width: 32px; }
     .tcon-menu--xcross.tcon-transform .tcon-menu__lines::before {
       transform: rotate3d(0, 0, 1, 45deg); }
     .tcon-menu--xcross.tcon-transform .tcon-menu__lines::after {
@@ -378,10 +378,10 @@ http://flickity.metafizzy.co
   top: 0;
   pointer-events: none; }
 
-.header-main {
+.header-main, .header-modal {
   width: 100%;
   top: 0;
-  height: 80px;
+  height: 60px;
   position: fixed;
   z-index: 10;
   display: flex;
@@ -391,27 +391,28 @@ http://flickity.metafizzy.co
   padding: 0 15px;
   box-sizing: border-box;
   border-bottom: 1px solid #dddddd; }
-  .modal .header-main {
-    background: #eeeeee; }
-  .header-main .logo {
+  .header-main .logo, .header-modal .logo {
     width: 66.67%; }
-    .header-main .logo img {
+    .header-main .logo img, .header-modal .logo img {
       width: 100%;
       height: auto;
       display: block;
-      max-width: 265px; }
-  .header-main .tcon-menu__lines {
+      max-width: 185px; }
+  .header-main .tcon-menu__lines, .header-modal .tcon-menu__lines {
     background: #df4678;
     border-radius: 0; }
-    .header-main .tcon-menu__lines::before, .header-main .tcon-menu__lines::after {
+    .header-main .tcon-menu__lines::before, .header-main .tcon-menu__lines::after, .header-modal .tcon-menu__lines::before, .header-modal .tcon-menu__lines::after {
       background: #df4678;
       border-radius: 0; }
-    .header-main .tcon-menu__lines:hover {
+    .header-main .tcon-menu__lines:hover, .header-modal .tcon-menu__lines:hover {
       background: #da2c1d; }
-      .header-main .tcon-menu__lines:hover::before, .header-main .tcon-menu__lines:hover::after {
+      .header-main .tcon-menu__lines:hover::before, .header-main .tcon-menu__lines:hover::after, .header-modal .tcon-menu__lines:hover::before, .header-modal .tcon-menu__lines:hover::after {
         background: #da2c1d; }
-  .header-main .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
+  .header-main .tcon-menu--xcross.tcon-transform .tcon-menu__lines, .header-modal .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
     background: transparent; }
+
+.header-modal {
+  background: #eeeeee; }
 
 .main-menu {
   width: 100%;
@@ -427,7 +428,7 @@ http://flickity.metafizzy.co
   font-size: 18px;
   line-height: 19px;
   position: fixed;
-  top: 80px;
+  top: 60px;
   left: 0;
   z-index: 10;
   max-height: 0;
@@ -440,7 +441,7 @@ http://flickity.metafizzy.co
   -moz-box-shadow: 0px 12px 12px 0px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 12px 12px 0px rgba(0, 0, 0, 0.5); }
   .main-menu.open {
-    max-height: calc(100vh - 80px); }
+    max-height: calc(100vh - 60px); }
   .main-menu ul {
     width: 100%;
     list-style: none;
@@ -487,9 +488,9 @@ http://flickity.metafizzy.co
 footer {
   width: 100%;
   bottom: 0;
-  height: 50px;
+  height: 36px;
   position: fixed;
-  z-index: 10;
+  z-index: 8;
   background: white;
   padding: 0 15px;
   box-sizing: border-box;
@@ -501,14 +502,14 @@ footer {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 50px; }
+    height: 36px; }
   footer .logo {
     width: 41.666%; }
     footer .logo img {
       width: 100%;
       height: auto;
       display: block;
-      max-width: 170px;
+      max-width: 120px;
       float: right; }
   footer .terms {
     color: #df4678;
@@ -517,34 +518,72 @@ footer {
     footer .terms:hover {
       color: #3a77b2; }
 
-.modal .tcon-remove {
+.ReactModalPortal {
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  position: fixed; }
+  .ReactModalPortal .ReactModal__Overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    transition: opacity 500ms ease-in-out;
+    opacity: 0; }
+    .ReactModalPortal .ReactModal__Overlay--after-open {
+      opacity: 1; }
+    .ReactModalPortal .ReactModal__Overlay--before-close {
+      opacity: 0; }
+  .ReactModalPortal .ReactModal__Content {
+    transition: all 500ms ease-in-out;
+    transform: translateY(-100vh);
+    opacity: 0;
+    height: 100vh;
+    background: #eeeeee;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0; }
+    .ReactModalPortal .ReactModal__Content--after-open {
+      opacity: 1;
+      transform: translateY(0); }
+    .ReactModalPortal .ReactModal__Content--before-close {
+      opacity: 0;
+      transform: translateY(-100vh); }
+
+.modal .main, .ReactModal__Content .main {
+  position: relative;
+  top: 60px; }
+
+.modal .tcon-remove, .ReactModal__Content .tcon-remove {
   float: right;
   margin-top: 8px;
   cursor: pointer; }
 
-.modal .main header {
+.modal .main header, .ReactModal__Content .main header {
   margin: 32px 0; }
 
-.modal h1.page-title {
+.modal h1.page-title, .ReactModal__Content h1.page-title {
   color: white;
   text-align: center;
   max-width: 600px; }
 
-.modal .form-intro {
+.modal .form-intro, .ReactModal__Content .form-intro {
   margin-bottom: 16px; }
-  .modal .form-intro p {
+  .modal .form-intro p, .ReactModal__Content .form-intro p {
     margin: 0;
     font-style: italic;
     font-size: 14px;
     color: white;
     padding: 0 12px 2px; }
 
-.modal form {
+.modal form, .ReactModal__Content form {
   width: 100%;
   text-align: center;
   font-family: Lato, Helvetica, Arial, sans-serif;
   font-weight: 400; }
-  .modal form input:not(.btn), .modal form textarea {
+  .modal form input:not(.btn), .modal form textarea, .ReactModal__Content form input:not(.btn), .ReactModal__Content form textarea {
     width: 100%;
     margin-bottom: 8px;
     box-sizing: border-box;
@@ -552,7 +591,7 @@ footer {
     font-weight: 400;
     padding: 4px 12px;
     font-size: 14px; }
-    .modal form input:not(.btn)::placeholder, .modal form textarea::placeholder {
+    .modal form input:not(.btn)::placeholder, .modal form textarea::placeholder, .ReactModal__Content form input:not(.btn)::placeholder, .ReactModal__Content form textarea::placeholder {
       font-style: italic; }
 
 .section-areas {
@@ -651,7 +690,7 @@ h2.section-label {
   padding: 0 15px; }
 
 .providers {
-  margin-bottom: 62px; }
+  margin-bottom: 48px; }
   .providers .flickity-prev-next-button {
     top: 180px;
     width: 54px;
@@ -794,11 +833,11 @@ h2.section-label {
     .provider .rating .stars-static span {
       color: #df4678; }
 
-.flow-book-session {
+.ReactModalPortal .flow-book-session {
   background: #7d5297; }
-  .flow-book-session .form-intro .messaging strong {
+  .ReactModalPortal .flow-book-session .form-intro .messaging strong {
     color: #a3ceb7; }
-  .flow-book-session form .btn {
+  .ReactModalPortal .flow-book-session form .btn {
     margin-top: 32px; }
 
 .book-confirm {

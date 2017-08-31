@@ -13,7 +13,7 @@ class Provider extends React.Component {
 	bookSession(e, keyId, path) {
 		e.preventDefault();
   	this.props.passProvider(keyId);
-  	this.props.history.push(path);
+  	// this.props.history.push(path);
 	}
 
 	render() {
