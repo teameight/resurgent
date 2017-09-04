@@ -29,7 +29,11 @@ class Header extends React.Component {
   processLink(e, path) {
   	e.preventDefault();
   	this.closeMenu();
-  	this.props.history.push(path);
+  	if(path == 'logout'){
+  		this.props.auth.logout();
+  	}else{
+	  	this.props.history.push(path);
+  	}
   };
 
 	render() {
@@ -44,7 +48,7 @@ class Header extends React.Component {
 		return (
 			<header className={ headerClass }>
         <div className="logo">
-          <a href="#" onClick={	(e) => this.processLink(e, '/home') }><img src="../img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
+          <a href="#" onClick={	(e) => this.processLink(e, '/home') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
         </div>
         { isAuthenticated && (
         	<div className="menu-icon" >
@@ -61,7 +65,7 @@ class Header extends React.Component {
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/my-account')}>My Account</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/about')}>About</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/help')}>Help</button></li>
-                <li><button type="button" onClick={	(e) => this.processLink(e, '/')}>Sign Out</button></li>
+                <li><button type="button" onClick={	(e) => this.processLink(e, 'logout')}>Sign Out</button></li>
 
             </ul>
         	</nav>

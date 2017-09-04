@@ -735,7 +735,44 @@ h2.section-label {
   text-align: center;
   border-radius: 8px;
   padding: 16px 30px 24px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  -moz-transition: transform 0.75s ease;
+  -o-transition: transform 0.75s ease;
+  -webkit-transition: transform 0.75s ease;
+  transition: transform 0.75s ease; }
+  .provider.flipped {
+    transform: rotateY(180deg); }
+    .provider.flipped .front {
+      /*-webkit-backface-visibility: hidden; */
+      /*backface-visibility: hidden; */ }
+  .provider > div {
+    /*background: $gray-mid;*/
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+  .provider .front .bio, .provider .front .video-link, .provider .front .token-cost span, .provider .front .bio-handle {
+    transform: translate3d(0, 0, 0);
+    /* fixes chrome bug for dissapearing positioned/backface elements during flickety animation */ }
+  .provider .back {
+    background: #bebebe;
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 8px;
+    /* -webkit-backface-visibility: hidden; 
+        backface-visibility: hidden; */ }
+    .provider .back .back-inner {
+      overflow-y: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      padding: 16px 30px 24px;
+      box-sizing: border-box; }
   .provider a {
     text-decoration: none; }
   .provider .token-cost {
@@ -800,14 +837,15 @@ h2.section-label {
       position: absolute;
       top: 25%;
       left: 15%; }
-  .provider > h1 {
+  .provider h1 {
     color: #df4678;
     font-style: italic;
     font-size: 18px;
     line-height: 20px;
     margin: 0 0 4px; }
+  .provider .front .bio {
+    max-height: 80px; }
   .provider .bio {
-    max-height: 80px;
     overflow: hidden;
     position: relative;
     text-align: left; }

@@ -15,7 +15,10 @@ class ProviderPicker extends React.Component {
     this.state = {
       showModal: false,
       showRating: false,
+      card: false,
       zone : 1,
+      category: null,
+      area: null,
       provider: null
     };
 
@@ -26,12 +29,21 @@ class ProviderPicker extends React.Component {
     this.goToZone = this.goToZone.bind(this);
 
     this.passProvider= this.passProvider.bind(this);
+    this.flipCard= this.flipCard.bind(this);
   }
 
   passProvider(keyId, mname) {
     this.props.selectProvider(keyId);
     this.handleOpenModal(mname);
     this.setState({ provider: keyId });
+  }
+
+  flipCard(keyId) {
+    if(keyId === this.state.card){
+      this.setState({ card: false });
+    }else{
+      this.setState({ card: keyId });
+    }
   }
 
   handleOpenModal(mname) {
@@ -92,20 +104,53 @@ class ProviderPicker extends React.Component {
   render() {
     // Get the slug
     const slug = this.props.match.params.slug;
+    const catId = this.props.match.params.cat;
+    let category = {};
+    let areasArr = {};
+    let areaArr = {};
+    let providersArr = {};
+    let pId = this.state.provider;
+    // let area = {};
+    // console.log(slug);
+
+    if(catId){
+      category = this.props.categories;
+
+      Object.keys(category).map(function(key) {
+        // console.log(keyName);
+        if(key === catId){
+          const {areas} = category[key];
+          areasArr = areas;
+        }
+      });
+
+      Object.keys(areasArr).map(function(key){
+        // console.log(areasArr[key].slug + ' | ' + slug);
+        if(areasArr[key].slug === slug){
+          areaArr = areasArr[key];
+          var {providers} = areaArr;
+          providersArr = providers;
+        }
+      });
+
+      // console.log(providersArr);
+    }
+
 
     const user = this.props.users;
-    let pId = this.state.provider;
-    const provider = this.props.providers[pId];
+
+    // const provider = this.props.providers[pId];
     let pName = '';
     let pTokens = '';
     let pCat = '';
     let pArea = '';
 
     if(pId){
-      pName = this.props.providers[pId].name;
-      pTokens = this.props.providers[pId].tokens;
-      pCat = this.props.providers[pId].sectionName;
-      pArea = this.props.providers[pId].areaName;
+      var provider = providersArr[pId];
+      pName = provider.name;
+      pTokens = provider.tokens;
+      pCat = provider.sectionName;
+      pArea = provider.areaName;
       // pName = this.props.providers[pId].category;
       // pTokens = this.props.providers[pId].areaname;
       // !!! need to store these in the provider object for easy access
@@ -131,7 +176,7 @@ class ProviderPicker extends React.Component {
           >
             <header className="header-modal">
               <div className="logo">
-                <a href="#" onClick={ (e) => this.processLink(e, '/home') }><img src="../img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
+                <a href="#" onClick={ (e) => this.processLink(e, '/home') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
               </div>
               <div className="menu-icon" >
                 <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
@@ -187,7 +232,7 @@ class ProviderPicker extends React.Component {
           >
             <header className="header-modal">
               <div className="logo">
-                <a href="#" onClick={ (e) => this.processLink(e, '/home') }><img src="../img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
+                <a href="#" onClick={ (e) => this.processLink(e, '/home') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
               </div>
               <div className="menu-icon" >
                 <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
@@ -262,15 +307,15 @@ class ProviderPicker extends React.Component {
             </div>
           </ReactModal>
 
-          <h1 className="area-title">Area Title</h1>
+          <h1 className="area-title">{areaArr.name}</h1>
           <Flickity
             className="providers"
             options = { flickityOptions }
           >
           {
             Object
-              .keys(this.props.providers)
-              .map(key => this.props.providers[key].area == slug && <Provider handleCloseModal = {this.handleCloseModal} passProvider={this.passProvider} keyId={key} details={this.props.providers[key]} />)
+              .keys(providersArr)
+              .map(key => <Provider flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} details={providersArr[key]} card={this.state.card} />)
           }
           </Flickity>
       </div>

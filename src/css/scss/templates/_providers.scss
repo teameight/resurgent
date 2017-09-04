@@ -48,6 +48,62 @@
     border-radius: $vru*2;
     padding:$vru*4 30px $vru*6;
     box-sizing: border-box;
+    transform-style: preserve-3d;
+    @include transition(transform .75s ease);
+
+    &.flipped {
+
+        transform: rotateY(180deg);
+
+        .front {
+            /*-webkit-backface-visibility: hidden; */
+            /*backface-visibility: hidden; */
+        }
+
+        .back {
+
+        }
+    }
+
+    > div {
+        /*background: $gray-mid;*/
+        -webkit-backface-visibility: hidden; 
+        backface-visibility: hidden; 
+    }
+
+    .front {
+        .bio, .video-link, .token-cost span, .bio-handle {
+
+            transform: translate3d(0,0,0); 
+            /* fixes chrome bug for dissapearing positioned/backface elements during flickety animation */
+        }
+    }
+
+    .back {
+        background: $gray-mid;
+        transform: rotateY(180deg);
+        position:absolute;
+        top:0;
+        left: 0;
+        bottom:0;
+        right:0;
+        border-radius: $vru*2;
+
+       /* -webkit-backface-visibility: hidden; 
+        backface-visibility: hidden; */
+
+        .back-inner {
+            overflow-y: auto;
+            position:absolute;
+            top:0;
+            left: 0;
+            bottom:0;
+            right:0;
+            padding: $vru*4 30px $vru*6;
+            box-sizing: border-box;
+        }
+
+    }
 
     a {
         text-decoration:none;
@@ -123,15 +179,20 @@
 
     }
 
-    > h1 {
+    h1 {
         color: $magenta;
         font-style: italic;
         font-size: 18px;
         line-height: 20px;
         margin:0 0 $vru*1; 
     }
-    .bio {
+
+    .front .bio {
         max-height:80px;
+    }
+
+    .bio {
+
         overflow: hidden;
         position: relative;
         text-align:left;
