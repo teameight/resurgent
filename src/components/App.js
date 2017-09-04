@@ -19,11 +19,6 @@ class App extends React.Component {
 
 		// get initial state
 		this.state = {
-			providers: {},
-			areas1: {},
-			areas2: {},
-			areas3: {},
-			areas4: {},
 			users: {},
 			categories: {},
 			selectedProvider: null,
@@ -58,31 +53,6 @@ class App extends React.Component {
 		this.ref = base.syncState(`categories`, {
 			context: this,
 			state: 'categories'
-		});
-
-		this.ref = base.syncState(`providers`, {
-			context: this,
-			state: 'providers'
-		});
-
-		this.ref = base.syncState(`areas1`, {
-			context: this,
-			state: 'areas1'
-		});
-
-		this.ref = base.syncState(`areas2`, {
-			context: this,
-			state: 'areas2'
-		});
-
-		this.ref = base.syncState(`areas3`, {
-			context: this,
-			state: 'areas3'
-		});
-
-		this.ref = base.syncState(`areas4`, {
-			context: this,
-			state: 'areas4'
 		});
 
 		this.ref = base.syncState(`users`, {
@@ -139,11 +109,7 @@ class App extends React.Component {
 								<Route path="/area" render={(props) => <SubHeader users={this.state.users} />} />
 								<Route exact path="/home" render={(props) => 
 									<AreaPicker 
-										categories={this.state.categories}  
-										areas1={this.state.areas1} 
-										areas2={this.state.areas2} 
-										areas3={this.state.areas3} 
-										areas4={this.state.areas4} 
+										categories={this.state.categories} 
 										{...props} 
 									/>} 
 								/>
@@ -153,7 +119,6 @@ class App extends React.Component {
 										setModal={this.setModal} 
 										selectProvider={this.selectProvider} 
 										categories={this.state.categories} 
-										providers={this.state.providers} 
 										{...props} 
 									/>} 
 								/>
