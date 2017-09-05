@@ -22,12 +22,14 @@ class App extends React.Component {
 			users: {},
 			categories: {},
 			selectedProvider: null,
+			loggedOut : false,
 			isModal: false
 		}
 
 		this.selectProvider = this.selectProvider.bind(this);
 		this.setModal = this.setModal.bind(this);
 		this.logout = this.logout.bind(this);
+		this.setLogin = this.setLogin.bind(this);
 
 	}
 
@@ -44,9 +46,19 @@ class App extends React.Component {
 	login() {
 		this.props.auth.login();
 	}
+	setLogin() {
+		this.setState({
+    	loggedOut: false
+    });
+    console.log('logged in');
+	}
 
 	logout() {
 		this.props.auth.logout();
+		this.setState({
+    	loggedOut: true
+    });
+    console.log('logged out');
 	}
 
 	componentWillMount() {
@@ -73,6 +85,10 @@ class App extends React.Component {
 
 	render() {
 		const { isAuthenticated } = this.props.auth;
+		if(isAuthenticated() && this.state.loggedOut){
+			this.setLogin();
+		}
+
 		let wrapClassName = 'resurgent-app';
 		// this.state.isModal = false;
 
@@ -95,7 +111,7 @@ class App extends React.Component {
 
 				{
           !isAuthenticated() && (
-	          	<Login auth={this.props.auth} />
+	          	<Login loggedOut={this.state.loggedOut} auth={this.props.auth} />
             )
         }
         {
@@ -119,7 +135,7 @@ class App extends React.Component {
 										{...props} 
 									/>} 
 								/>
-								<Route path="/my-account" render={(props) => <MyAccount users={this.state.users} />} />
+								<Route path="/my-account" auth={this.props.auth} render={(props) => <MyAccount users={this.state.users} />} />
               </div>
             )
         }

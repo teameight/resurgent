@@ -30,7 +30,7 @@ class Header extends React.Component {
   	e.preventDefault();
   	this.closeMenu();
   	if(path == 'logout'){
-  		this.props.auth.logout();
+  		this.props.logOut();
   	}else{
 	  	this.props.history.push(path);
   	}

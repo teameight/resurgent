@@ -17,6 +17,17 @@ class MyAccount extends React.Component {
       
   }
 
+  // componentWillMount() {
+  //   this.setState({ profile: {} });
+  //   const { userProfile, getProfile } = this.props.auth;
+  //   if (!userProfile) {
+  //     getProfile((err, profile) => {
+  //       this.setState({ profile });
+  //     });
+  //   } else {
+  //     this.setState({ profile: userProfile });
+  //   }
+  // }
 
   handleOpenModal() {
       this.setState({ 
@@ -44,6 +55,7 @@ class MyAccount extends React.Component {
   
   render() {
     const user = this.props.users;
+    // const { profile } = this.state;
 
     let zoneClass = 'modal-zones ';
     zoneClass += 'm-zone-' + this.state.zone;
