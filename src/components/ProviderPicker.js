@@ -107,8 +107,6 @@ class ProviderPicker extends React.Component {
     const catId = this.props.match.params.cat;
     let category = {};
     let area = {};
-    let areaArr = {};
-    let providersArr = {};
     let pId = this.state.provider;
     // let area = {};
     // console.log(slug);
@@ -116,14 +114,9 @@ class ProviderPicker extends React.Component {
     if(catId){
       category = this.props.categories[catId];
       const {areas} = category;
-
-      Object.keys(areas).map(function(key){
-        if(areas[key].slug === slug){
-          area = areas[key];
-          var {providers} = area;
-          providersArr = providers;
-        }
-      });
+      let areaId = Object.keys(areas).filter((key) => areas[key].slug === slug);
+      area = areas[areaId];
+      var {providers} = area;
     }
 
     const user = this.props.users;
@@ -134,7 +127,7 @@ class ProviderPicker extends React.Component {
     let pArea = '';
 
     if(pId){
-      var provider = providersArr[pId];
+      var provider = providers[pId];
       pName = provider.name;
       pTokens = provider.tokens;
       pCat = provider.sectionName;
@@ -292,15 +285,15 @@ class ProviderPicker extends React.Component {
             </div>
           </ReactModal>
 
-          <h1 className="area-title">{areaArr.name}</h1>
+          <h1 className="area-title">{area.name}</h1>
           <Flickity
             className="providers"
             options={ flickityOptions }
           >
           {
             Object
-              .keys(providersArr)
-              .map(key => <Provider flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} details={providersArr[key]} card={this.state.card} />)
+              .keys(providers)
+              .map(key => <Provider flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} details={providers[key]} card={this.state.card} />)
           }
           </Flickity>
       </div>
