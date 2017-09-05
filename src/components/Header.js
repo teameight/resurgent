@@ -41,7 +41,7 @@ class Header extends React.Component {
 
 		let headerClass = 'header-main';
 
-		if (!isAuthenticated){
+		if (!isAuthenticated()){
 			headerClass += ' logged-out';
 		}
 
@@ -50,7 +50,7 @@ class Header extends React.Component {
         <div className="logo">
           <a href="#" onClick={	(e) => this.processLink(e, '/home') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
         </div>
-        { isAuthenticated && (
+        { isAuthenticated() && (
         	<div className="menu-icon" >
 		        <button type="button" className={this.state.menuOpen ? 'tcon tcon-menu--xcross tcon-transform': 'tcon tcon-menu--xcross'} aria-label="toggle menu" onClick={this.toggleMenu} >
 			        <span className="tcon-menu__lines" aria-hidden="true"></span>
@@ -58,7 +58,7 @@ class Header extends React.Component {
 		      	</button>
 	        </div>
 				)}
-	      { isAuthenticated && (
+	      { isAuthenticated() && (
 					<nav className={this.state.menuOpen ? 'main-menu open': 'main-menu'}>
             <ul>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/home') }>Home</button></li>

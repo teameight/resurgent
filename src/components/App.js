@@ -86,7 +86,7 @@ class App extends React.Component {
 		}
 
 		if(!isAuthenticated()){
-			wrapClassName += ' flow-account';
+			wrapClassName += ' flow-login';
 		}
 
 		return (
@@ -95,10 +95,7 @@ class App extends React.Component {
 
 				{
           !isAuthenticated() && (
-	          	<div>
-	          		<button type="button" onClick={this.login.bind(this)}>Log In</button>
-								<Start />
-          		</div>
+	          	<Login auth={this.props.auth} />
             )
         }
         {

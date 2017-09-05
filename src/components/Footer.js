@@ -4,12 +4,12 @@ import { withRouter } from 'react-router-dom';
 class Footer extends React.Component {
 
 	render() {
-		const isAuthenticated = this.props.auth;
+		const {isAuthenticated} = this.props.auth;
 		// let isAuthenticated = false;
 
 		let footerContent = '';
 
-		if(isAuthenticated) {
+		if(isAuthenticated()) {
       footerContent = 
 	      <div className="wrap">
 		      <a className="terms" href="/terms">Terms</a>
@@ -18,7 +18,7 @@ class Footer extends React.Component {
 		      </div>
 	      </div>
 		}
-		if(!isAuthenticated) {
+		if(!isAuthenticated()) {
 			footerContent = 
 				<div className="wrap">
 					<div className="logo">
