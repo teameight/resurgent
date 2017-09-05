@@ -9,13 +9,7 @@ import Auth from '../Auth/Auth';
 import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
-import sampleProviders from '../sample-providers.js';
-import BookSession from './BookSession';
-import BookConfirm from './BookConfirm';
-import Rating from './Rating';
-import WriteReview from './WriteReview';
 import MyAccount from './MyAccount';
-import EditAccount from './EditAccount';
 import Footer from './Footer';
 
 
@@ -25,21 +19,25 @@ class App extends React.Component {
 
 		// get initial state
 		this.state = {
-			providers: {},
-			areas1: {},
-			areas2: {},
-			areas3: {},
-			areas4: {},
 			users: {},
+			categories: {},
 			selectedProvider: null,
+			loggedOut : false,
 			isModal: false
 		}
 
-		this.loadSamples = this.loadSamples.bind(this);
 		this.selectProvider = this.selectProvider.bind(this);
 		this.setModal = this.setModal.bind(this);
+		this.logout = this.logout.bind(this);
+		this.setLogin = this.setLogin.bind(this);
 
 	}
+
+	selectProvider(keyId) {
+    this.setState({
+    	selectedProvider: keyId
+    });
+  }
 
   goTo(route) {
     this.props.history.replace(`/${route}`)
@@ -48,35 +46,25 @@ class App extends React.Component {
 	login() {
 		this.props.auth.login();
 	}
+	setLogin() {
+		this.setState({
+    	loggedOut: false
+    });
+    console.log('logged in');
+	}
 
 	logout() {
 		this.props.auth.logout();
+		this.setState({
+    	loggedOut: true
+    });
+    console.log('logged out');
 	}
 
 	componentWillMount() {
-		this.ref = base.syncState(`providers`, {
+		this.ref = base.syncState(`categories`, {
 			context: this,
-			state: 'providers'
-		});
-
-		this.ref = base.syncState(`areas1`, {
-			context: this,
-			state: 'areas1'
-		});
-
-		this.ref = base.syncState(`areas2`, {
-			context: this,
-			state: 'areas2'
-		});
-
-		this.ref = base.syncState(`areas3`, {
-			context: this,
-			state: 'areas3'
-		});
-
-		this.ref = base.syncState(`areas4`, {
-			context: this,
-			state: 'areas4'
+			state: 'categories'
 		});
 
 		this.ref = base.syncState(`users`, {
@@ -89,18 +77,6 @@ class App extends React.Component {
 		base.removeBinding(this.ref);
 	}
 
-	loadSamples() {
-		this.setState({
-			providers: sampleProviders
-		});
-	}
-
-	selectProvider(keyId) {
-    this.setState({
-    	selectedProvider: keyId
-    });
-  }
-
   setModal(mstate) {
   	this.setState({
     	isModal: mstate
@@ -109,61 +85,60 @@ class App extends React.Component {
 
 	render() {
 		const { isAuthenticated } = this.props.auth;
+		if(isAuthenticated() && this.state.loggedOut){
+			this.setLogin();
+		}
+
 		let wrapClassName = 'resurgent-app';
 		// this.state.isModal = false;
 
-		if(this.props.location.pathname == '/book-session' || this.props.location.pathname == '/book-confirm'){
-			wrapClassName += ' flow-book-session';
-			// this.state.isModal = true;
-		}
-
-		if(this.props.location.pathname == '/rating' || this.props.location.pathname == '/write-review'){
-			wrapClassName += ' flow-rating';
-			// this.state.isModal = true;
-		}
-
-		if(this.props.location.pathname == '/edit-account'){
-			// this.state.isModal = true;
-		}
-
-		if(this.state.isModal){
-			wrapClassName += ' modal';
-		}
 
 		if(this.props.location.pathname == '/'){
 			wrapClassName += ' flow-login';
 		}
 
-		if(this.props.location.pathname == '/my-account' || this.props.location.pathname == '/edit-account'){
+		if(this.props.location.pathname == '/my-account'){
 			wrapClassName += ' flow-account';
+		}
+
+		if(!isAuthenticated()){
+			wrapClassName += ' flow-login';
 		}
 
 		return (
 			<div className={wrapClassName}>
 				<Header auth={this.props.auth} logOut={this.logout} isModal={this.state.isModal} />
-				<Route exact path="/home" render={(props) => <SubHeader users={this.state.users} />} />
-				<Route path="/providers/:slug" render={(props) => <SubHeader users={this.state.users} />} />
-				<Route exact path="/home" render={(props) => <AreaPicker loadSamples={this.loadSamples} areas1={this.state.areas1} areas2={this.state.areas2} areas3={this.state.areas3} areas4={this.state.areas4} {...props} />} />
-				<Route path="/providers/:slug" render={(props) => 
-					<ProviderPicker 
-						users={this.state.users}
-						setModal={this.setModal} 
-						selectProvider={this.selectProvider} 
-						providers={this.state.providers} 
-						{...props} 
-					/>} 
-				/>
 
-				<Route path="/book-session" render={(props) => <BookSession users={this.state.users} selectedProvider={this.state.selectedProvider} providers={this.state.providers} {...props} />} />
-				<Route path="/book-confirm" render={(props) => <BookConfirm users={this.state.users} selectedProvider={this.state.selectedProvider} providers={this.state.providers} {...props} />} />
-
-				<Route path="/rating" render={(props) => <Rating users={this.state.users} />} />
-				<Route path="/write-review" render={(props) => <WriteReview users={this.state.users} />} />
-
-				<Route path="/my-account" render={(props) => <MyAccount users={this.state.users} />} />
-				<Route path="/edit-account" render={(props) => <EditAccount users={this.state.users} />} />
-
-				<Route exact path="/" render={(props) => <Start />} />
+				{
+          !isAuthenticated() && (
+	          	<Login loggedOut={this.state.loggedOut} auth={this.props.auth} />
+            )
+        }
+        {
+          isAuthenticated() && (
+          		<div>
+              	<Route exact path="/" render={(props) => <Start />} />
+              	<Route exact path="/home" render={(props) => <SubHeader users={this.state.users} />} />
+								<Route path="/area" render={(props) => <SubHeader users={this.state.users} />} />
+								<Route exact path="/home" render={(props) => 
+									<AreaPicker 
+										categories={this.state.categories} 
+										{...props} 
+									/>} 
+								/>
+								<Route path="/area/:slug/:cat" render={(props) => 
+									<ProviderPicker 
+										users={this.state.users}
+										setModal={this.setModal} 
+										selectProvider={this.selectProvider} 
+										categories={this.state.categories} 
+										{...props} 
+									/>} 
+								/>
+								<Route path="/my-account" auth={this.props.auth} render={(props) => <MyAccount users={this.state.users} />} />
+              </div>
+            )
+        }
 
 				{ !this.state.isModal && (
 					<Footer auth={this.props.auth} />

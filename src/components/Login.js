@@ -1,13 +1,32 @@
 import React from 'react';
 
 class Login extends React.Component {
+
+	login() {
+		this.props.auth.login();
+	}
+
   render() {
+  	let pTitle = 'Welcome';
+  	let pMessage = '';
+
+  	if(this.props.loggedOut){
+  		pTitle = 'Success!';
+  		pMessage = 'You have been logged out';
+  	}
+
     return (
-      <form name="login-form" className="login-form">
-        <input type="text" placeholder="username" />
-        <input type="password" placeholder="password" />
-        <button type="submit">Log in</button>
-      </form>
+      <section className="main sign-in">
+          <header>
+              <h1 className="page-title">{pTitle}</h1>
+              <p className="subtitle">{pMessage}</p>
+          </header>
+          <button type="button" className="btn" onClick={this.login.bind(this)}>Log In</button>
+          <div className="prefooter">
+            <p>Need Help?</p>
+            <p><a href="#">contact the administrator</a></p>
+          </div>
+      </section>
     )
   }
 }

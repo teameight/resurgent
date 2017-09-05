@@ -5,7 +5,6 @@ class Callback extends Component {
     return (
       <div>
         Loading
-        { alert('callback') }
       </div>
     );
   }

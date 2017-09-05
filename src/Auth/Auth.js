@@ -3,12 +3,12 @@ import history from '../history';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
-    domain: 'team-eight.auth0.com',
-    clientID: '7BAfpkOWkjutM4v5inP1ZcTIj7T6UxOp',
+    domain: 'resurgent.auth0.com',
+    clientID: 'urWXualyjoesDRivHJkXkU7eg7ttg3c7',
     redirectUri: 'http://localhost:3000/callback',
-    audience: 'https://team-eight.auth0.com/userinfo',
+    audience: 'https://api.resurgent.com',
     responseType: 'token id_token',
-    scope: 'openid profile'
+    scope: 'openid profile read:user edit:user'
   });
 
   constructor() {

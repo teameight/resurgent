@@ -411,6 +411,9 @@ http://flickity.metafizzy.co
   .header-main .tcon-menu--xcross.tcon-transform .tcon-menu__lines, .header-modal .tcon-menu--xcross.tcon-transform .tcon-menu__lines {
     background: transparent; }
 
+.flow-login .header-main {
+  justify-content: space-around; }
+
 .header-modal {
   background: #eeeeee; }
 
@@ -503,6 +506,8 @@ footer {
     align-items: center;
     width: 100%;
     height: 36px; }
+    .flow-login footer .wrap {
+      justify-content: space-around; }
   footer .logo {
     width: 41.666%; }
     footer .logo img {
@@ -697,8 +702,8 @@ h2.section-label {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 16px;
   margin: 12px auto 4px;
   text-align: center;
   max-width: 600px;
@@ -735,7 +740,44 @@ h2.section-label {
   text-align: center;
   border-radius: 8px;
   padding: 16px 30px 24px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  -moz-transition: transform 0.75s ease;
+  -o-transition: transform 0.75s ease;
+  -webkit-transition: transform 0.75s ease;
+  transition: transform 0.75s ease; }
+  .provider.flipped {
+    transform: rotateY(180deg); }
+    .provider.flipped .front {
+      /*-webkit-backface-visibility: hidden; */
+      /*backface-visibility: hidden; */ }
+  .provider > div {
+    /*background: $gray-mid;*/
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+  .provider .front .bio, .provider .front .video-link, .provider .front .token-cost span, .provider .front .bio-handle {
+    transform: translate3d(0, 0, 0);
+    /* fixes chrome bug for dissapearing positioned/backface elements during flickety animation */ }
+  .provider .back {
+    background: #bebebe;
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 8px;
+    /* -webkit-backface-visibility: hidden; 
+        backface-visibility: hidden; */ }
+    .provider .back .back-inner {
+      overflow-y: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      padding: 16px 30px 24px;
+      box-sizing: border-box; }
   .provider a {
     text-decoration: none; }
   .provider .token-cost {
@@ -756,8 +798,8 @@ h2.section-label {
       -moz-osx-font-smoothing: grayscale;
       font-size: 9px; }
   .provider .profile-img {
-    width: 132px;
-    height: 132px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 8px;
@@ -769,7 +811,7 @@ h2.section-label {
       height: auto; }
   .provider .video-link {
     position: absolute;
-    top: 102px;
+    top: 90px;
     right: calc( 50% - 72px);
     height: 40px;
     width: 40px;
@@ -800,14 +842,15 @@ h2.section-label {
       position: absolute;
       top: 25%;
       left: 15%; }
-  .provider > h1 {
+  .provider h1 {
     color: #df4678;
     font-style: italic;
     font-size: 18px;
     line-height: 20px;
     margin: 0 0 4px; }
+  .provider .front .bio {
+    max-height: 60px; }
   .provider .bio {
-    max-height: 80px;
     overflow: hidden;
     position: relative;
     text-align: left; }
@@ -1017,16 +1060,16 @@ h2.section-label {
     text-align: center;
     margin-top: 13vh; }
 
-.sign-in header {
-  margin-top: 15vh !important; }
-
-.sign-in h1.page-title {
-  margin-bottom: 4px; }
-
-.sign-in form {
-  max-width: 280px;
-  margin-left: auto;
-  margin-right: auto; }
+.sign-in {
+  text-align: center; }
+  .sign-in header {
+    margin-top: 15vh !important; }
+  .sign-in h1.page-title {
+    margin-bottom: 4px; }
+  .sign-in form {
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto; }
 
 .ReactModalPortal .flow-account, .flow-account {
   background: #a3ceb7; }

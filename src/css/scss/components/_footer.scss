@@ -18,6 +18,11 @@ footer {
         align-items: center;
         width:100%;
         height:$footheight;
+
+        .flow-login & {
+            justify-content: space-around;
+        }
+
     }
 
     .logo {
