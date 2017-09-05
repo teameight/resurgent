@@ -47,7 +47,7 @@ class ProviderPicker extends React.Component {
   }
 
   handleOpenModal(mname) {
-    if(mname == 'book'){
+    if(mname === 'book'){
       this.setState({ 
         showModal: true,
         showRating: false
@@ -106,7 +106,7 @@ class ProviderPicker extends React.Component {
     const slug = this.props.match.params.slug;
     const catId = this.props.match.params.cat;
     let category = {};
-    let areasArr = {};
+    let area = {};
     let areaArr = {};
     let providersArr = {};
     let pId = this.state.provider;
@@ -114,32 +114,20 @@ class ProviderPicker extends React.Component {
     // console.log(slug);
 
     if(catId){
-      category = this.props.categories;
+      category = this.props.categories[catId];
+      const {areas} = category;
 
-      Object.keys(category).map(function(key) {
-        // console.log(keyName);
-        if(key === catId){
-          const {areas} = category[key];
-          areasArr = areas;
-        }
-      });
-
-      Object.keys(areasArr).map(function(key){
-        // console.log(areasArr[key].slug + ' | ' + slug);
-        if(areasArr[key].slug === slug){
-          areaArr = areasArr[key];
-          var {providers} = areaArr;
+      Object.keys(areas).map(function(key){
+        if(areas[key].slug === slug){
+          area = areas[key];
+          var {providers} = area;
           providersArr = providers;
         }
       });
-
-      // console.log(providersArr);
     }
-
 
     const user = this.props.users;
 
-    // const provider = this.props.providers[pId];
     let pName = '';
     let pTokens = '';
     let pCat = '';
@@ -151,9 +139,6 @@ class ProviderPicker extends React.Component {
       pTokens = provider.tokens;
       pCat = provider.sectionName;
       pArea = provider.areaName;
-      // pName = this.props.providers[pId].category;
-      // pTokens = this.props.providers[pId].areaname;
-      // !!! need to store these in the provider object for easy access
     }
 
     let tokenCounts = [];
@@ -310,7 +295,7 @@ class ProviderPicker extends React.Component {
           <h1 className="area-title">{areaArr.name}</h1>
           <Flickity
             className="providers"
-            options = { flickityOptions }
+            options={ flickityOptions }
           >
           {
             Object

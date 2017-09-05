@@ -29,7 +29,7 @@ class Header extends React.Component {
   processLink(e, path) {
   	e.preventDefault();
   	this.closeMenu();
-  	if(path == 'logout'){
+  	if(path === 'logout'){
   		this.props.logOut();
   	}else{
 	  	this.props.history.push(path);

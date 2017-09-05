@@ -6,6 +6,7 @@ import Login from './Login';
 import Start from './Start'; //dummy login page for now
 import base from '../base';
 import Auth from '../Auth/Auth';
+import Callback from '../Callback/Callback';
 import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
@@ -71,6 +72,7 @@ class App extends React.Component {
 			context: this,
 			state: 'users'
 		});
+
 	}
 
 	componentWillUnmount() {
@@ -91,13 +93,15 @@ class App extends React.Component {
 
 		let wrapClassName = 'resurgent-app';
 		// this.state.isModal = false;
+		let categories = this.state.categories;
+		let noData = (Object.keys(categories).length === 0 && categories.constructor === Object);
+		// console.log(noData);
 
-
-		if(this.props.location.pathname == '/'){
+		if(this.props.location.pathname === '/'){
 			wrapClassName += ' flow-login';
 		}
 
-		if(this.props.location.pathname == '/my-account'){
+		if(this.props.location.pathname === '/my-account'){
 			wrapClassName += ' flow-account';
 		}
 
@@ -108,14 +112,18 @@ class App extends React.Component {
 		return (
 			<div className={wrapClassName}>
 				<Header auth={this.props.auth} logOut={this.logout} isModal={this.state.isModal} />
-
+					<Route path="/callback" render={(props) => <Callback />} />
+				{ noData && (
+					<Callback auth={this.props.auth} />
+					)
+				}
 				{
           !isAuthenticated() && (
 	          	<Login loggedOut={this.state.loggedOut} auth={this.props.auth} />
             )
         }
         {
-          isAuthenticated() && (
+          !noData && isAuthenticated() && (
           		<div>
               	<Route exact path="/" render={(props) => <Start />} />
               	<Route exact path="/home" render={(props) => <SubHeader users={this.state.users} />} />
