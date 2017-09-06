@@ -1,5 +1,10 @@
 .section-areas {
     overflow:hidden;
+
+    @include tablet {
+        border-left: 1px solid $gray-mid2;
+        border-right: 1px solid $gray-mid2;
+    }
 }
 
 h2.section-label {

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:200,600");
+@import url("https://fonts.googleapis.com/css?family=Lato:300,300i,700,700i");
 /*<--------- Add your variables into this file. */
 /* Any additional imported files */
 body {
@@ -16,14 +18,33 @@ body {
 .main:not(.section-areas) {
   padding: 0 15px; }
 
-.main header {
-  text-align: center;
-  clear: both; }
+.main {
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto; }
+  .main header {
+    text-align: center;
+    clear: both; }
+  .main hr {
+    border: none;
+    border-top: 1px solid #bebebe;
+    margin: 32px 0; }
 
-.main hr {
-  border: none;
-  border-top: 1px solid #bebebe;
-  margin: 32px 0; }
+.page {
+  background: #eeeeee; }
+  .page .main {
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto; }
+    .page .main h1 {
+      text-align: center;
+      border-bottom: 1px solid gray;
+      padding: 12px 0 32px; }
+    .page .main ol, .page .main ul {
+      margin: 8px 0 20px;
+      padding: 0 0 0 15px; }
+    .page .main li {
+      margin-bottom: 4px; }
 
 p {
   margin: 0 0 8px;
@@ -625,6 +646,10 @@ footer {
 
 .section-areas {
   overflow: hidden; }
+  @media (min-width: 768px) {
+    .section-areas {
+      border-left: 1px solid #57585A;
+      border-right: 1px solid #57585A; } }
 
 h2.section-label {
   color: white;

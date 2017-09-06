@@ -11,6 +11,7 @@ import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
 import MyAccount from './MyAccount';
+import Page from './Page';
 import Footer from './Footer';
 
 
@@ -22,6 +23,7 @@ class App extends React.Component {
 		this.state = {
 			users: {},
 			categories: {},
+			pages: {},
 			selectedProvider: null,
 			loggedOut : false,
 			isModal: false
@@ -73,6 +75,11 @@ class App extends React.Component {
 			state: 'users'
 		});
 
+		this.ref = base.syncState(`pages`, {
+			context: this,
+			state: 'pages'
+		});
+
 	}
 
 	componentWillUnmount() {
@@ -103,6 +110,10 @@ class App extends React.Component {
 
 		if(this.props.location.pathname === '/my-account'){
 			wrapClassName += ' flow-account';
+		}
+
+		if(this.props.location.pathname === '/terms' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
+			wrapClassName += ' page';
 		}
 
 		if(!isAuthenticated()){
@@ -144,6 +155,9 @@ class App extends React.Component {
 									/>} 
 								/>
 								<Route path="/my-account" auth={this.props.auth} render={(props) => <MyAccount users={this.state.users} />} />
+								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
+								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />
+								<Route path="/help" render={(props) => <Page page={this.state.pages["help"]} />} />
               </div>
             )
         }

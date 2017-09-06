@@ -1,5 +1,4 @@
 import React from 'react';
-import BookSession from './BookSession';
 import { withRouter } from 'react-router-dom';
 
 class Provider extends React.Component {
