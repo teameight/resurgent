@@ -76,7 +76,7 @@ class ProviderPicker extends React.Component {
 
   processLink(e, path) {
     e.preventDefault();
-    this.closeMenu();
+    this.handleCloseModal();
     this.props.history.push(path);
   }
 
@@ -154,7 +154,7 @@ class ProviderPicker extends React.Component {
           >
             <header className="header-modal">
               <div className="logo">
-                <a href="#" onClick={ (e) => this.processLink(e, '/home') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
+                <a href="#" onClick={ (e) => this.processLink(e, '/') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
               </div>
               <div className="menu-icon" >
                 <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
@@ -210,7 +210,7 @@ class ProviderPicker extends React.Component {
           >
             <header className="header-modal">
               <div className="logo">
-                <a href="#" onClick={ (e) => this.processLink(e, '/home') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
+                <a href="#" onClick={ (e) => this.processLink(e, '/') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
               </div>
               <div className="menu-icon" >
                 <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>

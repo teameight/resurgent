@@ -47,6 +47,56 @@ body {
     .page .main li {
       margin-bottom: 4px; }
 
+.spinner-wrap {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background: #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-around; }
+  .spinner-wrap p {
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    text-indent: -999em; }
+  .spinner-wrap .spinner {
+    width: 15vw;
+    height: 15vw;
+    position: relative;
+    margin: 100px auto;
+    top: -9vh; }
+  .spinner-wrap .double-bounce1, .spinner-wrap .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #df4678;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out; }
+  .spinner-wrap .double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s; }
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% {
+    -webkit-transform: scale(0); }
+  50% {
+    -webkit-transform: scale(1); } }
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0);
+    -webkit-transform: scale(0); }
+  50% {
+    transform: scale(1);
+    -webkit-transform: scale(1); } }
+
 p {
   margin: 0 0 8px;
   padding: 0; }
@@ -744,6 +794,9 @@ h2.section-label {
   text-align: center;
   max-width: 600px;
   color: #df4678; }
+  @media (min-width: 350px) {
+    .area-title {
+      margin: 20px auto 16px; } }
 
 .area-description {
   color: white;
@@ -770,10 +823,10 @@ h2.section-label {
 
 .provider {
   background: transparent;
-  width: 96vw;
-  height: 388px;
+  width: 92vw;
+  height: 375px;
   max-width: 320px;
-  margin-right: 4vw;
+  margin-right: 8vw;
   text-align: center;
   border-radius: 8px;
   box-sizing: border-box;

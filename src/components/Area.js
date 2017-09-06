@@ -37,7 +37,7 @@ class Area extends React.Component {
 	              .keys(areas)
 	              .map(key => 
 	                <div className="area carousel-cell" onClick={ (e) => this.passCatArea(areas[key].slug, this.props.catId, key) }>
-										<img src={areas[key].image} alt={areas[key].name} />
+										<img height="155" width="155" src={areas[key].image} alt={areas[key].name} />
 										<h3>{areas[key].name}</h3>
 						      </div>
 	              )

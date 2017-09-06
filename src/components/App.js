@@ -104,10 +104,6 @@ class App extends React.Component {
 		let noData = (Object.keys(categories).length === 0 && categories.constructor === Object);
 		// console.log(noData);
 
-		if(this.props.location.pathname === '/'){
-			wrapClassName += ' flow-login';
-		}
-
 		if(this.props.location.pathname === '/my-account'){
 			wrapClassName += ' flow-account';
 		}
@@ -136,10 +132,9 @@ class App extends React.Component {
         {
           !noData && isAuthenticated() && (
           		<div>
-              	<Route exact path="/" render={(props) => <Start />} />
-              	<Route exact path="/home" render={(props) => <SubHeader users={this.state.users} />} />
+              	<Route exact path="/" render={(props) => <SubHeader users={this.state.users} />} />
 								<Route path="/area" render={(props) => <SubHeader users={this.state.users} />} />
-								<Route exact path="/home" render={(props) => 
+								<Route exact path="/" render={(props) => 
 									<AreaPicker 
 										categories={this.state.categories} 
 										{...props} 
@@ -161,12 +156,7 @@ class App extends React.Component {
               </div>
             )
         }
-
-				{ !this.state.isModal && (
-					<Footer auth={this.props.auth} />
-					)
-				}
-
+				<Footer auth={this.props.auth} />
 			</div>
 		)
 	}

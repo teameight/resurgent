@@ -6,6 +6,10 @@
     text-align: center;
     max-width:600px;
     color:$magenta;
+
+    @include phone {
+        margin:$vru*5 auto $vru*4;
+    }
 }
 .area-description{
     color:white;
@@ -41,10 +45,10 @@
 
 .provider {
     background: transparent;
-    width:96vw;
-    height:388px;
+    width:92vw;
+    height:375px;
     max-width:320px;
-    margin-right:4vw;
+    margin-right:8vw;
     text-align: center;
     border-radius: $vru*2;
     box-sizing: border-box;

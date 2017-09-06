@@ -12,7 +12,7 @@ class Login extends React.Component {
 
   	if(this.props.loggedOut){
   		pTitle = 'Success!';
-  		pMessage = 'You have been logged out';
+  		pMessage = 'You have been signed out';
   	}
 
     return (
@@ -21,7 +21,7 @@ class Login extends React.Component {
               <h1 className="page-title">{pTitle}</h1>
               <p className="subtitle">{pMessage}</p>
           </header>
-          <button type="button" className="btn" onClick={this.login.bind(this)}>Log In</button>
+          <button type="button" className="btn" onClick={this.login.bind(this)}>Sign In</button>
           <div className="prefooter">
             <p>Need Help?</p>
             <p><a href="#">contact the administrator</a></p>
