@@ -7,7 +7,8 @@ body {
   font-weight: 300;
   background: #262626;
   margin: 0;
-  font-size: 16px; }
+  font-size: 16px;
+  width: 100vw; }
 
 .resurgent-app {
   padding-top: 60px;
@@ -75,10 +76,17 @@ h1, h2, h3, h4, h5, input, button {
 .subtitle + .page-title {
   margin-top: 0; }
 
-.main a {
-  font-style: italic; }
+.main a.text-link, .provider a.text-link {
+  font-style: italic;
+  color: #7d5297;
+  text-decoration: none; }
+  .main a.text-link:visited, .provider a.text-link:visited {
+    color: #7d5297; }
 
 .btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   font-weight: 600;
   font-family: Montserrat, Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
@@ -566,6 +574,9 @@ footer {
     width: 100vw;
     box-sizing: border-box; }
 
+.flow-account .modal-zones {
+  width: 100vw; }
+
 .ReactModalPortal {
   width: 100%;
   top: 0;
@@ -758,51 +769,77 @@ h2.section-label {
       right: 4px; }
 
 .provider {
-  background: #bebebe;
+  background: transparent;
   width: 96vw;
+  height: 388px;
   max-width: 320px;
   margin-right: 4vw;
   text-align: center;
   border-radius: 8px;
-  padding: 16px 30px 24px;
   box-sizing: border-box;
-  transform-style: preserve-3d;
-  -moz-transition: transform 0.75s ease;
-  -o-transition: transform 0.75s ease;
-  -webkit-transition: transform 0.75s ease;
-  transition: transform 0.75s ease; }
+  /*-webkit-backface-visibility: hidden; 
+    backface-visibility: hidden; */ }
   .provider.flipped {
-    transform: rotateY(180deg); }
+    /*-moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);*/ }
     .provider.flipped .front {
-      /*-webkit-backface-visibility: hidden; */
-      /*backface-visibility: hidden; */ }
+      z-index: 8;
+      -webkit-transform: translateX(-100%) rotateY(179deg);
+      transform: translateX(-100%) rotateY(179deg); }
+    .provider.flipped .back {
+      z-index: 9;
+      -webkit-transform: translateX(0) rotateX(0) rotateY(0);
+      transform: translateX(0) rotateX(0) rotateY(0); }
   .provider > div {
-    /*background: $gray-mid;*/
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden; }
-  .provider .front .bio, .provider .front .video-link, .provider .front .token-cost span, .provider .front .bio-handle {
-    transform: translate3d(0, 0, 0);
-    /* fixes chrome bug for dissapearing positioned/backface elements during flickety animation */ }
-  .provider .back {
     background: #bebebe;
-    transform: rotateY(180deg);
+    border-radius: 8px;
+    padding: 16px 30px 24px;
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
-    right: 0;
-    border-radius: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    height: inherit;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out; }
+  .provider .front {
+    z-index: 8;
+    -webkit-transform: translateX(0) rotateX(0) rotateY(0);
+    transform: translateX(0) rotateX(0) rotateY(0); }
+    .provider .front .bio, .provider .front .video-link, .provider .front .token-cost, .provider .front .token-cost span, .provider .front .bio-handle {
+      /*  -moz-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0); */
+      /*   -webkit-backface-visibility: hidden; 
+            backface-visibility: hidden; 
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;*/
+      /* fixes chrome bug for dissapearing positioned/backface elements during flickety animation */ }
+  .provider .back {
+    z-index: 7;
+    -webkit-transform: translateX(-100%) rotateY(-179deg);
+    transform: translateX(-100%) rotateY(-179deg);
     /* -webkit-backface-visibility: hidden; 
         backface-visibility: hidden; */ }
-    .provider .back .back-inner {
+    .provider .back .bio {
+      height: 240px;
       overflow-y: auto;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      padding: 16px 30px 24px;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      margin: 16px 0;
+      padding: 16px 0 24px;
       box-sizing: border-box; }
+    .provider .back a {
+      font-style: italic; }
   .provider a {
     text-decoration: none; }
   .provider .token-cost {

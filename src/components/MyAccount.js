@@ -104,7 +104,7 @@ class MyAccount extends React.Component {
                 <div className="details-box solo">
                 <div className="details-row">
                     <p>{user.name}</p>
-                    <p><a href="#" onClick={this.handleOpenModal}>edit details</a></p>
+                    <p><a className="text-link" href="#" onClick={this.handleOpenModal}>edit details</a></p>
                 </div>
                 <div className="details-row">
                     <p>{user.email}</p>

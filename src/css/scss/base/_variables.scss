@@ -49,6 +49,12 @@ $footheight: 36px;
     -webkit-transition: $transition;
     transition:         $transition;
 }
+@mixin transform($transform...) {
+    -moz-transition:    $transform;
+    -o-transition:      $transform;
+    -webkit-transition: $transform;
+    transition:         $transform;
+}
 
 @mixin dropshadow {
   -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.25);

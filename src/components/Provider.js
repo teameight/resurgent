@@ -56,10 +56,11 @@ class Provider extends React.Component {
         <div className="back">
         	<div className="back-inner">
 	        	<h1 className="provider-name">{details.name}</h1>
-	        	<p><a href="#" onClick={ (e) => this.flipCard(e) }>back to profile</a></p>
+	        	<p><small>complete bio</small></p>
 	        	<div className="bio">
 			        <p>{details.desc}</p>
 		        </div>
+	        	<p><a className="text-link" href="#" onClick={ (e) => this.flipCard(e) }>back to profile</a></p>
 	        </div>
         </div>
       </div>
