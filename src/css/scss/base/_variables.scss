@@ -21,7 +21,6 @@ $headheight: 60px;
 $footheight: 36px;
 
 
-
 @mixin labelfont($weight) {
 
 	@if $weight == "thin" {
@@ -59,6 +58,8 @@ $footheight: 36px;
 
 $tablet-width: 768px;
 $desktop-width: 1024px;
+
+$max-width: $tablet-width;
 
 @mixin tablet {
   @media (min-width: #{$tablet-width}) {

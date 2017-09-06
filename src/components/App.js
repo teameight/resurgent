@@ -6,10 +6,12 @@ import Login from './Login';
 import Start from './Start'; //dummy login page for now
 import base from '../base';
 import Auth from '../Auth/Auth';
+import Callback from '../Callback/Callback';
 import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
 import MyAccount from './MyAccount';
+import Page from './Page';
 import Footer from './Footer';
 
 
@@ -21,6 +23,7 @@ class App extends React.Component {
 		this.state = {
 			users: {},
 			categories: {},
+			pages: {},
 			selectedProvider: null,
 			loggedOut : false,
 			isModal: false
@@ -71,6 +74,12 @@ class App extends React.Component {
 			context: this,
 			state: 'users'
 		});
+
+		this.ref = base.syncState(`pages`, {
+			context: this,
+			state: 'pages'
+		});
+
 	}
 
 	componentWillUnmount() {
@@ -91,14 +100,20 @@ class App extends React.Component {
 
 		let wrapClassName = 'resurgent-app';
 		// this.state.isModal = false;
+		let categories = this.state.categories;
+		let noData = (Object.keys(categories).length === 0 && categories.constructor === Object);
+		// console.log(noData);
 
-
-		if(this.props.location.pathname == '/'){
+		if(this.props.location.pathname === '/'){
 			wrapClassName += ' flow-login';
 		}
 
-		if(this.props.location.pathname == '/my-account'){
+		if(this.props.location.pathname === '/my-account'){
 			wrapClassName += ' flow-account';
+		}
+
+		if(this.props.location.pathname === '/terms' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
+			wrapClassName += ' page';
 		}
 
 		if(!isAuthenticated()){
@@ -108,14 +123,18 @@ class App extends React.Component {
 		return (
 			<div className={wrapClassName}>
 				<Header auth={this.props.auth} logOut={this.logout} isModal={this.state.isModal} />
-
+					<Route path="/callback" render={(props) => <Callback />} />
+				{ noData && (
+					<Callback auth={this.props.auth} />
+					)
+				}
 				{
           !isAuthenticated() && (
 	          	<Login loggedOut={this.state.loggedOut} auth={this.props.auth} />
             )
         }
         {
-          isAuthenticated() && (
+          !noData && isAuthenticated() && (
           		<div>
               	<Route exact path="/" render={(props) => <Start />} />
               	<Route exact path="/home" render={(props) => <SubHeader users={this.state.users} />} />
@@ -136,6 +155,9 @@ class App extends React.Component {
 									/>} 
 								/>
 								<Route path="/my-account" auth={this.props.auth} render={(props) => <MyAccount users={this.state.users} />} />
+								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
+								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />
+								<Route path="/help" render={(props) => <Page page={this.state.pages["help"]} />} />
               </div>
             )
         }
