@@ -33,6 +33,7 @@ class App extends React.Component {
 		this.setModal = this.setModal.bind(this);
 		this.logout = this.logout.bind(this);
 		this.setLogin = this.setLogin.bind(this);
+		this.updateReviews = this.updateReviews.bind(this);
 
 	}
 
@@ -53,7 +54,6 @@ class App extends React.Component {
 		this.setState({
     	loggedOut: false
     });
-    console.log('logged in');
 	}
 
 	logout() {
@@ -61,7 +61,30 @@ class App extends React.Component {
 		this.setState({
     	loggedOut: true
     });
-    console.log('logged out');
+	}
+	
+	updateReviews(data, ckey, akey, pkey) {
+		const categories = this.state.categories;
+		const formValues = data;
+
+		if ( formValues.newRating ) {
+			let ratingArr = categories[ckey]["areas"][akey]["providers"][pkey].ratingArr ? categories[ckey]["areas"][akey]["providers"][pkey].ratingArr : [];
+			ratingArr.push(formValues.newRating)
+			categories[ckey]["areas"][akey]["providers"][pkey].ratingArr = ratingArr;
+
+			let sum = ratingArr.reduce((a, b) => a + b, 0 );
+			let percentage = Math.round((sum / ratingArr.length)/.05);
+			categories[ckey]["areas"][akey]["providers"][pkey].rating = percentage;
+		}
+
+		if ( formValues.message ) {
+			let reviews = categories[ckey]["areas"][akey]["providers"][pkey].reviews ? categories[ckey]["areas"][akey]["providers"][pkey].reviews : [];
+			let headline = formValues.headline ? formValues.headline : '';
+			reviews.push({ headline: headline, message: formValues.message });
+			categories[ckey]["areas"][akey]["providers"][pkey].reviews = reviews;
+		}
+
+		this.setState({categories});
 	}
 
 	componentWillMount() {

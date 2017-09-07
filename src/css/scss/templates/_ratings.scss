@@ -77,6 +77,37 @@
         }
     }
 }
+
 .write-review .stars-static {
     margin-bottom:5*$vru;
+}
+
+.provider {
+
+    .stars-static {
+        position: relative;
+        width: 85px;
+        margin: 0 auto;
+    }
+
+    .star-rating label,
+    .stars-static span {
+        color: $gray-dark;
+        font-size: 12px;
+        padding: 3px;
+
+        &.is-selected {
+            color: $magenta;
+        }
+    }
+
+    .stars-static-top {
+        position: absolute;
+        z-index: 1;
+        overflow: hidden;
+
+        span {
+            color: $magenta;
+        }
+    }
 }

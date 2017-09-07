@@ -16,7 +16,7 @@ class Area extends React.Component {
 
 
   passCatArea(slug, catId, areaId) {
-  	this.props.history.push('/area/' + slug + '/' + catId);
+  	this.props.history.push('/area/' + slug + '/' + catId, { areaId: areaId });
     //this.props.passCatArea(catId, areaId);
   }
 
