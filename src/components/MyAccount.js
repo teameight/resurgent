@@ -72,7 +72,7 @@ class MyAccount extends React.Component {
             >
                 <header className="header-modal">
                     <div className="logo">
-                    <a href="#" onClick={ (e) => this.processLink(e, '/home') }><img src="../img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
+                    <a href="#" onClick={ (e) => this.processLink(e, '/') }><img src="../img/logo.png" alt="Resurgent - Legal Outplacement" /></a>
                     </div>
                     <div className="menu-icon" >
                         <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
