@@ -48,7 +48,22 @@ class Provider extends React.Component {
 	        <div className="rating">
 	            <a onClick={ (e) => this.openModal(e, keyId, 'rating') }>
 	                <h3>Ratings & Reviews</h3>
-	                <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA"><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span><span>&#9734; </span></div>
+                  <div className="stars-static small" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA">
+                      <div className="stars-static-top" style={{width: details.rating + '%'}}>
+                          <span>&#9733;</span>
+                          <span>&#9733;</span>
+                          <span>&#9733;</span>
+                          <span>&#9733;</span>
+                          <span>&#9733;</span>
+                      </div>
+                      <div className="stars-static-bottom">
+                          <span>&#9733;</span>
+                          <span>&#9733;</span>
+                          <span>&#9733;</span>
+                          <span>&#9733;</span>
+                          <span>&#9733;</span>
+                      </div>
+                  </div>
 	            </a>
 	        </div>
 	        <button className="btn" onClick={ (e) => this.openModal(e, keyId, 'book') }>Book a Session</button>
@@ -66,6 +81,6 @@ class Provider extends React.Component {
       </div>
 		)
 	}
-} 
+}
 
 export default withRouter(Provider);

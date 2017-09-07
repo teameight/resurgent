@@ -16,10 +16,11 @@ class ProviderPicker extends React.Component {
       showModal: false,
       showRating: false,
       card: false,
-      zone : 1,
+      zone: 1,
       category: null,
       area: null,
-      provider: null
+      provider: null,
+      formValues: {}
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -27,6 +28,9 @@ class ProviderPicker extends React.Component {
     this.processLink= this.processLink.bind(this);
     this.handleSend = this.handleSend.bind(this);
     this.goToZone = this.goToZone.bind(this);
+    this.handleReviewChange = this.handleReviewChange.bind(this);
+    this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
+    this.handleRating = this.handleRating.bind(this);
 
     this.passProvider= this.passProvider.bind(this);
     this.flipCard= this.flipCard.bind(this);
@@ -48,21 +52,21 @@ class ProviderPicker extends React.Component {
 
   handleOpenModal(mname) {
     if(mname === 'book'){
-      this.setState({ 
+      this.setState({
         showModal: true,
         showRating: false
       });
     }else{
-      this.setState({ 
+      this.setState({
         showModal: false,
         showRating: true
       });
     }
     this.props.setModal(true);
   }
-  
+
   handleCloseModal() {
-    this.setState({ 
+    this.setState({
       showModal: false,
       showRating: false
     });
@@ -72,6 +76,37 @@ class ProviderPicker extends React.Component {
         zone : 1
       })
     }, 500);
+  }
+
+  handleRating(rating) {
+      let formValues = this.state.formValues;
+      let newRating = rating;
+
+      formValues["newRating"] = newRating;
+  }
+
+  handleReviewChange(e) {
+    e.preventDefault();
+    let formValues = this.state.formValues;
+    let name = e.target.name;
+    let value = e.target.value;
+
+    formValues[name] = value;
+
+    this.setState({formValues});
+  }
+
+  handleReviewSubmit(e) {
+    e.preventDefault();
+
+    // Get the slug
+    const catId = this.props.match.params.cat;
+    const areaId = this.props.location.state.areaId;
+    const pId = this.state.provider;
+    let formValues = this.state.formValues;
+
+    this.props.updateReviews(formValues, catId, areaId, pId);
+    this.handleCloseModal();
   }
 
   processLink(e, path) {
@@ -125,6 +160,9 @@ class ProviderPicker extends React.Component {
     let pTokens = '';
     let pCat = '';
     let pArea = '';
+    let pRating = '';
+    let pRatingNum = 0;
+    let pReviews = '';
 
     if(pId){
       var provider = providers[pId];
@@ -132,6 +170,13 @@ class ProviderPicker extends React.Component {
       pTokens = provider.tokens;
       pCat = provider.sectionName;
       pArea = provider.areaName;
+      pRating = provider.rating;
+      if ( provider.ratingArr ) {
+        pRatingNum = provider.ratingArr.length;
+      }
+      if ( provider.reviews ) {
+        pReviews = provider.reviews;
+      }
     }
 
     let tokenCounts = [];
@@ -144,7 +189,7 @@ class ProviderPicker extends React.Component {
 
     return (
       <div>
-        <ReactModal 
+        <ReactModal
              isOpen={this.state.showModal}
              contentLabel="onRequestClose"
              onRequestClose={this.handleCloseModal}
@@ -200,7 +245,7 @@ class ProviderPicker extends React.Component {
           </ReactModal>
 
 
-        <ReactModal 
+        <ReactModal
              isOpen={this.state.showRating}
              contentLabel="onRequestClose"
              onRequestClose={this.handleCloseModal}
@@ -227,7 +272,7 @@ class ProviderPicker extends React.Component {
                   </header>
                   <hr />
                   <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA">
-                      <div className="stars-static-top" style={{width: '87%'}}>
+                      <div className="stars-static-top" style={{width: pRating + '%'}}>
                           <span>&#9733;</span>
                           <span>&#9733;</span>
                           <span>&#9733;</span>
@@ -242,43 +287,40 @@ class ProviderPicker extends React.Component {
                           <span>&#9733;</span>
                       </div>
                   </div>
-                  <p><em>(5 user ratings)</em></p>
+                  <p><em>({pRatingNum} user rating{pRatingNum !== 1 && ('s')})</em></p>
                   <hr />
-                  <article className="review">
-                      <h1>Sample user review 1</h1>
-                      <p>Vestibulum volutpat, enim vel tempus finibus, velit odio mattis sem, vel luctus arcu velit ut elit. Sed non cursus sem, eget iaculis massa. Nam sit amet risus et ligula eleifend laoreet ut in neque. Proin sed maximus nibh. Donec vel rhoncus lectus. Sed porttitor quam et risus varius finibus fermentum et dolor...</p>
-                      <a className="readmore" href="#">Read More</a>
-                  </article>
-                  <article className="review">
-                      <h1>Sample user review 2</h1>
-                      <p>Vestibulum volutpat, enim vel tempus finibus, velit odio mattis sem, vel luctus arcu velit ut elit. Sed non cursus sem, eget iaculis massa. Nam sit amet risus et ligula eleifend laoreet ut in neque. Proin sed maximus nibh. Donec vel rhoncus lectus. Sed porttitor quam et risus varius finibus fermentum et dolor...</p>
-                      <a className="readmore" href="#">Read More</a>
-                  </article>
-                  <article className="review">
-                      <h1>Sample user review 3</h1>
-                      <p>Vestibulum volutpat, enim vel tempus finibus, velit odio mattis sem, vel luctus arcu velit ut elit. Sed non cursus sem, eget iaculis massa. Nam sit amet risus et ligula eleifend laoreet ut in neque. Proin sed maximus nibh. Donec vel rhoncus lectus. Sed porttitor quam et risus varius finibus fermentum et dolor...</p>
-                      <a className="readmore" href="#">Read More</a>
-                  </article>
-                  <article className="review">
-                      <h1>Sample user review 4</h1>
-                      <p>Vestibulum volutpat, enim vel tempus finibus, velit odio mattis sem, vel luctus arcu velit ut elit. Sed non cursus sem, eget iaculis massa. Nam sit amet risus et ligula eleifend laoreet ut in neque. Proin sed maximus nibh. Donec vel rhoncus lectus. Sed porttitor quam et risus varius finibus fermentum et dolor...</p>
-                      <a className="readmore" href="#">Read More</a>
-                  </article>
-
+                  {
+                    pReviews && (
+                      pReviews.map(function(review, index) {
+                        return (
+                          <article className="review">
+                              <h1>{review.headline}</h1>
+                              <p>{review.message}</p>
+                            {/* <a className="readmore" href="#">Read More</a> */}
+                          </article>
+                        )
+                      })
+                    )
+                  }
+                  {
+                    !pReviews && (
+                      <p>Be the first to leave a review.</p>
+                    )
+                  }
               </section>
               <section className="main write-review">
                   <header>
                       <p className="subtitle">leave a review for</p>
                       <h1 className="page-title">{pName}</h1>
-                      <RatingStars />
+                      <RatingStars handleRating={this.handleRating} provider={pId} />
                   </header>
 
 
                   <p className="instruction">Write an optional review here. Your name will be kept anonymous.</p>
-                  <form>
-                      <input name="headline" type="text" placeholder="Your review headline" />
-                      <textarea name="message" rows="12" cols="50" placeholder="Write your review here"></textarea>
-                      <input className="btn" value="Submit Review" onClick={this.handleCloseModal} />
+                  <form onSubmit={(e) => this.handleReviewSubmit(e)}>
+                      <input name="headline" type="text" placeholder="Your review headline" onChange={this.handleReviewChange} />
+                      <textarea name="message" rows="12" cols="50" placeholder="Write your review here" onChange={this.handleReviewChange} ></textarea>
+                      <input className="btn" type="submit" value="Submit Review" />
                   </form>
 
               </section>
