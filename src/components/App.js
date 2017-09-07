@@ -87,6 +87,30 @@ class App extends React.Component {
 		this.setState({categories});
 	}
 
+	updateReviews(data, ckey, akey, pkey) {
+		const categories = this.state.categories;
+		const formValues = data;
+
+		if ( formValues.newRating ) {
+			let ratingArr = categories[ckey]["areas"][akey]["providers"][pkey].ratingArr ? categories[ckey]["areas"][akey]["providers"][pkey].ratingArr : [];
+			ratingArr.push(formValues.newRating)
+			categories[ckey]["areas"][akey]["providers"][pkey].ratingArr = ratingArr;
+
+			let sum = ratingArr.reduce((a, b) => a + b, 0 );
+			let percentage = Math.round((sum / ratingArr.length)/.05);
+			categories[ckey]["areas"][akey]["providers"][pkey].rating = percentage;
+		}
+
+		if ( formValues.message ) {
+			let reviews = categories[ckey]["areas"][akey]["providers"][pkey].reviews ? categories[ckey]["areas"][akey]["providers"][pkey].reviews : [];
+			let headline = formValues.headline ? formValues.headline : '';
+			reviews.push({ headline: headline, message: formValues.message });
+			categories[ckey]["areas"][akey]["providers"][pkey].reviews = reviews;
+		}
+
+		this.setState({categories});
+	}
+
 	componentWillMount() {
 		this.ref = base.syncState(`categories`, {
 			context: this,
@@ -127,6 +151,10 @@ class App extends React.Component {
 		let noData = (Object.keys(categories).length === 0 && categories.constructor === Object);
 		// console.log(noData);
 
+		if(this.props.location.pathname === '/'){
+			wrapClassName += ' flow-login';
+		}
+
 		if(this.props.location.pathname === '/my-account'){
 			wrapClassName += ' flow-account';
 		}
@@ -155,22 +183,24 @@ class App extends React.Component {
         {
           !noData && isAuthenticated() && (
           		<div>
-              	<Route exact path="/" render={(props) => <SubHeader users={this.state.users} />} />
+              	<Route exact path="/" render={(props) => <Start />} />
+              	<Route exact path="/home" render={(props) => <SubHeader users={this.state.users} />} />
 								<Route path="/area" render={(props) => <SubHeader users={this.state.users} />} />
-								<Route exact path="/" render={(props) => 
-									<AreaPicker 
-										categories={this.state.categories} 
-										{...props} 
-									/>} 
+								<Route exact path="/home" render={(props) =>
+									<AreaPicker
+										categories={this.state.categories}
+										{...props}
+									/>}
 								/>
-								<Route path="/area/:slug/:cat" render={(props) => 
-									<ProviderPicker 
+								<Route path="/area/:slug/:cat" render={(props) =>
+									<ProviderPicker
 										users={this.state.users}
-										setModal={this.setModal} 
-										selectProvider={this.selectProvider} 
-										categories={this.state.categories} 
-										{...props} 
-									/>} 
+										setModal={this.setModal}
+										selectProvider={this.selectProvider}
+										updateReviews={this.updateReviews}
+										categories={this.state.categories}
+										{...props}
+									/>}
 								/>
 								<Route path="/my-account" auth={this.props.auth} render={(props) => <MyAccount users={this.state.users} />} />
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
@@ -179,7 +209,12 @@ class App extends React.Component {
               </div>
             )
         }
-				<Footer auth={this.props.auth} />
+
+				{ !this.state.isModal && (
+					<Footer auth={this.props.auth} />
+					)
+				}
+
 			</div>
 		)
 	}

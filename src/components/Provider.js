@@ -48,7 +48,7 @@ class Provider extends React.Component {
 	        <div className="rating">
 	            <a onClick={ (e) => this.openModal(e, keyId, 'rating') }>
 	                <h3>Ratings & Reviews</h3>
-	                <div className="stars-static small" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA">
+                  <div className="stars-static small" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA">
                       <div className="stars-static-top" style={{width: details.rating + '%'}}>
                           <span>&#9733;</span>
                           <span>&#9733;</span>
@@ -81,6 +81,6 @@ class Provider extends React.Component {
       </div>
 		)
 	}
-} 
+}
 
 export default withRouter(Provider);
