@@ -8,11 +8,13 @@ var RatingStars = React.createClass({
     };
   },
 
-  rate(rating) {
+  rate(rating, pId) {
     this.setState({
       rating: rating,
       temp_rating: rating
     });
+
+    this.props.handleRating(this.state.rating, this.props.provider);
   },
 
   star_over(rating) {
@@ -34,7 +36,7 @@ var RatingStars = React.createClass({
   render() {
     var stars = [];
 
-    for(var i = 0; i < 5; i++) {
+    for(var i = 1; i < 6; i++) {
       var klass = 'star-rating__star';
 
       if (this.state.rating >= i && this.state.rating != null) {
@@ -54,7 +56,8 @@ var RatingStars = React.createClass({
 
     return (
       <div className="star-rating">
-        {stars}
+        {stars}<br />
+        tap a star to rate
       </div>
     );
   }

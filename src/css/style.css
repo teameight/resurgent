@@ -1012,8 +1012,6 @@ h2.section-label {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       margin-bottom: 0; }
-    .provider .rating .stars-static span {
-      color: #df4678; }
 
 .ReactModalPortal .flow-book-session {
   background: #7d5297; }
@@ -1139,6 +1137,27 @@ h2.section-label {
 
 .write-review .stars-static {
   margin-bottom: 20px; }
+
+.provider .stars-static {
+  position: relative;
+  width: 85px;
+  margin: 0 auto; }
+
+.provider .star-rating label,
+.provider .stars-static span {
+  color: #262626;
+  font-size: 12px;
+  padding: 3px; }
+  .provider .star-rating label.is-selected,
+  .provider .stars-static span.is-selected {
+    color: #df4678; }
+
+.provider .stars-static-top {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden; }
+  .provider .stars-static-top span {
+    color: #df4678; }
 
 .flow-login {
   background: #a3ceb7; }
