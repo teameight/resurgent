@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ReactModal from 'react-modal';
+import Transaction from './Transaction';
+
 
 class MyAccount extends React.Component {
 
@@ -56,6 +58,9 @@ class MyAccount extends React.Component {
   render() {
     const user = this.props.users;
     // const { profile } = this.state;
+    const userId = "user-1"
+    const transactions = this.props.transactions[userId];
+    // console.log(transactions);
 
     let zoneClass = 'modal-zones ';
     zoneClass += 'm-zone-' + this.state.zone;
@@ -115,67 +120,11 @@ class MyAccount extends React.Component {
                 <h2 className="token-report">{user.tokens} tokens left</h2>
 
                 <p className="instruction">Your History</p>
-                <div className="details-box">
-                <div className="details-row">
-                    <p>Career Coaching: Getting Unstuck</p>
-                    <p><strong>5 tokens</strong></p>
-                </div>
-                <div className="details-row">
-                    <p><em>Lauren Laitlin</em></p>
-                    <p>contacted Sep 12, 2017</p>
-                </div>
-                </div>
-                <div className="details-box">
-                <div className="details-row">
-                    <p>Career Coaching: Getting Unstuck</p>
-                    <p><strong>5 tokens</strong></p>
-                </div>
-                <div className="details-row">
-                    <p><em>Lauren Laitlin</em></p>
-                    <p>contacted Sep 12, 2017</p>
-                </div>
-                </div>
-                <div className="details-box">
-                <div className="details-row">
-                    <p>Career Coaching: Getting Unstuck</p>
-                    <p><strong>5 tokens</strong></p>
-                </div>
-                <div className="details-row">
-                    <p><em>Lauren Laitlin</em></p>
-                    <p>contacted Sep 12, 2017</p>
-                </div>
-                </div>
-                <div className="details-box">
-                <div className="details-row">
-                    <p>Career Coaching: Getting Unstuck</p>
-                    <p><strong>5 tokens</strong></p>
-                </div>
-                <div className="details-row">
-                    <p><em>Lauren Laitlin</em></p>
-                    <p>contacted Sep 12, 2017</p>
-                </div>
-                </div>
-                <div className="details-box">
-                <div className="details-row">
-                    <p>Career Coaching: Getting Unstuck</p>
-                    <p><strong>5 tokens</strong></p>
-                </div>
-                <div className="details-row">
-                    <p><em>Lauren Laitlin</em></p>
-                    <p>contacted Sep 12, 2017</p>
-                </div>
-                </div>
-                <div className="details-box">
-                <div className="details-row">
-                    <p>Career Coaching: Getting Unstuck</p>
-                    <p><strong>5 tokens</strong></p>
-                </div>
-                <div className="details-row">
-                    <p><em>Lauren Laitlin</em></p>
-                    <p>contacted Sep 12, 2017</p>
-                </div>
-                </div>
-
+                {
+                  Object
+                    .keys(transactions)
+                    .map(key => <Transaction keyId={key} categories={this.props.categories} details={transactions[key]} />)
+                }
             </section>
         </div>
     )

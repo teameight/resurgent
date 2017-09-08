@@ -23,6 +23,7 @@ class App extends React.Component {
 		this.state = {
 			users: {},
 			categories: {},
+			transactions: {},
 			pages: {},
 			selectedProvider: null,
 			loggedOut : false,
@@ -112,11 +113,6 @@ class App extends React.Component {
 	}
 
 	componentWillMount() {
-		this.ref = base.syncState(`categories`, {
-			context: this,
-			state: 'categories'
-		});
-
 		this.ref = base.syncState(`users`, {
 			context: this,
 			state: 'users'
@@ -126,6 +122,17 @@ class App extends React.Component {
 			context: this,
 			state: 'pages'
 		});
+
+		this.ref = base.syncState(`transactions`, {
+			context: this,
+			state: 'transactions'
+		});
+
+		this.ref = base.syncState(`categories`, {
+			context: this,
+			state: 'categories'
+		});
+
 
 	}
 
@@ -197,7 +204,7 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/my-account" auth={this.props.auth} render={(props) => <MyAccount users={this.state.users} />} />
+								<Route path="/my-account" auth={this.props.auth} render={(props) => <MyAccount categories={this.state.categories} transactions={this.state.transactions} users={this.state.users} />} />
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
 								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />
 								<Route path="/help" render={(props) => <Page page={this.state.pages["help"]} />} />
