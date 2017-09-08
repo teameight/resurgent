@@ -1086,7 +1086,10 @@ h2.section-label {
   .flow-rating .tcon-remove:after, .flow-rating .tcon-remove:before {
     background: #57585A; }
   .flow-rating .read-ratings, .flow-rating .write-review {
-    text-align: center; }
+    text-align: center;
+    position: absolute; }
+  .flow-rating .write-review {
+    right: 0; }
   .flow-rating h1.page-title {
     color: #262626;
     margin-bottom: 16px; }
@@ -1137,7 +1140,7 @@ h2.section-label {
       text-decoration: none;
       display: block; }
     .flow-rating article:last-child {
-      margin-bottom: 4em; }
+      margin-bottom: 6em; }
 
 .write-review .stars-static {
   margin-bottom: 20px; }
