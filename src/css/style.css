@@ -1136,6 +1136,8 @@ h2.section-label {
       font-size: 12px;
       text-decoration: none;
       display: block; }
+    .flow-rating article:last-child {
+      margin-bottom: 4em; }
 
 .write-review .stars-static {
   margin-bottom: 20px; }

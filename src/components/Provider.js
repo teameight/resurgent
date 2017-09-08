@@ -38,7 +38,7 @@ class Provider extends React.Component {
 					<div className="profile-img">
 						<img src={require('../img/profile-pic.jpg')} alt={details.name} />
 					</div>
-	        <a className="video-link" src="#" title="Play Video"></a>
+	        {/* <a className="video-link" src="#" title="Play Video"></a> TODO: video */}
 	        <p className="token-cost"><span>tokens</span><br />5</p>
 	        <h1 className="provider-name">{details.name}</h1>
 	        <div className="bio">
