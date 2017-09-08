@@ -155,7 +155,8 @@ h1, h2, h3, h4, h5, input, button {
   letter-spacing: 1px;
   text-decoration: none;
   text-align: center;
-  border: none; }
+  border: none;
+  cursor: pointer; }
   .btn:active, .btn:hover {
     background: #3a77b2; }
 

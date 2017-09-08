@@ -35,6 +35,7 @@ class App extends React.Component {
 		this.logout = this.logout.bind(this);
 		this.setLogin = this.setLogin.bind(this);
 		this.updateReviews = this.updateReviews.bind(this);
+		this.bookSessionTransaction = this.bookSessionTransaction.bind(this);
 
 	}
 
@@ -63,15 +64,22 @@ class App extends React.Component {
     	loggedOut: true
     });
 	}
-	
+
 	updateReviews(data, ckey, akey, pkey) {
 		const categories = this.state.categories;
 		const formValues = data;
+		const transactions = this.state.transactions;
+		const ukey = 'user-1' // TODO: replace with current user key
+		const date = new Date();
+		const timestamp = Date.now();
+		let rating = '';
+		let review = '';
 
 		if ( formValues.newRating ) {
 			let ratingArr = categories[ckey]["areas"][akey]["providers"][pkey].ratingArr ? categories[ckey]["areas"][akey]["providers"][pkey].ratingArr : [];
 			ratingArr.push(formValues.newRating)
 			categories[ckey]["areas"][akey]["providers"][pkey].ratingArr = ratingArr;
+			rating = formValues.newRating;
 
 			let sum = ratingArr.reduce((a, b) => a + b, 0 );
 			let percentage = Math.round((sum / ratingArr.length)/.05);
@@ -83,33 +91,52 @@ class App extends React.Component {
 			let headline = formValues.headline ? formValues.headline : '';
 			reviews.push({ headline: headline, message: formValues.message });
 			categories[ckey]["areas"][akey]["providers"][pkey].reviews = reviews;
+
+			review = { headline: headline, message: formValues.message };
 		}
 
 		this.setState({categories});
+
+		transactions[ukey]["t-" + timestamp] = {
+			area: akey,
+			category: ckey,
+			provider: pkey,
+			date: date,
+			rating: rating,
+			review: review,
+			type: "rating-review"
+		}
+
+		this.setState({transactions});
 	}
 
-	updateReviews(data, ckey, akey, pkey) {
-		const categories = this.state.categories;
-		const formValues = data;
+	bookSessionTransaction(pTokens, ckey, akey, pkey) {
+		const users = this.state.users;
+		const transactions = this.state.transactions;
+		const subtractTokens = pTokens;
+		const ukey = 'user-1' // TODO: replace with current user key
+		const date = new Date();
+		const timestamp = Date.now();
 
-		if ( formValues.newRating ) {
-			let ratingArr = categories[ckey]["areas"][akey]["providers"][pkey].ratingArr ? categories[ckey]["areas"][akey]["providers"][pkey].ratingArr : [];
-			ratingArr.push(formValues.newRating)
-			categories[ckey]["areas"][akey]["providers"][pkey].ratingArr = ratingArr;
-
-			let sum = ratingArr.reduce((a, b) => a + b, 0 );
-			let percentage = Math.round((sum / ratingArr.length)/.05);
-			categories[ckey]["areas"][akey]["providers"][pkey].rating = percentage;
+		if ( subtractTokens ) {
+			let currentTokens = users[ukey].tokens;
+			users[ukey].tokens = currentTokens - subtractTokens;
 		}
 
-		if ( formValues.message ) {
-			let reviews = categories[ckey]["areas"][akey]["providers"][pkey].reviews ? categories[ckey]["areas"][akey]["providers"][pkey].reviews : [];
-			let headline = formValues.headline ? formValues.headline : '';
-			reviews.push({ headline: headline, message: formValues.message });
-			categories[ckey]["areas"][akey]["providers"][pkey].reviews = reviews;
+		this.setState({users});
+
+		transactions[ukey]["t-" + timestamp] = {
+			area: akey,
+			category: ckey,
+			cost: pTokens,
+			provider: pkey,
+			date: date,
+			type: "book-a-session"
 		}
 
-		this.setState({categories});
+		this.setState({transactions});
+
+		// TODO: Send email to provider and confirmation to user. Also admin?
 	}
 
 	componentWillMount() {
@@ -200,6 +227,7 @@ class App extends React.Component {
 										setModal={this.setModal}
 										selectProvider={this.selectProvider}
 										updateReviews={this.updateReviews}
+										bookSessionTransaction={this.bookSessionTransaction}
 										categories={this.state.categories}
 										{...props}
 									/>}

@@ -14,9 +14,9 @@ class MyAccount extends React.Component {
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
-      
+
       this.processLink= this.processLink.bind(this);
-      
+
   }
 
   // componentWillMount() {
@@ -32,14 +32,14 @@ class MyAccount extends React.Component {
   // }
 
   handleOpenModal() {
-      this.setState({ 
+      this.setState({
         showModal: true
       });
     this.props.setModal(true);
   }
-  
+
   handleCloseModal() {
-    this.setState({ 
+    this.setState({
       showModal: false
     });
     this.props.setModal(false);
@@ -54,7 +54,7 @@ class MyAccount extends React.Component {
     e.preventDefault();
     this.props.history.push(path);
   };
-  
+
   render() {
     const user = this.props.users;
     // const { profile } = this.state;
@@ -67,7 +67,7 @@ class MyAccount extends React.Component {
 
     return (
         <div>
-            <ReactModal 
+            <ReactModal
             isOpen={this.state.showModal}
             contentLabel="onRequestClose"
             onRequestClose={this.handleCloseModal}

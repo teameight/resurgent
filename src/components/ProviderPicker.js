@@ -26,11 +26,10 @@ class ProviderPicker extends React.Component {
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.processLink= this.processLink.bind(this);
-    this.handleSend = this.handleSend.bind(this);
     this.goToZone = this.goToZone.bind(this);
     this.handleReviewChange = this.handleReviewChange.bind(this);
     this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
-    this.handleRating = this.handleRating.bind(this);
+    this.handleBookSubmit = this.handleBookSubmit.bind(this);
 
     this.passProvider= this.passProvider.bind(this);
     this.flipCard= this.flipCard.bind(this);
@@ -115,16 +114,22 @@ class ProviderPicker extends React.Component {
     this.props.history.push(path);
   }
 
-  handleSend = function(e, pTokens) {
+  handleBookSubmit(e, pTokens) {
     e.preventDefault();
+    const catId = this.props.match.params.cat;
+    const areaId = this.props.location.state.areaId;
+    const pId = this.state.provider;
+    const ukey = 'user-1' // TODO: update this to current user id
     const user = this.props.users;
-    const tokens = user.tokens;
-    //console.log(tokens);
-    user.tokens = tokens - pTokens;
+    const uTokens = user[ukey].tokens;
+    console.log(uTokens);
+    user.tokens = uTokens - pTokens;
 
     this.setState({
       zone : 2
     });
+
+    this.props.bookSessionTransaction(pTokens, catId, areaId, pId);
 
     //this.props.history.push('/book-confirm');
   }
@@ -216,13 +221,13 @@ class ProviderPicker extends React.Component {
                       <p className="messaging"><strong>Messaging:</strong> {pName}</p>
                       <p>{pCat}: {pArea} <strong>({pTokens} tokens)</strong></p>
                   </div>
-                  <form>
-                      <input name="subject" type="text" placeholder="Subject" />
-                      <textarea name="message" rows="12" cols="50">Default form letter text. Lorem ipsum dolor sit amet.
+                  <form onSubmit={(e) => this.handleBookSubmit(e, pTokens)}>
+                      <input name="subject" type="text" placeholder="Subject" required />
+                      <textarea name="message" rows="12" cols="50" required >Default form letter text. Lorem ipsum dolor sit amet.
 
         Thanks!
                       </textarea>
-                      <input className="btn" onClick={  (e) => this.handleSend(e, pTokens) } type="submit" value="Send" />
+                      <input className="btn" type="submit" value="Send" />
                   </form>
               </section>
               <section className="main book-confirm">
