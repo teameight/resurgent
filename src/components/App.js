@@ -4,7 +4,7 @@ import Header from './Header';
 import SubHeader from './SubHeader';
 import Login from './Login';
 import Start from './Start'; //dummy login page for now
-import base from '../base';
+import fire from '../fire';
 import Auth from '../Auth/Auth';
 import Callback from '../Callback/Callback';
 import styles from '../css/style.css';
@@ -66,9 +66,13 @@ class App extends React.Component {
 	}
 
 	updateReviews(data, ckey, akey, pkey) {
-		const categories = this.state.categories;
+		let categories = this.state.categories;
+		const catRef = fire.database().ref('categories');
+
 		const formValues = data;
-		const transactions = this.state.transactions;
+		let transactions = this.state.transactions;
+		const transRef = fire.database().ref('transactions');
+
 		const ukey = 'user-1' // TODO: replace with current user key
 		const date = new Date();
 		const timestamp = Date.now();
@@ -94,7 +98,6 @@ class App extends React.Component {
 
 			review = { headline: headline, message: formValues.message };
 		}
-
 		this.setState({categories});
 
 		transactions[ukey]["t-" + timestamp] = {
@@ -112,6 +115,8 @@ class App extends React.Component {
 
 	bookSessionTransaction(pTokens, ckey, akey, pkey) {
 		const users = this.state.users;
+		const usersRef = fire.database().ref('users');
+
 		const transactions = this.state.transactions;
 		const subtractTokens = pTokens;
 		const ukey = 'user-1' // TODO: replace with current user key
@@ -120,7 +125,9 @@ class App extends React.Component {
 
 		if ( subtractTokens ) {
 			let currentTokens = users[ukey].tokens;
-			users[ukey].tokens = currentTokens - subtractTokens;
+			let newTokens = currentTokens - subtractTokens
+			usersRef.child(ukey).child('tokens').set(newTokens);
+			users[ukey].tokens = newTokens;
 		}
 
 		this.setState({users});
@@ -140,31 +147,39 @@ class App extends React.Component {
 	}
 
 	componentWillMount() {
-		this.ref = base.syncState(`users`, {
-			context: this,
-			state: 'users'
+
+		const usersRef = fire.database().ref('users');
+		usersRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    users: items
+		  });
 		});
 
-		this.ref = base.syncState(`pages`, {
-			context: this,
-			state: 'pages'
+		const pagesRef = fire.database().ref('pages');
+		pagesRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    pages: items
+		  });
 		});
 
-		this.ref = base.syncState(`transactions`, {
-			context: this,
-			state: 'transactions'
+		const transRef = fire.database().ref('transactions');
+		transRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    transactions: items
+		  });
 		});
 
-		this.ref = base.syncState(`categories`, {
-			context: this,
-			state: 'categories'
+		const catRef = fire.database().ref('categories');
+		catRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    categories: items
+		  });
 		});
 
-
-	}
-
-	componentWillUnmount() {
-		base.removeBinding(this.ref);
 	}
 
   setModal(mstate) {
