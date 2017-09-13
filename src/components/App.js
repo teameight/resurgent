@@ -4,8 +4,9 @@ import Header from './Header';
 import SubHeader from './SubHeader';
 import Login from './Login';
 import Start from './Start'; //dummy login page for now
-import fire from '../fire';
-import Auth from '../Auth/Auth';
+import firebase from '../fire';
+import fbAuth from '../fire';
+//import Auth from '../Auth/Auth';
 import Callback from '../Callback/Callback';
 import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
@@ -22,18 +23,22 @@ class App extends React.Component {
 		// get initial state
 		this.state = {
 			users: {},
+			user: null,
 			categories: {},
 			transactions: {},
 			pages: {},
 			selectedProvider: null,
 			loggedOut : false,
-			isModal: false
+			isModal: false,
+			authed: false,
+    	loading: true
 		}
 
 		this.selectProvider = this.selectProvider.bind(this);
 		this.setModal = this.setModal.bind(this);
 		this.logout = this.logout.bind(this);
 		this.setLogin = this.setLogin.bind(this);
+		this.refUser = this.refUser.bind(this);
 		this.updateReviews = this.updateReviews.bind(this);
 		this.bookSessionTransaction = this.bookSessionTransaction.bind(this);
 
@@ -59,19 +64,23 @@ class App extends React.Component {
 	}
 
 	logout() {
-		this.props.auth.logout();
-		this.setState({
-    	loggedOut: true
-    });
+		firebase.auth().signOut().then(function() {
+			this.setState({
+				authed: false,
+				user:null
+			});
+		}).catch(function(error) {
+		  // An error happened.
+		});
 	}
 
 	updateReviews(data, ckey, akey, pkey) {
 		let categories = this.state.categories;
-		const catRef = fire.database().ref('categories');
+		const catRef = firebase.database().ref('categories');
 
 		const formValues = data;
 		let transactions = this.state.transactions;
-		const transRef = fire.database().ref('transactions');
+		const transRef = firebase.database().ref('transactions');
 
 		const ukey = 'user-1' // TODO: replace with current user key
 		const date = new Date();
@@ -115,7 +124,7 @@ class App extends React.Component {
 
 	bookSessionTransaction(pTokens, ckey, akey, pkey) {
 		const users = this.state.users;
-		const usersRef = fire.database().ref('users');
+		const usersRef = firebase.database().ref('users');
 
 		const transactions = this.state.transactions;
 		const subtractTokens = pTokens;
@@ -148,7 +157,7 @@ class App extends React.Component {
 
 	componentWillMount() {
 
-		const usersRef = fire.database().ref('users');
+		const usersRef = firebase.database().ref('users');
 		usersRef.on('value', (snapshot) => {
 		  let items = snapshot.val();
 		  this.setState({
@@ -156,7 +165,7 @@ class App extends React.Component {
 		  });
 		});
 
-		const pagesRef = fire.database().ref('pages');
+		const pagesRef = firebase.database().ref('pages');
 		pagesRef.on('value', (snapshot) => {
 		  let items = snapshot.val();
 		  this.setState({
@@ -164,7 +173,7 @@ class App extends React.Component {
 		  });
 		});
 
-		const transRef = fire.database().ref('transactions');
+		const transRef = firebase.database().ref('transactions');
 		transRef.on('value', (snapshot) => {
 		  let items = snapshot.val();
 		  this.setState({
@@ -172,15 +181,58 @@ class App extends React.Component {
 		  });
 		});
 
-		const catRef = fire.database().ref('categories');
+		const catRef = firebase.database().ref('categories');
 		catRef.on('value', (snapshot) => {
 		  let items = snapshot.val();
 		  this.setState({
 		    categories: items
 		  });
 		});
+		 
+		this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authed: true,
+          loading: false,
+        })
+        this.refUser();
+      } else {
+        this.setState({
+          authed: false,
+          loading: false,
+          user: null
+        })
+      }
+    });
 
 	}
+
+	componentWillUnmount () {
+    this.removeListener()
+  }
+
+  refUser () {
+  	if(this.state.authed){
+			var user = firebase.auth().currentUser;
+			var name, email, photoUrl, uid, emailVerified;
+
+			if (user != null) {
+			  
+			  let userObj = {
+					  name: user.displayName,
+					  email: user.email,
+					  photoUrl: user.photoURL,
+					  emailVerified: user.emailVerified,
+					  uid: user.uid
+					};
+
+					this.setState({
+	          user: userObj
+	        })
+
+			}
+		}
+  }
 
   setModal(mstate) {
   	this.setState({
@@ -189,8 +241,8 @@ class App extends React.Component {
   }
 
 	render() {
-		const { isAuthenticated } = this.props.auth;
-		if(isAuthenticated() && this.state.loggedOut){
+
+		if(this.state.authed && this.state.loggedOut){
 			this.setLogin();
 		}
 
@@ -208,25 +260,25 @@ class App extends React.Component {
 			wrapClassName += ' page';
 		}
 
-		if(!isAuthenticated()){
+		if(!this.state.authed){
 			wrapClassName += ' flow-login';
 		}
 
 		return (
 			<div className={wrapClassName}>
-				<Header auth={this.props.auth} logOut={this.logout} isModal={this.state.isModal} />
+				<Header user={this.state.user} logOut={this.logout} isModal={this.state.isModal} />
 					<Route path="/callback" render={(props) => <Callback />} />
 				{ noData && (
-					<Callback auth={this.props.auth} />
+					<Callback />
 					)
 				}
 				{
-          !isAuthenticated() && (
-	          	<Login loggedOut={this.state.loggedOut} auth={this.props.auth} />
+          !this.state.authed && (
+	          	<Login />
             )
         }
         {
-          !noData && isAuthenticated() && (
+          !noData && this.state.authed && (
           		<div>
               	<Route exact path="/" render={(props) => <SubHeader users={this.state.users} />} />
 								<Route path="/area" render={(props) => <SubHeader users={this.state.users} />} />
@@ -247,14 +299,14 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/my-account" auth={this.props.auth} render={(props) => <MyAccount categories={this.state.categories} transactions={this.state.transactions} users={this.state.users} />} />
+								<Route path="/my-account" user={this.state.user} render={(props) => <MyAccount categories={this.state.categories} transactions={this.state.transactions} users={this.state.users} />} />
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
 								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />
 								<Route path="/help" render={(props) => <Page page={this.state.pages["help"]} />} />
               </div>
             )
         }
-				<Footer auth={this.props.auth} />
+				<Footer user={this.state.user} />
 			</div>
 		)
 	}
