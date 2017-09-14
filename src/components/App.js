@@ -40,7 +40,7 @@ class App extends React.Component {
 		this.setLogin = this.setLogin.bind(this);
 		this.refUser = this.refUser.bind(this);
 		this.updateReviews = this.updateReviews.bind(this);
-		this.updateUser = this.updateUser.bind(this);
+		this.setUser = this.setUser.bind(this);
 		this.bookSessionTransaction = this.bookSessionTransaction.bind(this);
 
 	}
@@ -235,47 +235,11 @@ class App extends React.Component {
 		}
   }
 
-  updateUser(name, email, pword) {
-    var user = firebase.auth().currentUser;
-
-    let userObj = {
-			name: user.displayName,
-			email: user.email,
-			photoUrl: user.photoURL,
-			emailVerified: user.emailVerified,
-			uid: user.uid
-		};
-
-    if(name.length>0){
-	    user.updateProfile({
-	      displayName: name
-	    }).then(function() {
-	      userObj.name = name;
-	    }).catch(function(error) {
-	      // An error happened.
-	    });
-	  }
-
-		if(email.length>0){
-	    user.updateEmail(email).then(function() {
-	      userObj.email = email;
-	    }).catch(function(error) {
-	      // An error happened.
-	    });
-	  }
-
-		if(pword.length>0){
-	    user.updatePassword(pword).then(function() {
-	      // Update successful.
-	    }).catch(function(error) {
-	      // An error happened.
-	    });
-	  }
-
+  setUser(userObj) {
+    
 		this.setState({
     	user: userObj
     });
-
 
   }
 
@@ -287,15 +251,13 @@ class App extends React.Component {
 
 	render() {
 
-		if(this.state.authed && this.state.loggedOut){
-			this.setLogin();
-		}
+		// if(this.state.authed && this.state.loggedOut){
+		// 	this.setLogin();
+		// }  //cannot have this as it changes state mid-render
 
 		let wrapClassName = 'resurgent-app';
-		// this.state.isModal = false;
 		let categories = this.state.categories;
 		let noData = (Object.keys(categories).length === 0 && categories.constructor === Object);
-		// console.log(noData);
 
 		if(this.props.location.pathname === '/my-account'){
 			wrapClassName += ' flow-account';
@@ -344,7 +306,7 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/my-account" render={(props) => <MyAccount user={this.state.user} updateUser={this.updateUser} categories={this.state.categories} transactions={this.state.transactions} setModal={this.setModal} users={this.state.users} />} />
+								<Route path="/my-account" render={(props) => <MyAccount reauthed={this.state.reauthed} user={this.state.user} setUser={this.setUser} categories={this.state.categories} transactions={this.state.transactions} setModal={this.setModal} users={this.state.users} />} />
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
 								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />
 								<Route path="/help" render={(props) => <Page page={this.state.pages["help"]} />} />

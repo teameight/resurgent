@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import Transaction from './Transaction';
+import firebase from '../fire';
 
 
 class MyAccount extends React.Component {
@@ -9,14 +10,18 @@ class MyAccount extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-          showModal: false
-        };
+        showModal: false,
+        reauthed: true
+      };
 
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
-        this.updateUser = this.updateUser.bind(this);
+      this.handleOpenModal = this.handleOpenModal.bind(this);
+      this.handleCloseModal = this.handleCloseModal.bind(this);
+      this.updateUser = this.updateUser.bind(this);
+      this.handleUserDetails = this.handleUserDetails.bind(this);
 
       this.processLink= this.processLink.bind(this);
+      this.reauth= this.reauth.bind(this);
+      this.setReauth= this.setReauth.bind(this);
 
   }
 
@@ -32,7 +37,8 @@ class MyAccount extends React.Component {
   //   }
   // }
 
-  handleOpenModal() {
+  handleOpenModal(e) {
+    e.preventDefault();
       this.setState({
         showModal: true
       });
@@ -56,7 +62,7 @@ class MyAccount extends React.Component {
     this.props.history.push(path);
   };
 
-  updateUser() {
+  handleUserDetails() {
 
     var name = document.getElementById('name').value;
     var email = document.getElementById('email').value;
@@ -70,9 +76,89 @@ class MyAccount extends React.Component {
       return;
     }
 
-    this.props.updateUser(name, email, pword);
-    this.handleCloseModal();
+    this.updateUser(name, email, pword);
+    //this.handleCloseModal();
   }
+
+  updateUser(name,email,pword) {
+    var user = firebase.auth().currentUser;
+
+    let userObj = {
+      name: user.displayName,
+      email: user.email,
+      photoUrl: user.photoURL,
+      emailVerified: user.emailVerified,
+      uid: user.uid
+    };
+
+    var setReauth = this.setReauth;
+    var handleCloseModal = this.handleCloseModal;
+    //var setReauth = this.setReauth();
+
+    if(name.length>0){
+      user.updateProfile({
+        displayName: name
+      }).then(function() {
+        userObj.name = name;
+      }).catch(function(error) {
+        // An error happened.
+      });
+    }
+
+    if(email.length>0){
+      user.updateEmail(email).then(function() {
+        userObj.email = email;
+        handleCloseModal();
+        console.log('no error: email');
+      }).catch(function(error) {
+        console.log('error: email');
+        setReauth(false);
+      });
+    }
+
+    if(pword.length>0){
+      user.updatePassword(pword).then(function() {
+        // Update successful.
+        handleCloseModal();
+      }).catch(function(error) {
+        console.log('error: pword');
+        setReauth(false);
+      });
+    }
+
+    this.props.setUser(userObj);
+  }
+
+  reauth(){
+    const email = document.getElementById('email').value;
+    const pword = document.getElementById('pword').value;
+
+    const user = firebase.auth().currentUser;
+    const credential = firebase.auth.EmailAuthProvider.credential(
+        email, 
+        pword
+    );
+
+    var setReauth = this.setReauth;
+
+    user.reauthenticateWithCredential(credential).then(function() {
+
+      setReauth();
+
+    }).catch(function(error) {
+
+      console.log('reauth failed: '+error);
+
+    });
+  }
+
+  setReauth(reauth) {
+    this.setState({
+      reauthed: reauth
+    });
+  }
+
+
 
   render() {
     const thisUser = this.props.user;
@@ -107,18 +193,34 @@ class MyAccount extends React.Component {
                     </div>
                 </header>
                 <div className={zoneClass}>
-                    <section className="main edit-account">
+                    { this.state.reauthed && (
+                      <section className="main edit-account">
                         <header>
-                          <h1 className="page-title">Edit My Account</h1>
+                          <h1 className="page-title">Edit My Account Details</h1>
                         </header>
                         <form>
                           <input name="name" id="name" type="text" placeholder="new username" />
                           <input name="email" id="email"  type="email" placeholder="new e-mail" />
                           <input name="pword" id="pword" type="text" placeholder="new password" />
-                          <input className="btn" onClick={this.updateUser} type="button" value="Save" />
+                          <input className="btn" onClick={this.handleUserDetails} type="button" value="Save" />
                           <p><a href="#" onClick={this.handleCloseModal}>cancel</a></p>
                         </form>
+                      </section>
+                    )}
+                    { !this.state.reauthed && (
+                      <section className="main edit-account">
+                        <header>
+                          <h1 className="page-title">Edit My Account Details</h1>
+                          <p className="subtitle">For security, please provide your login credentials to edit your primary account details.</p>
+                        </header>
+                        <form>
+                          <input name="email" id="email"  type="email" placeholder="current e-mail address" />
+                          <input name="pword" id="pword" type="password" placeholder="current password" />
+                          <input className="btn" onClick={this.reauth} type="button" value="Go" />
+                          <p><a href="#" onClick={this.handleCloseModal}>cancel</a></p>
+                      </form>
                     </section>
+                    )}
                 </div>
             </ReactModal>
 
@@ -130,7 +232,7 @@ class MyAccount extends React.Component {
                 <div className="details-box solo">
                 <div className="details-row">
                     <p>{uName}</p>
-                    <p><a className="text-link" href="#" onClick={this.handleOpenModal}>edit details</a></p>
+                    <p><a className="text-link" href="#" onClick={ (e) => this.handleOpenModal(e) }>edit details</a></p>
                 </div>
                 <div className="details-row">
                     <p>{thisUser.email}</p>
