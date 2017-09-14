@@ -41,6 +41,7 @@ class App extends React.Component {
 		this.refUser = this.refUser.bind(this);
 		this.updateReviews = this.updateReviews.bind(this);
 		this.setUser = this.setUser.bind(this);
+		this.initUser = this.initUser.bind(this);
 		this.bookSessionTransaction = this.bookSessionTransaction.bind(this);
 
 	}
@@ -80,11 +81,9 @@ class App extends React.Component {
 		const catRef = firebase.database().ref('categories');
 
 		const formValues = data;
-		let transactions = this.state.transactions;
-		const transRef = firebase.database().ref('transactions');
+		const tRef = firebase.database().ref('transactions');
 
-		const ukey = 'user-1' // TODO: replace with current user key
-		const date = new Date();
+		const ukey = this.state.user.uid;
 		const timestamp = Date.now();
 		let rating = '';
 		let review = '';
@@ -110,48 +109,50 @@ class App extends React.Component {
 		}
 		this.setState({categories});
 
-		transactions[ukey]["t-" + timestamp] = {
+		const transaction = {
 			area: akey,
 			category: ckey,
 			provider: pkey,
-			date: date,
+			date: timestamp,
 			rating: rating,
 			review: review,
-			type: "rating-review"
+			type: "rating-review",
+			uid: ukey
 		}
 
-		this.setState({transactions});
+		tRef.push().set(transaction);
 	}
 
 	bookSessionTransaction(pTokens, ckey, akey, pkey) {
 		const users = this.state.users;
 		const usersRef = firebase.database().ref('users');
+		const tRef = firebase.database().ref('transactions');
 
-		const transactions = this.state.transactions;
 		const subtractTokens = pTokens;
-		const ukey = 'user-1' // TODO: replace with current user key
-		const date = new Date();
+		const ukey = this.state.user.uid;
+		console.log(ukey);
 		const timestamp = Date.now();
 
 		if ( subtractTokens ) {
 			let currentTokens = users[ukey].tokens;
-			let newTokens = currentTokens - subtractTokens
-			usersRef.child(ukey).child('tokens').set(newTokens);
+			let newTokens = currentTokens - subtractTokens;
+			usersRef.child(ukey).update({ "tokens":newTokens });
 			users[ukey].tokens = newTokens;
 		}
 
 		this.setState({users});
 
-		transactions[ukey]["t-" + timestamp] = {
+		const transaction = {
 			area: akey,
 			category: ckey,
 			cost: pTokens,
+			date: timestamp,
 			provider: pkey,
-			date: date,
-			type: "book-a-session"
-		}
+			type: "book-a-session",
+			uid: ukey
+		};
 
-		this.setState({transactions});
+		tRef.push().set(transaction);
 
 		// TODO: Send email to provider and confirmation to user. Also admin?
 	}
@@ -171,14 +172,6 @@ class App extends React.Component {
 		  let items = snapshot.val();
 		  this.setState({
 		    pages: items
-		  });
-		});
-
-		const transRef = firebase.database().ref('transactions');
-		transRef.on('value', (snapshot) => {
-		  let items = snapshot.val();
-		  this.setState({
-		    transactions: items
 		  });
 		});
 
@@ -218,21 +211,70 @@ class App extends React.Component {
 			var name, email, photoUrl, uid, emailVerified;
 
 			if (user != null) {
+
+				const uid = user.uid;
 			  
 			  let userObj = {
-					  name: user.displayName,
-					  email: user.email,
-					  photoUrl: user.photoURL,
-					  emailVerified: user.emailVerified,
-					  uid: user.uid
-					};
+				  name: user.displayName,
+				  email: user.email,
+				  photoUrl: user.photoURL,
+				  emailVerified: user.emailVerified,
+				  uid: user.uid
+				};
 
-					this.setState({
-	          user: userObj
-	        })
+				let initUser = this.initUser;
 
+				var usersRef = firebase.database().ref('users/' + uid );
+				usersRef.on('value', function(snapshot) {
+				  let users = snapshot.val();
+
+				  initUser(users, userObj);
+
+				});
 			}
 		}
+  }
+
+  initUser(userMeta, userObj){
+
+  	const uid = userObj.uid;
+
+		if(userMeta){
+
+			userObj.tokens = userMeta.tokens;
+
+		}else{
+			const usersRef = firebase.database().ref('users');
+
+			let userMeta = {
+				tokens: 50,
+				uid: uid
+			};
+
+			usersRef.child(uid).set(userMeta);
+			userObj.tokens = 50;
+		}
+
+		this.setState({
+      user: userObj
+    })
+
+		var that = this;
+
+    const tRef = firebase.database().ref("transactions");
+    console.log(uid);
+    tRef.orderByChild('uid').equalTo(uid).on("child_added", function(snapshot) {
+      let items = snapshot.val();
+      // console.log(items.type);
+      if(items.type === "book-a-session"){
+	      let currentTs = that.state.transactions;
+
+	      currentTs[snapshot.key] = items;
+	      that.setState({
+	        transactions: currentTs
+	      });
+	    }
+    });
   }
 
   setUser(userObj) {
@@ -287,8 +329,8 @@ class App extends React.Component {
         {
           !noData && this.state.authed && (
           		<div>
-              	<Route exact path="/" render={(props) => <SubHeader users={this.state.users} />} />
-								<Route path="/area" render={(props) => <SubHeader users={this.state.users} />} />
+              	<Route exact path="/" render={(props) => <SubHeader user={this.state.user} />} />
+								<Route path="/area" render={(props) => <SubHeader user={this.state.user} />} />
 								<Route exact path="/" render={(props) => 
 									<AreaPicker 
 										categories={this.state.categories} 
@@ -297,7 +339,7 @@ class App extends React.Component {
 								/>
 								<Route path="/area/:slug/:cat" render={(props) =>
 									<ProviderPicker
-										users={this.state.users}
+										user={this.state.user}
 										setModal={this.setModal}
 										selectProvider={this.selectProvider}
 										updateReviews={this.updateReviews}
@@ -306,7 +348,17 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/my-account" render={(props) => <MyAccount reauthed={this.state.reauthed} user={this.state.user} setUser={this.setUser} categories={this.state.categories} transactions={this.state.transactions} setModal={this.setModal} users={this.state.users} />} />
+								<Route path="/my-account" render={(props) => 
+									<MyAccount 
+										reauthed={this.state.reauthed} 
+										user={this.state.user} 
+										setUser={this.setUser} 
+										categories={this.state.categories} 
+										transactions={this.state.transactions} 
+										setModal={this.setModal} 
+										user={this.state.user} 
+									/>} 
+								/>
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
 								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />
 								<Route path="/help" render={(props) => <Page page={this.state.pages["help"]} />} />

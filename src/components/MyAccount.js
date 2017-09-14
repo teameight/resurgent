@@ -25,18 +25,6 @@ class MyAccount extends React.Component {
 
   }
 
-  // componentWillMount() {
-  //   this.setState({ profile: {} });
-  //   const { userProfile, getProfile } = this.props.auth;
-  //   if (!userProfile) {
-  //     getProfile((err, profile) => {
-  //       this.setState({ profile });
-  //     });
-  //   } else {
-  //     this.setState({ profile: userProfile });
-  //   }
-  // }
-
   handleOpenModal(e) {
     e.preventDefault();
       this.setState({
@@ -161,12 +149,11 @@ class MyAccount extends React.Component {
 
 
   render() {
-    const thisUser = this.props.user;
-    const user = this.props.users;
-    let uName = thisUser.name || '';
+    const user = this.props.user;
+    let uName = user.name || '';
     // const { profile } = this.state;
-    const userId = "user-1"
-    const transactions = this.props.transactions[userId];
+    const userId = user.uid;
+    const transactions = this.props.transactions;
     // console.log(transactions);
 
     let zoneClass = 'modal-zones ';
@@ -235,7 +222,7 @@ class MyAccount extends React.Component {
                     <p><a className="text-link" href="#" onClick={ (e) => this.handleOpenModal(e) }>edit details</a></p>
                 </div>
                 <div className="details-row">
-                    <p>{thisUser.email}</p>
+                    <p>{user.email}</p>
                 </div>
                 </div>
 
@@ -243,11 +230,13 @@ class MyAccount extends React.Component {
                 <h2 className="token-report">{user.tokens} tokens left</h2>
 
                 <p className="instruction">Your History</p>
+                <div className="t-wrap">
                 {
                   Object
                     .keys(transactions)
                     .map(key => <Transaction keyId={key} categories={this.props.categories} details={transactions[key]} />)
                 }
+                </div>
             </section>
         </div>
     )

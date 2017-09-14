@@ -17,7 +17,7 @@ class SubHeader extends React.Component {
 
 	render() {
 
-    const user = this.props.users;
+    const user = this.props.user;
     // console.log(user);
 
 		return (

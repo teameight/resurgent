@@ -1201,6 +1201,10 @@ h2.section-label {
     text-align: center;
     margin-top: 13vh; }
 
+.t-wrap {
+  display: flex;
+  flex-direction: column-reverse; }
+
 .sign-in {
   text-align: center; }
   .sign-in header {

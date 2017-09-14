@@ -119,10 +119,8 @@ class ProviderPicker extends React.Component {
     const catId = this.props.match.params.cat;
     const areaId = this.props.location.state.areaId;
     const pId = this.state.provider;
-    const ukey = 'user-1' // TODO: update this to current user id
-    const user = this.props.users;
-    const uTokens = user[ukey].tokens;
-    console.log(uTokens);
+    const user = this.props.user;
+    const uTokens = user.tokens;
     user.tokens = uTokens - pTokens;
 
     this.setState({
@@ -159,7 +157,7 @@ class ProviderPicker extends React.Component {
       var {providers} = area;
     }
 
-    const user = this.props.users;
+    const user = this.props.user;
 
     let pName = '';
     let pTokens = '';
