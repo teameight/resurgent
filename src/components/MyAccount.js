@@ -14,6 +14,7 @@ class MyAccount extends React.Component {
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.updateUser = this.updateUser.bind(this);
 
       this.processLink= this.processLink.bind(this);
 
@@ -55,8 +56,28 @@ class MyAccount extends React.Component {
     this.props.history.push(path);
   };
 
+  updateUser() {
+
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var pword = document.getElementById('pword').value;
+    if (email.length < 4 && email.length > 0) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    if (pword.length < 4 && pword.length > 0) {
+      alert('Please enter a valid password.');
+      return;
+    }
+
+    this.props.updateUser(name, email, pword);
+    this.handleCloseModal();
+  }
+
   render() {
+    const thisUser = this.props.user;
     const user = this.props.users;
+    let uName = thisUser.name || '';
     // const { profile } = this.state;
     const userId = "user-1"
     const transactions = this.props.transactions[userId];
@@ -91,10 +112,10 @@ class MyAccount extends React.Component {
                           <h1 className="page-title">Edit My Account</h1>
                         </header>
                         <form>
-                          <input name="username" type="text" placeholder="new username" />
-                          <input name="email" type="email" placeholder="new e-mail" />
-                          <input name="password" type="text" placeholder="new password" />
-                          <input className="btn" onClick={this.handleCloseModal} value="Save" />
+                          <input name="name" id="name" type="text" placeholder="new username" />
+                          <input name="email" id="email"  type="email" placeholder="new e-mail" />
+                          <input name="pword" id="pword" type="text" placeholder="new password" />
+                          <input className="btn" onClick={this.updateUser} type="button" value="Save" />
                           <p><a href="#" onClick={this.handleCloseModal}>cancel</a></p>
                         </form>
                     </section>
@@ -108,11 +129,11 @@ class MyAccount extends React.Component {
 
                 <div className="details-box solo">
                 <div className="details-row">
-                    <p>{user.name}</p>
+                    <p>{uName}</p>
                     <p><a className="text-link" href="#" onClick={this.handleOpenModal}>edit details</a></p>
                 </div>
                 <div className="details-row">
-                    <p>{user.email}</p>
+                    <p>{thisUser.email}</p>
                 </div>
                 </div>
 
