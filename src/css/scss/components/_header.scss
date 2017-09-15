@@ -55,7 +55,9 @@
 .header-modal {
     background: $gray-lt2;
 }
-
+.logged-out.header-main .logo img {
+    margin: 0 auto;
+}
 .main-menu {
 
     // !!! how to maintain accessibility for hidden menu?

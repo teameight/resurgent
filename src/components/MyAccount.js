@@ -22,7 +22,16 @@ class MyAccount extends React.Component {
       this.processLink= this.processLink.bind(this);
       this.reauth= this.reauth.bind(this);
       this.setReauth= this.setReauth.bind(this);
+      this.setNotice = this.setNotice.bind(this);
 
+  }
+
+  componentWillUnmount () {
+    this.props.clearNotices();
+  }
+
+  setNotice(notice) {
+    this.props.setNotice(notice);
   }
 
   handleOpenModal(e) {
@@ -65,7 +74,6 @@ class MyAccount extends React.Component {
     }
 
     this.updateUser(name, email, pword);
-    //this.handleCloseModal();
   }
 
   updateUser(name,email,pword) {
@@ -79,8 +87,7 @@ class MyAccount extends React.Component {
       uid: user.uid
     };
 
-    var setReauth = this.setReauth;
-    var handleCloseModal = this.handleCloseModal;
+    var that = this;
     //var setReauth = this.setReauth();
 
     if(name.length>0){
@@ -88,29 +95,49 @@ class MyAccount extends React.Component {
         displayName: name
       }).then(function() {
         userObj.name = name;
+        that.handleCloseModal();
+        that.setNotice({
+          type: 'success',
+          message: 'Your username has been updated.'
+        });
       }).catch(function(error) {
-        // An error happened.
+        that.setNotice({
+          type: 'warning',
+          message: 'There was an error updating your username.'
+        });
       });
     }
 
     if(email.length>0){
       user.updateEmail(email).then(function() {
         userObj.email = email;
-        handleCloseModal();
-        console.log('no error: email');
+        that.handleCloseModal();
+        that.setNotice({
+          type: 'success',
+          message: 'Your email has been updated.'
+        });
       }).catch(function(error) {
-        console.log('error: email');
-        setReauth(false);
+        that.setNotice({
+          type: 'warning',
+          message: 'There was an error updating your email.'
+        });
+        that.setReauth(false);
       });
     }
 
     if(pword.length>0){
       user.updatePassword(pword).then(function() {
-        // Update successful.
-        handleCloseModal();
+        that.setNotice({
+          type: 'success',
+          message: 'Your password has been updated.'
+        });
+        that.handleCloseModal();
       }).catch(function(error) {
-        console.log('error: pword');
-        setReauth(false);
+        that.setNotice({
+          type: 'warning',
+          message: 'There was an error updating your password.'
+        });
+        that.setReauth(false);
       });
     }
 
@@ -127,15 +154,19 @@ class MyAccount extends React.Component {
         pword
     );
 
-    var setReauth = this.setReauth;
+    var that = this;
 
     user.reauthenticateWithCredential(credential).then(function() {
 
-      setReauth();
+      that.setReauth(true);
 
     }).catch(function(error) {
-
-      console.log('reauth failed: '+error);
+      that.setNotice({
+        type: 'warning',
+        message: 'Reauthentication failed.'
+      });
+      console.log('reauth failed:');
+      console.log(error);
 
     });
   }
@@ -150,9 +181,21 @@ class MyAccount extends React.Component {
 
   render() {
     const user = this.props.user;
-    let uName = user.name || '';
+    let uName = '';
     // const { profile } = this.state;
-    const userId = user.uid;
+    let userId = '';
+    let uTokens = '';
+    let uEmail = '';
+
+    if(user != null){
+      uName = user.name;
+      uTokens = user.tokens;
+      userId = user.uid;
+      uEmail = user.email;
+    }
+
+
+
     const transactions = this.props.transactions;
     // console.log(transactions);
 
@@ -222,12 +265,12 @@ class MyAccount extends React.Component {
                     <p><a className="text-link" href="#" onClick={ (e) => this.handleOpenModal(e) }>edit details</a></p>
                 </div>
                 <div className="details-row">
-                    <p>{user.email}</p>
+                    <p>{uEmail}</p>
                 </div>
                 </div>
 
 
-                <h2 className="token-report">{user.tokens} tokens left</h2>
+                <h2 className="token-report">{uTokens} tokens left</h2>
 
                 <p className="instruction">Your History</p>
                 <div className="t-wrap">

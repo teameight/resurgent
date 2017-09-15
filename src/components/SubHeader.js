@@ -18,15 +18,23 @@ class SubHeader extends React.Component {
 	render() {
 
     const user = this.props.user;
+
+    let uName = '';
+    let uTokens = '';
+
+    if(user != null){
+      uName = user.name;
+      uTokens = user.tokens;
+    }
     // console.log(user);
 
 		return (
 			<section className="subheader">
           <div className="welcome">
-              <p>Welcome, {user.name}</p>
+              <p>Welcome, {uName}</p>
               <a href="#" onClick={  (e) => this.processLink(e, '/my-account') }>My Account</a>
           </div>
-          <p className="token-counter"><span>TOKENS: </span><span className="t-count">{user.tokens}</span></p>
+          <p className="token-counter"><span>TOKENS: </span><span className="t-count">{uTokens}</span></p>
       </section>
 		)
 	}

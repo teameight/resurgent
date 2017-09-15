@@ -20,7 +20,7 @@ class ProviderPicker extends React.Component {
       category: null,
       area: null,
       provider: null,
-      formValues: {}
+      formValues: {name:''}
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -31,8 +31,14 @@ class ProviderPicker extends React.Component {
     this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
     this.handleBookSubmit = this.handleBookSubmit.bind(this);
 
+    this.handleRating = this.handleRating.bind(this);
+
     this.passProvider= this.passProvider.bind(this);
     this.flipCard= this.flipCard.bind(this);
+  }
+
+  componentWillUnmount () {
+    this.props.clearNotices();
   }
 
   passProvider(keyId, mname) {
@@ -149,6 +155,7 @@ class ProviderPicker extends React.Component {
     // let area = {};
     // console.log(slug);
 
+
     if(catId){
       category = this.props.categories[catId];
       const {areas} = category;
@@ -183,8 +190,10 @@ class ProviderPicker extends React.Component {
     }
 
     let tokenCounts = [];
-    for (var i = user.tokens; i <= user.tokens + pTokens; i++) {
-      tokenCounts.push(<li>{i}</li>);
+    if(user != null){
+      for (var i = user.tokens; i <= user.tokens + pTokens; i++) {
+        tokenCounts.push(<li>{i}</li>);
+      }
     }
 
     let zoneClass = 'modal-zones ';

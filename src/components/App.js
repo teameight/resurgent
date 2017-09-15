@@ -7,6 +7,7 @@ import Start from './Start'; //dummy login page for now
 import firebase from '../fire';
 import fbAuth from '../fire';
 //import Auth from '../Auth/Auth';
+import Notices from './Notices';
 import Callback from '../Callback/Callback';
 import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
@@ -31,7 +32,8 @@ class App extends React.Component {
 			loggedOut : false,
 			isModal: false,
 			authed: false,
-    	loading: true
+    	loading: true,
+    	notices: []
 		}
 
 		this.selectProvider = this.selectProvider.bind(this);
@@ -43,8 +45,33 @@ class App extends React.Component {
 		this.setUser = this.setUser.bind(this);
 		this.initUser = this.initUser.bind(this);
 		this.bookSessionTransaction = this.bookSessionTransaction.bind(this);
+    this.handleCloseNotice = this.handleCloseNotice.bind(this);
+    this.setNotice = this.setNotice.bind(this);
+    this.clearNotices = this.clearNotices.bind(this);
 
 	}
+
+	setNotice(notice) {
+    let newNotices = [];
+    newNotices.push(notice);
+    this.setState({
+      notices:newNotices
+    });
+  }
+
+  handleCloseNotice(key) {
+  	let newNotices = this.state.notices.slice();
+    newNotices.splice(key, 1);
+    this.setState(
+      { notices: newNotices }
+    );
+  }
+
+  clearNotices() {
+  	this.setState({
+    	notices:[]
+    });
+  }
 
 	selectProvider(keyId) {
     this.setState({
@@ -97,6 +124,15 @@ class App extends React.Component {
 			let sum = ratingArr.reduce((a, b) => a + b, 0 );
 			let percentage = Math.round((sum / ratingArr.length)/.05);
 			categories[ckey]["areas"][akey]["providers"][pkey].rating = percentage;
+
+			const cInRef = firebase.database().ref('categories/'+ckey+'/areas/'+akey+'/providers/'+pkey);
+			// cInRef.on('value', (snapshot) => {
+			//   let items = snapshot.val();
+			//   console.log(items);
+			// });
+
+			cInRef.update({ratingArr:ratingArr, rating:percentage});
+
 		}
 
 		if ( formValues.message ) {
@@ -121,6 +157,11 @@ class App extends React.Component {
 		}
 
 		tRef.push().set(transaction);
+
+		this.setNotice({
+			type: 'success',
+			message: 'Your review and/or rating has been saved.'
+		});
 	}
 
 	bookSessionTransaction(pTokens, ckey, akey, pkey) {
@@ -202,7 +243,7 @@ class App extends React.Component {
 	}
 
 	componentWillUnmount () {
-    this.removeListener()
+    this.removeListener();
   }
 
   refUser () {
@@ -299,35 +340,48 @@ class App extends React.Component {
 
 		let wrapClassName = 'resurgent-app';
 		let categories = this.state.categories;
-		let noData = (Object.keys(categories).length === 0 && categories.constructor === Object);
+
+		// let noUser = this.state.user === null ? true : false;
+		let noData = (Object.keys(categories).length === 0);
+
+		let isAuthed = this.state.authed;
 
 		if(this.props.location.pathname === '/my-account'){
 			wrapClassName += ' flow-account';
 		}
 
-		if(this.props.location.pathname === '/terms' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
+		if(this.props.location.pathname === '/terms' || this.props.location.pathname === '/privacy-policy' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
 			wrapClassName += ' page';
 		}
 
-		if(!this.state.authed){
+		if(!isAuthed) {
 			wrapClassName += ' flow-login';
 		}
+
+		const notices = this.state.notices;
 
 		return (
 			<div className={wrapClassName}>
 				<Header user={this.state.user} logOut={this.logout} isModal={this.state.isModal} />
+				{
+          Object
+            .keys(notices)
+            .map(key => 
+              <Notices key={key} id={key} handleCloseNotice={this.handleCloseNotice} notice={notices[key]} />
+            )
+        }
 					<Route path="/callback" render={(props) => <Callback />} />
 				{ noData && (
 					<Callback />
 					)
 				}
 				{
-          !this.state.authed && (
-	          	<Login />
+          !isAuthed &&  (
+	          	<Login clearNotices={this.clearNotices} notices={this.state.notices} setNotice={this.setNotice} />
             )
         }
         {
-          !noData && this.state.authed && (
+          !noData && isAuthed && (
           		<div>
               	<Route exact path="/" render={(props) => <SubHeader user={this.state.user} />} />
 								<Route path="/area" render={(props) => <SubHeader user={this.state.user} />} />
@@ -339,6 +393,7 @@ class App extends React.Component {
 								/>
 								<Route path="/area/:slug/:cat" render={(props) =>
 									<ProviderPicker
+									 	clearNotices={this.clearNotices} 
 										user={this.state.user}
 										setModal={this.setModal}
 										selectProvider={this.selectProvider}
@@ -350,6 +405,8 @@ class App extends React.Component {
 								/>
 								<Route path="/my-account" render={(props) => 
 									<MyAccount 
+									 	setNotice={this.setNotice}
+										clearNotices={this.clearNotices} 
 										reauthed={this.state.reauthed} 
 										user={this.state.user} 
 										setUser={this.setUser} 
@@ -362,6 +419,7 @@ class App extends React.Component {
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
 								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />
 								<Route path="/help" render={(props) => <Page page={this.state.pages["help"]} />} />
+								<Route path="/privacy-policy" render={(props) => <Page page={this.state.pages["privacy-policy"]} />} />
               </div>
             )
         }

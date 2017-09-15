@@ -41,11 +41,49 @@ body {
       text-align: center;
       border-bottom: 1px solid gray;
       padding: 12px 0 32px; }
+    .page .main .bio-img {
+      margin: 20px auto;
+      width: 60%;
+      max-width: 200px;
+      height: auto;
+      border-radius: 50%;
+      border: 3px solid #df4678;
+      display: block; }
     .page .main ol, .page .main ul {
       margin: 8px 0 20px;
       padding: 0 0 0 15px; }
     .page .main li {
       margin-bottom: 4px; }
+
+.notice {
+  width: 100vw;
+  background: #df4678;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #da2c1d;
+  position: relative;
+  box-sizing: border-box; }
+  .notice.success {
+    background: #3e9a56;
+    border-bottom: #262626; }
+  .notice p {
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    padding: 8px 3.5em;
+    margin: 0; }
+  .notice .tcon-remove {
+    position: absolute;
+    right: 0;
+    top: -6px;
+    height: 45px;
+    width: 45px; }
+    .notice .tcon-remove::before, .notice .tcon-remove::after {
+      background: white;
+      height: 8%;
+      width: 50%;
+      top: 45%;
+      left: 30%; }
 
 .spinner-wrap {
   height: 100vh;
@@ -496,6 +534,9 @@ http://flickity.metafizzy.co
 
 .header-modal {
   background: #eeeeee; }
+
+.logged-out.header-main .logo img {
+  margin: 0 auto; }
 
 .main-menu {
   width: 100%;
@@ -1082,7 +1123,7 @@ h2.section-label {
     margin-top: 0; } }
 
 .flow-rating {
-  background: #eeeeee; }
+  background: #df4678; }
   .flow-rating .tcon-remove:after, .flow-rating .tcon-remove:before {
     background: #57585A; }
   .flow-rating .read-ratings, .flow-rating .write-review {
@@ -1167,7 +1208,7 @@ h2.section-label {
     color: #df4678; }
 
 .flow-login {
-  background: #a3ceb7; }
+  background: #eeeeee; }
   .flow-login .main header {
     margin: 32px auto;
     text-align: center;
@@ -1217,7 +1258,7 @@ h2.section-label {
     margin-right: auto; }
 
 .ReactModalPortal .flow-account, .flow-account {
-  background: #a3ceb7; }
+  background: #eeeeee; }
   .ReactModalPortal .flow-account .details-box, .flow-account .details-box {
     background: white;
     padding: 12px 8px;

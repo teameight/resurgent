@@ -52,6 +52,16 @@ body {
 			padding: 12px 0 32px;
 		}
 
+		.bio-img {
+			margin:20px auto;
+			width:60%;
+			max-width: 200px;
+			height:auto;
+			border-radius: 50%;
+			border:3px solid $magenta;
+			display: block;
+		}
+
 		ol, ul {
 			margin: 8px 0 20px;
     	padding: 0 0 0 15px;
@@ -64,6 +74,45 @@ body {
 
 	}
 }
+.notice {
+	width:100vw;
+	background: $magenta;
+	padding:0;
+	margin:0; 
+	border-bottom:1px solid $red;
+	position: relative;
+	box-sizing: border-box;
+
+	&.success {
+		background: $green;
+		border-bottom:$gray-dark;
+	}
+
+	p {
+		font-size:13px;
+		font-weight:600;
+		color:white;
+		padding:8px 3.5em;
+		margin:0;
+	}
+	.tcon-remove {
+		position: absolute;
+    right: 0;
+    top: -6px;
+    height: 45px;
+    width: 45px;
+
+    &::before, &::after {
+			background: white;
+			height: 8%;
+	    width: 50%;
+	    top: 45%;
+	    left: 30%;
+		}
+
+	}
+}
+
 .spinner-wrap {
 	height:100vh;
 	width:100%;

@@ -9,7 +9,12 @@ class Login extends React.Component {
 
     this.toggleSignIn = this.toggleSignIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
+    this.setNotice = this.setNotice.bind(this);
 
+  }
+
+  componentWillUnmount () {
+    this.props.clearNotices();
   }
 
 	login() {
@@ -25,28 +30,37 @@ class Login extends React.Component {
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
         if (email.length < 4) {
-          alert('Please enter an email address.');
+          this.setNotice({
+            type: 'warning',
+            message: 'Please enter an email address.'
+          });
           return;
         }
         if (password.length < 4) {
-          alert('Please enter a password.');
+          this.setNotice({
+            type: 'warning',
+            message: 'Please enter a password.'
+          });
           return;
         }
         // Sign in with email and pass.
         // [START authwithemail]
+        let that = this;
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
-          // [START_EXCLUDE]
           if (errorCode === 'auth/wrong-password') {
-            alert('Wrong password.');
+            that.setNotice({
+              type: 'warning',
+              message: 'The email or password is invalid.'
+            });
           } else {
-            alert(errorMessage);
+            that.setNotice({
+              type: 'warning',
+              message: ' ' + errorMessage
+            });
           }
-          console.log(error);
-          document.getElementById('quickstart-sign-in').disabled = false;
-          // [END_EXCLUDE]
         });
         // [END authwithemail]
       }
@@ -57,11 +71,17 @@ class Login extends React.Component {
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
       if (email.length < 4) {
-        alert('Please enter an email address.');
+        this.setNotice({
+          type: 'warning',
+          message: 'Please enter an email address.'
+        });
         return;
       }
       if (password.length < 4) {
-        alert('Please enter a password.');
+        this.setNotice({
+          type: 'warning',
+          message: 'Please enter a password.'
+        });
         return;
       }
       // Sign in with email and pass.
@@ -82,9 +102,14 @@ class Login extends React.Component {
       // [END createwithemail]
     }
 
+    setNotice(notice) {
+      this.props.setNotice(notice);
+    }
+
   render() {
   	let pTitle = 'Sign In';
   	let pMessage = 'Enter your details below';
+    
 
   	if(this.props.loggedOut){
   		pTitle = 'Success!';

@@ -62,7 +62,8 @@ class Header extends React.Component {
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/') }>Home</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/my-account')}>My Account</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/about')}>About</button></li>
-                <li><button type="button" onClick={	(e) => this.processLink(e, '/help')}>Help</button></li>
+                <li><button type="button" onClick={ (e) => this.processLink(e, '/help')}>Help</button></li>
+                <li><button type="button" onClick={ (e) => this.processLink(e, '/privacy-policy')}>Privacy Policy</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, 'logout')}>Sign Out</button></li>
 
             </ul>
