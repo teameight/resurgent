@@ -171,7 +171,7 @@ class App extends React.Component {
 
 		const subtractTokens = pTokens;
 		const ukey = this.state.user.uid;
-		console.log(ukey);
+		// console.log(ukey);
 		const timestamp = Date.now();
 
 		if ( subtractTokens ) {
@@ -303,7 +303,7 @@ class App extends React.Component {
 		var that = this;
 
     const tRef = firebase.database().ref("transactions");
-    console.log(uid);
+    
     tRef.orderByChild('uid').equalTo(uid).on("child_added", function(snapshot) {
       let items = snapshot.val();
       // console.log(items.type);
