@@ -120,20 +120,20 @@ class ProviderPicker extends React.Component {
     this.props.history.push(path);
   }
 
-  handleBookSubmit(e, pTokens) {
+  handleBookSubmit(e, pCost) {
     e.preventDefault();
     const catId = this.props.match.params.cat;
     const areaId = this.props.location.state.areaId;
     const pId = this.state.provider;
     const user = this.props.user;
     const uTokens = user.tokens;
-    user.tokens = uTokens - pTokens;
+    user.tokens = uTokens - pCost;
 
     this.setState({
       zone : 2
     });
 
-    this.props.bookSessionTransaction(pTokens, catId, areaId, pId);
+    this.props.bookSessionTransaction(pCost, catId, areaId, pId);
 
     //this.props.history.push('/book-confirm');
   }
@@ -167,19 +167,20 @@ class ProviderPicker extends React.Component {
     const user = this.props.user;
 
     let pName = '';
-    let pTokens = '';
+    let pCost = '';
     let pCat = '';
     let pArea = '';
     let pRating = '';
     let pRatingNum = 0;
     let pReviews = '';
-
+    let tokenCounts = [];
+    
     if(pId){
       var provider = providers[pId];
       pName = provider.name;
-      pTokens = provider.tokens;
-      pCat = provider.sectionName;
-      pArea = provider.areaName;
+      pCost = provider.cost;
+      pCat = category.name;
+      pArea = area.name;
       pRating = provider.rating;
       if ( provider.ratingArr ) {
         pRatingNum = provider.ratingArr.length;
@@ -187,13 +188,17 @@ class ProviderPicker extends React.Component {
       if ( provider.reviews ) {
         pReviews = provider.reviews;
       }
-    }
+    
+      if(user != null){
 
-    let tokenCounts = [];
-    if(user != null){
-      for (var i = user.tokens; i <= user.tokens + pTokens; i++) {
-        tokenCounts.push(<li>{i}</li>);
+        const total = parseInt(user.tokens, 10) + parseInt(pCost, 10);
+        
+        for (var i = user.tokens; i <= total; i++) {
+          console.log((total)+' '+i);
+          tokenCounts.push(<li>{i}</li>);
+        }
       }
+
     }
 
     let zoneClass = 'modal-zones ';
@@ -226,11 +231,11 @@ class ProviderPicker extends React.Component {
                   </header>
                   <div className="form-intro">
                       <p className="messaging"><strong>Messaging:</strong> {pName}</p>
-                      <p>{pCat}: {pArea} <strong>({pTokens} tokens)</strong></p>
+                      <p>{pCat}: {pArea} <strong>({pCost} tokens)</strong></p>
                   </div>
-                  <form onSubmit={(e) => this.handleBookSubmit(e, pTokens)}>
+                  <form onSubmit={(e) => this.handleBookSubmit(e, pCost)}>
                       <input name="subject" type="text" placeholder="Subject" required />
-                      <textarea name="message" rows="12" cols="50" required >Default form letter text. Lorem ipsum dolor sit amet.
+                      <textarea name="message" rows="6" cols="50" required >Default form letter text. Lorem ipsum dolor sit amet.
 
         Thanks!
                       </textarea>
@@ -331,7 +336,7 @@ class ProviderPicker extends React.Component {
                   <p className="instruction">Write an optional review here. Your name will be kept anonymous.</p>
                   <form onSubmit={(e) => this.handleReviewSubmit(e)}>
                       <input name="headline" type="text" placeholder="Your review headline" onChange={this.handleReviewChange} />
-                      <textarea name="message" rows="12" cols="50" placeholder="Write your review here" onChange={this.handleReviewChange} ></textarea>
+                      <textarea name="message" rows="6" cols="50" placeholder="Write your review here" onChange={this.handleReviewChange} ></textarea>
                       <input className="btn" type="submit" value="Submit Review" />
                   </form>
 

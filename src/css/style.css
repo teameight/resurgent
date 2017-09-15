@@ -8,13 +8,11 @@ body {
   background: #262626;
   margin: 0;
   font-size: 16px;
-  width: 100vw; }
+  width: 100%; }
 
 .resurgent-app {
   padding-top: 60px;
-  box-sizing: border-box;
-  min-height: 100vh;
-  padding-bottom: 60px; }
+  padding-bottom: 36px; }
 
 .main:not(.section-areas) {
   padding: 0 15px; }
@@ -32,7 +30,9 @@ body {
     margin: 32px 0; }
 
 .page {
-  background: #eeeeee; }
+  background: #eeeeee;
+  min-height: 100vh;
+  box-sizing: border-box; }
   .page .main {
     max-width: 768px;
     margin-left: auto;
@@ -851,7 +851,7 @@ h2.section-label {
   padding: 0 15px; }
 
 .providers {
-  margin-bottom: 48px; }
+  margin-bottom: 8px; }
   .providers .flickity-prev-next-button {
     top: 180px;
     width: 54px;
@@ -1241,6 +1241,9 @@ h2.section-label {
   .flow-login .prefooter {
     text-align: center;
     margin-top: 13vh; }
+  .flow-login footer .logo img {
+    margin: 0 auto;
+    float: none; }
 
 .t-wrap {
   display: flex;
