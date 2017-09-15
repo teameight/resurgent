@@ -33,7 +33,9 @@ class Transaction extends React.Component {
 
     if(pId){
       var provider = providers[pId];
-      pName = provider.name;
+      if(provider){
+        pName = provider.name;
+      }
     }
 
 		// console.log(details);

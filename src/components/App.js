@@ -93,13 +93,14 @@ class App extends React.Component {
 	}
 
 	logout() {
+		let that=this;
 		firebase.auth().signOut().then(function() {
-			this.setState({
+			that.setState({
+				loggedOut:true,
 				authed: false,
 				user:null
 			});
 		}).catch(function(error) {
-		  // An error happened.
 		});
 	}
 
@@ -228,7 +229,7 @@ class App extends React.Component {
       if (user) {
         this.setState({
           authed: true,
-          loading: false,
+          loading: false
         })
         this.refUser();
       } else {
@@ -350,7 +351,7 @@ class App extends React.Component {
 			wrapClassName += ' flow-account';
 		}
 
-		if(this.props.location.pathname === '/terms' || this.props.location.pathname === '/privacy-policy' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
+		if(isAuthed && this.props.location.pathname === '/terms' || this.props.location.pathname === '/privacy-policy' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
 			wrapClassName += ' page';
 		}
 
@@ -362,7 +363,7 @@ class App extends React.Component {
 
 		return (
 			<div className={wrapClassName}>
-				<Header user={this.state.user} logOut={this.logout} isModal={this.state.isModal} />
+				<Header user={this.state.user} logOut={this.logout}  isModal={this.state.isModal} />
 				{
           Object
             .keys(notices)
@@ -377,7 +378,7 @@ class App extends React.Component {
 				}
 				{
           !isAuthed &&  (
-	          	<Login clearNotices={this.clearNotices} notices={this.state.notices} setNotice={this.setNotice} />
+	          	<Login loggedOut={this.state.loggedOut} clearNotices={this.clearNotices} notices={this.state.notices} setNotice={this.setNotice} />
             )
         }
         {
