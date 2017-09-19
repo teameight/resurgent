@@ -6,6 +6,7 @@ import Login from './Login';
 import Start from './Start'; //dummy login page for now
 import firebase from '../fire';
 import fbAuth from '../fire';
+import axios from 'axios';
 //import Auth from '../Auth/Auth';
 import Notices from './Notices';
 import Callback from '../Callback/Callback';
@@ -165,16 +166,16 @@ class App extends React.Component {
 		});
 	}
 
-	bookSessionTransaction(pTokens, ckey, akey, pkey) {
+	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues) {
 		const users = this.state.users;
 		const usersRef = firebase.database().ref('users');
 		const tRef = firebase.database().ref('transactions');
 
 		const subtractTokens = pTokens;
 		const ukey = this.state.user.uid;
-		// console.log(ukey);
 		const timestamp = Date.now();
 
+		// subtract user tokens
 		if ( subtractTokens ) {
 			let currentTokens = users[ukey].tokens;
 			let newTokens = currentTokens - subtractTokens;
@@ -184,6 +185,16 @@ class App extends React.Component {
 
 		this.setState({users});
 
+		// send email
+		axios.post('https://aqueous-eyrie-70803.herokuapp.com/book-session', formValues)
+	  .then(function (response) {
+	    console.log(response);
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
+	  // create transaction record
 		const transaction = {
 			area: akey,
 			category: ckey,
@@ -224,7 +235,7 @@ class App extends React.Component {
 		    categories: items
 		  });
 		});
-		 
+
 		this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -255,7 +266,7 @@ class App extends React.Component {
 			if (user != null) {
 
 				const uid = user.uid;
-			  
+
 			  let userObj = {
 				  name: user.displayName,
 				  email: user.email,
@@ -304,7 +315,7 @@ class App extends React.Component {
 		var that = this;
 
     const tRef = firebase.database().ref("transactions");
-    
+
     tRef.orderByChild('uid').equalTo(uid).on("child_added", function(snapshot) {
       let items = snapshot.val();
       // console.log(items.type);
@@ -320,7 +331,7 @@ class App extends React.Component {
   }
 
   setUser(userObj) {
-    
+
 		this.setState({
     	user: userObj
     });
@@ -367,7 +378,7 @@ class App extends React.Component {
 				{
           Object
             .keys(notices)
-            .map(key => 
+            .map(key =>
               <Notices key={key} id={key} handleCloseNotice={this.handleCloseNotice} notice={notices[key]} />
             )
         }
@@ -386,15 +397,15 @@ class App extends React.Component {
           		<div>
               	<Route exact path="/" render={(props) => <SubHeader user={this.state.user} />} />
 								<Route path="/area" render={(props) => <SubHeader user={this.state.user} />} />
-								<Route exact path="/" render={(props) => 
-									<AreaPicker 
-										categories={this.state.categories} 
-										{...props} 
-									/>} 
+								<Route exact path="/" render={(props) =>
+									<AreaPicker
+										categories={this.state.categories}
+										{...props}
+									/>}
 								/>
 								<Route path="/area/:slug/:cat" render={(props) =>
 									<ProviderPicker
-									 	clearNotices={this.clearNotices} 
+									 	clearNotices={this.clearNotices}
 										user={this.state.user}
 										setModal={this.setModal}
 										selectProvider={this.selectProvider}
@@ -404,18 +415,18 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/my-account" render={(props) => 
-									<MyAccount 
+								<Route path="/my-account" render={(props) =>
+									<MyAccount
 									 	setNotice={this.setNotice}
-										clearNotices={this.clearNotices} 
-										reauthed={this.state.reauthed} 
-										user={this.state.user} 
-										setUser={this.setUser} 
-										categories={this.state.categories} 
-										transactions={this.state.transactions} 
-										setModal={this.setModal} 
-										user={this.state.user} 
-									/>} 
+										clearNotices={this.clearNotices}
+										reauthed={this.state.reauthed}
+										user={this.state.user}
+										setUser={this.setUser}
+										categories={this.state.categories}
+										transactions={this.state.transactions}
+										setModal={this.setModal}
+										user={this.state.user}
+									/>}
 								/>
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
 								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />

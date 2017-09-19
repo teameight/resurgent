@@ -128,12 +128,20 @@ class ProviderPicker extends React.Component {
     const user = this.props.user;
     const uTokens = user.tokens;
     user.tokens = uTokens - pCost;
+    // TODO: get provider name and email address
+
+    // TODO: get user name and email address
+
+    const formValues = {
+      subject: this.subject.value,
+      body: this.body.value
+    }
 
     this.setState({
       zone : 2
     });
 
-    this.props.bookSessionTransaction(pCost, catId, areaId, pId);
+    this.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues);
 
     //this.props.history.push('/book-confirm');
   }
@@ -233,9 +241,9 @@ class ProviderPicker extends React.Component {
                       <p className="messaging"><strong>Messaging:</strong> {pName}</p>
                       <p>{pCat}: {pArea} <strong>({pCost} tokens)</strong></p>
                   </div>
-                  <form onSubmit={(e) => this.handleBookSubmit(e, pCost)}>
-                      <input name="subject" type="text" placeholder="Subject" required />
-                      <textarea name="message" rows="6" cols="50" required >Default form letter text. Lorem ipsum dolor sit amet.
+                  <form ref={(input) => this.bookForm = input}onSubmit={(e) => this.handleBookSubmit(e, pCost)}>
+                      <input ref={(input) => this.subject = input}name="subject" type="text" placeholder="Subject" required />
+                      <textarea ref={(input) => this.body = input}name="message" rows="6" cols="50" required >Default form letter text. Lorem ipsum dolor sit amet.
 
         Thanks!
                       </textarea>
