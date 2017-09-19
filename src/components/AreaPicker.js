@@ -10,9 +10,11 @@ const flickityOptions = {
 
 const catRef = firebase.database().ref('categories');
 let catObj = {};
+let key = 1;
 const categories = catRef.orderByChild('order').once('value').then(function(snapshot) {
           snapshot.forEach(function(data) {
-            catObj[data.key] = data.val();
+            catObj[key] = data.val();
+            key++;
           });
         });
 

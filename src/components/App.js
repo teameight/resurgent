@@ -113,6 +113,7 @@ class App extends React.Component {
 		const tRef = firebase.database().ref('transactions');
 
 		const ukey = this.state.user.uid;
+		const uid = ukey;
 		const timestamp = Date.now();
 		let rating = '';
 		let review = '';
@@ -136,6 +137,16 @@ class App extends React.Component {
 			cInRef.update({ratingArr:ratingArr, rating:percentage});
 
 		}
+
+	  // get user info
+		axios.post('https://aqueous-eyrie-70803.herokuapp.com/user-test', {uid: uid})
+	  .then(function (response) {
+	    console.log(response);
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+
 
 		if ( formValues.message ) {
 			let reviews = categories[ckey]["areas"][akey]["providers"][pkey].reviews ? categories[ckey]["areas"][akey]["providers"][pkey].reviews : [];
