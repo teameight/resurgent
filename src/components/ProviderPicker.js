@@ -3,6 +3,7 @@ import Provider from './Provider';
 import Flickity from 'react-flickity-component';
 import ReactModal from 'react-modal';
 import RatingStars from './RatingStars';
+import firebase from '../fire';
 
 const flickityOptions = {
   pageDots: false
@@ -125,17 +126,35 @@ class ProviderPicker extends React.Component {
     const catId = this.props.match.params.cat;
     const areaId = this.props.location.state.areaId;
     const pId = this.state.provider;
+    const provider = firebase.database().ref('providers').child(pId);
     const user = this.props.user;
+    console.log('user:', user);
     const uTokens = user.tokens;
     user.tokens = uTokens - pCost;
-    // TODO: get provider name and email address
-
-    // TODO: get user name and email address
-
-    const formValues = {
+    let adminEmail = '';
+    let providerEmail = '';
+    let providerName = '';
+    let formValues = {
       subject: this.subject.value,
-      body: this.body.value
-    }
+      body: this.body.value,
+      userEmail: user.email,
+      userName: user.name
+    };
+    // TODO: get admin email address
+    const settings = firebase.database().ref('settings');
+    console.log('settings:', settings);
+    settings.once('value')
+      .then(function(snapshot) {
+        formValues['adminEmail'] = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
+      });
+    // TODO: get provider name and email address
+    provider.once('value')
+      .then(function(snapshot) {
+        formValues['providerEmail'] = snapshot.val().email ? snapshot.val().email : adminEmail;
+        formValues['providerName'] = snapshot.val().name ? snapshot.val().name : '';
+      });
+
+    console.log('form values', formValues);
 
     this.setState({
       zone : 2
@@ -182,7 +201,7 @@ class ProviderPicker extends React.Component {
     let pRatingNum = 0;
     let pReviews = '';
     let tokenCounts = [];
-    
+
     if(pId){
       var provider = providers[pId];
       pName = provider.name;
@@ -196,13 +215,13 @@ class ProviderPicker extends React.Component {
       if ( provider.reviews ) {
         pReviews = provider.reviews;
       }
-    
+
       if(user != null){
 
         const total = parseInt(user.tokens, 10) + parseInt(pCost, 10);
-        
+
         for (var i = user.tokens; i <= total; i++) {
-          console.log((total)+' '+i);
+          // console.log((total)+' '+i);
           tokenCounts.push(<li>{i}</li>);
         }
       }
