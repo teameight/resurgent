@@ -78,6 +78,7 @@ class MyAccount extends React.Component {
 
   updateUser(name,email,pword) {
     var user = firebase.auth().currentUser;
+    const userRef = firebase.database().ref('users/'+user.uid);
 
     let userObj = {
       name: user.displayName,
@@ -95,6 +96,7 @@ class MyAccount extends React.Component {
         displayName: name
       }).then(function() {
         userObj.name = name;
+        userRef.update({name: name});
         that.handleCloseModal();
         that.setNotice({
           type: 'success',
@@ -111,6 +113,7 @@ class MyAccount extends React.Component {
     if(email.length>0){
       user.updateEmail(email).then(function() {
         userObj.email = email;
+        userRef.update({email: email});
         that.handleCloseModal();
         that.setNotice({
           type: 'success',
