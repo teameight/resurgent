@@ -110,8 +110,26 @@ class ProviderPicker extends React.Component {
     const areaId = this.props.location.state.areaId;
     const pId = this.state.provider;
     let formValues = this.state.formValues;
+    let adminEmail = '';
+    let providerEmail = '';
+    let providerName = '';
+    // store `this` to use inside firebase promise
+    let component = this;
 
-    this.props.updateReviews(formValues, catId, areaId, pId);
+    // get admin email address
+    const settings = firebase.database().ref('settings');
+    settings.once('value', function(snapshot) {
+        formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
+      });
+    // get provider name and email address
+    const provider = firebase.database().ref('providers').child(pId);
+    provider.once('value', function(snapshot) {
+        formValues.providerEmail = snapshot.val().email ? snapshot.val().email : adminEmail;
+        formValues.providerName = snapshot.val().name ? snapshot.val().name : '';
+      }).then(function() {
+        component.props.updateReviews(formValues, catId, areaId, pId);
+      });
+
     this.handleCloseModal();
   }
 
@@ -126,9 +144,7 @@ class ProviderPicker extends React.Component {
     const catId = this.props.match.params.cat;
     const areaId = this.props.location.state.areaId;
     const pId = this.state.provider;
-    const provider = firebase.database().ref('providers').child(pId);
     const user = this.props.user;
-    console.log('user:', user);
     const uTokens = user.tokens;
     user.tokens = uTokens - pCost;
     let adminEmail = '';
@@ -140,32 +156,30 @@ class ProviderPicker extends React.Component {
       userEmail: user.email,
       userName: user.name
     };
-    // TODO: get admin email address
-    const settings = firebase.database().ref('settings');
-    console.log('settings:', settings);
-    settings.once('value')
-      .then(function(snapshot) {
-        formValues['adminEmail'] = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
-      });
-    // TODO: get provider name and email address
-    provider.once('value')
-      .then(function(snapshot) {
-        formValues['providerEmail'] = snapshot.val().email ? snapshot.val().email : adminEmail;
-        formValues['providerName'] = snapshot.val().name ? snapshot.val().name : '';
-      });
 
-    console.log('form values', formValues);
+    // store `this` to use inside firebase promise
+    let component = this;
 
     this.setState({
       zone : 2
     });
 
-    this.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues);
-
-    //this.props.history.push('/book-confirm');
+    // get admin email address
+    const settings = firebase.database().ref('settings');
+    settings.once('value', function(snapshot) {
+        formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
+      });
+    // get provider name and email address
+    const provider = firebase.database().ref('providers').child(pId);
+    provider.once('value', function(snapshot) {
+        formValues.providerEmail = snapshot.val().email ? snapshot.val().email : adminEmail;
+        formValues.providerName = snapshot.val().name ? snapshot.val().name : '';
+      }).then(function() {
+        component.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues);
+      });
   }
 
-  goToZone = function(e, znum) {
+  goToZone(e, znum) {
     e.preventDefault();
     this.setState({
       zone : znum
