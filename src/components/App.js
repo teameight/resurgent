@@ -118,13 +118,13 @@ class App extends React.Component {
 		}
 
 	  // get user info
-		axios.post('https://aqueous-eyrie-70803.herokuapp.com/user-test', {uid: uid})
-	  .then(function (response) {
-	    console.log(response);
-	  })
-	  .catch(function (error) {
-	    console.log(error);
-	  });
+		axios.post('https://aqueous-eyrie-70803.herokuapp.com/review-submission', data)
+		  .then(function (response) {
+		    console.log(response);
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
 
 
 		if ( formValues.message ) {
@@ -177,12 +177,12 @@ class App extends React.Component {
 
 		// send email
 		axios.post('https://aqueous-eyrie-70803.herokuapp.com/book-session', formValues)
-	  .then(function (response) {
-	    console.log(response);
-	  })
-	  .catch(function (error) {
-	    console.log(error);
-	  });
+		  .then(function (response) {
+		    console.log(response);
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
 
 	  // create transaction record
 		const transaction = {
