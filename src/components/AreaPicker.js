@@ -18,7 +18,6 @@ const categories = catRef.orderByChild('order').once('value').then(function(snap
           });
         });
 
-console.log(catObj);
 
 
 class AreaPicker extends React.Component {
