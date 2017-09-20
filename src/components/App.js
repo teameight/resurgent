@@ -288,11 +288,11 @@ class App extends React.Component {
 
 				let initUser = this.initUser;
 
-				var usersRef = firebase.database().ref('users/' + uid );
-				usersRef.on('value', function(snapshot) {
-				  let users = snapshot.val();
+				var userRef = firebase.database().ref('users/' + uid );
+				userRef.on('value', function(snapshot) {
+				  let userMeta = snapshot.val();
 
-				  initUser(users, userObj);
+				  initUser(userMeta, userObj);
 
 				});
 			}
@@ -303,21 +303,25 @@ class App extends React.Component {
 
   	const uid = userObj.uid;
 
-		if(userMeta){
+		if(userMeta.name){
 
-			userObj.tokens = userMeta.tokens;
+      userObj.tokens = userMeta.tokens;
 
-		}else{
-			const usersRef = firebase.database().ref('users');
+    }else{
+      var userRef = firebase.database().ref('users/' + uid );
 
-			let userMeta = {
-				tokens: 50,
-				uid: uid
-			};
+      let userMeta = {
+        tokens: 50,
+        uid: uid,
+        email: userObj.email,
+        name: userObj.name,
+        unregistered: true,
+        expiration: ''
+      };
 
-			usersRef.child(uid).set(userMeta);
-			userObj.tokens = 50;
-		}
+      userRef.set(userMeta);
+      userObj.tokens = 50;
+    }
 
 		this.setState({
       user: userObj
