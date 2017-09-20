@@ -41,10 +41,10 @@ class App extends React.Component {
 		this.setModal = this.setModal.bind(this);
 		this.logout = this.logout.bind(this);
 		this.setLogin = this.setLogin.bind(this);
-		this.refUser = this.refUser.bind(this);
-		this.updateReviews = this.updateReviews.bind(this);
 		this.setUser = this.setUser.bind(this);
 		this.initUser = this.initUser.bind(this);
+		this.refUser = this.refUser.bind(this);
+		this.updateReviews = this.updateReviews.bind(this);
 		this.bookSessionTransaction = this.bookSessionTransaction.bind(this);
     this.handleCloseNotice = this.handleCloseNotice.bind(this);
     this.setNotice = this.setNotice.bind(this);
@@ -83,27 +83,6 @@ class App extends React.Component {
   goTo(route) {
     this.props.history.replace(`/${route}`)
   }
-
-	login() {
-		this.props.auth.login();
-	}
-	setLogin() {
-		this.setState({
-    	loggedOut: false
-    });
-	}
-
-	logout() {
-		let that=this;
-		firebase.auth().signOut().then(function() {
-			that.setState({
-				loggedOut:true,
-				authed: false,
-				user:null
-			});
-		}).catch(function(error) {
-		});
-	}
 
 	updateReviews(data, ckey, akey, pkey) {
 		let categories = this.state.categories;
@@ -219,6 +198,27 @@ class App extends React.Component {
 		tRef.push().set(transaction);
 
 		// TODO: Send email to provider and confirmation to user. Also admin?
+	}
+
+	login() {
+		this.props.auth.login();
+	}
+	setLogin() {
+		this.setState({
+    	loggedOut: false
+    });
+	}
+
+	logout() {
+		let that=this;
+		firebase.auth().signOut().then(function() {
+			that.setState({
+				loggedOut:true,
+				authed: false,
+				user:null
+			});
+		}).catch(function(error) {
+		});
 	}
 
 	componentWillMount() {
