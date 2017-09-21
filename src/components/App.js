@@ -262,11 +262,11 @@ class App extends React.Component {
 
 		this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({
-          authed: true,
-          loading: false
-        })
-        this.refUser();
+	      this.setState({
+	        authed: true,
+	        loading: false
+	      });
+	      this.refUser();
       } else {
         this.setState({
           authed: false,
@@ -315,46 +315,71 @@ class App extends React.Component {
 
   	const uid = userObj.uid;
 
-		if(userMeta.name){
+  	//TODO: add check of expiration timestamp. if is empty, proceed, if less than now, do not set user state, set expired state.
+  	let difference = 1;
 
-      userObj.tokens = userMeta.tokens;
+  	if(userMeta.expiration && userMeta.expiration!=''){
+  		const today = new Date();
+			difference = userMeta.expiration - today.getTime();
+  	}
+
+  	if(difference > 0){
+
+			if(userMeta.name){
+
+	      userObj.tokens = userMeta.tokens;
+
+	    }else{
+	      let userRef = firebase.database().ref('users/' + uid );
+
+	      const today = new Date();
+			  let dat = new Date(today);
+			  dat.setDate(dat.getDate() + 90);
+
+				let expiration = dat.getTime();
+
+	      let userMeta = {
+	        tokens: 50,
+	        uid: uid,
+	        email: userObj.email,
+	        name: userObj.name,
+	        unregistered: true,
+	        expiration: expiration
+	      };
+
+	      userRef.set(userMeta);
+	      userObj.tokens = 50;
+	    }
+
+			this.setState({
+	      user: userObj
+	    })
+
+			var that = this;
+
+	    const tRef = firebase.database().ref("transactions");
+
+	    tRef.orderByChild('uid').equalTo(uid).on("child_added", function(snapshot) {
+	      let items = snapshot.val();
+	      // console.log(items.type);
+	      if(items.type === "book-a-session"){
+		      let currentTs = that.state.transactions;
+
+		      currentTs[snapshot.key] = items;
+		      that.setState({
+		        transactions: currentTs
+		      });
+		    }
+	    });
 
     }else{
-      var userRef = firebase.database().ref('users/' + uid );
-
-      let userMeta = {
-        tokens: 50,
-        uid: uid,
-        email: userObj.email,
-        name: userObj.name,
-        unregistered: true,
-        expiration: ''
-      };
-
-      userRef.set(userMeta);
-      userObj.tokens = 50;
+    	this.setNotice({
+        type: 'warning',
+        message: 'Your account has expired.'
+      });
+      this.logout(); 
     }
 
-		this.setState({
-      user: userObj
-    })
-
-		var that = this;
-
-    const tRef = firebase.database().ref("transactions");
-
-    tRef.orderByChild('uid').equalTo(uid).on("child_added", function(snapshot) {
-      let items = snapshot.val();
-      // console.log(items.type);
-      if(items.type === "book-a-session"){
-	      let currentTs = that.state.transactions;
-
-	      currentTs[snapshot.key] = items;
-	      that.setState({
-	        transactions: currentTs
-	      });
-	    }
-    });
   }
 
   setUser(userObj) {
