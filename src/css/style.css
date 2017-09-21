@@ -778,7 +778,7 @@ h2.section-label {
   position: relative; }
 
 .area {
-  width: 155px;
+  width: 125px;
   text-align: center;
   padding-left: 15px;
   margin-bottom: 15px;
@@ -790,8 +790,8 @@ h2.section-label {
   min-width: 0;
   min-height: 0; }
   .area img {
-    width: 155px;
-    height: 155px;
+    width: 125px;
+    height: 125px;
     background: #444; }
   .area h3 {
     font-size: 9px;
