@@ -14,6 +14,7 @@ let key = 1;
 areaRef.orderByChild('order').once('value').then(function(snapshot) {
 	snapshot.forEach(function(data) {
 		areaObj[key] = data.val();
+		areaObj[key].id = data.key;
 		key++;
 	});
 });
@@ -36,6 +37,7 @@ class Area extends React.Component {
 		const catId = this.props.catId;
 		const categoryName = categories[catId].name;
 
+
 		return (
 			<div>
 				<h2 className="section-label">{categoryName}</h2>
@@ -50,7 +52,7 @@ class Area extends React.Component {
 	              .keys(areaObj)
 	              .filter((current) => areaObj[current].category === this.props.catId)
 	              .map(key =>
-	                <div key={key} className="area carousel-cell" onClick={ (e) => this.passCatArea(areaObj[key].slug, this.props.catId, key) }>
+	                <div key={key} className="area carousel-cell" onClick={ (e) => this.passCatArea(areaObj[key].slug, this.props.catId, areaObj[key].id) }>
 										<img height="155" width="155" src={areaObj[key].image} alt={areaObj[key].name} />
 										<h3>{areaObj[key].name}</h3>
 						      </div>

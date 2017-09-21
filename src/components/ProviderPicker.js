@@ -9,6 +9,18 @@ const flickityOptions = {
   pageDots: false
 }
 
+const providersRef = firebase.database().ref('providers');
+let providersObj = {};
+let pcheck = false;
+let key = 1;
+providersRef.orderByChild('order').once('value').then(function(snapshot) {
+  snapshot.forEach(function(data) {
+    providersObj[key] = data.val();
+    providersObj[key].id = data.key;
+    key++;
+  });
+  pcheck = true;
+});
 class ProviderPicker extends React.Component {
 
   constructor() {
@@ -38,6 +50,7 @@ class ProviderPicker extends React.Component {
     this.flipCard= this.flipCard.bind(this);
   }
 
+
   componentWillUnmount () {
     this.props.clearNotices();
   }
@@ -46,6 +59,8 @@ class ProviderPicker extends React.Component {
     this.props.selectProvider(keyId);
     this.handleOpenModal(mname);
     this.setState({ provider: keyId });
+
+    this.forceUpdate();
   }
 
   flipCard(keyId) {
@@ -106,9 +121,9 @@ class ProviderPicker extends React.Component {
     e.preventDefault();
 
     // Get the slug
-    const catId = this.props.match.params.cat;
+    const catId = this.props.location.state.catId;
     const areaId = this.props.location.state.areaId;
-    const pId = this.state.provider;
+    const pId = providersObj[this.state.provider].id;
     let formValues = this.state.formValues;
     let adminEmail = '';
     let providerEmail = '';
@@ -121,9 +136,9 @@ class ProviderPicker extends React.Component {
     settings.once('value', function(snapshot) {
         formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
       });
-    // get provider name and email address
-    const provider = firebase.database().ref('providers').child(pId);
-    provider.once('value', function(snapshot) {
+    // get provider name and email address. WHY YOU NO CHANGE!?
+    const provider = firebase.database().ref('providers');
+    provider.child(pId).once('value', function(snapshot) {
         formValues.providerEmail = snapshot.val().email ? snapshot.val().email : adminEmail;
         formValues.providerName = snapshot.val().name ? snapshot.val().name : '';
       }).then(function() {
@@ -141,9 +156,9 @@ class ProviderPicker extends React.Component {
 
   handleBookSubmit(e, pCost) {
     e.preventDefault();
-    const catId = this.props.match.params.cat;
+    const catId = this.props.location.state.catId;
     const areaId = this.props.location.state.areaId;
-    const pId = this.state.provider;
+    const pId = providersObj[this.state.provider].id;
     const user = this.props.user;
     const uTokens = user.tokens;
     user.tokens = uTokens - pCost;
@@ -170,8 +185,8 @@ class ProviderPicker extends React.Component {
         formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
       });
     // get provider name and email address
-    const provider = firebase.database().ref('providers').child(pId);
-    provider.once('value', function(snapshot) {
+    const provider = firebase.database().ref('providers'); 
+    provider.child(pId).once('value', function(snapshot) {
         formValues.providerEmail = snapshot.val().email ? snapshot.val().email : adminEmail;
         formValues.providerName = snapshot.val().name ? snapshot.val().name : '';
       }).then(function() {
@@ -187,23 +202,11 @@ class ProviderPicker extends React.Component {
   }
 
   render() {
-    // Get the slug
-    const slug = this.props.match.params.slug;
+  
     const catId = this.props.location.state.catId;
-    let category = {};
-    let area = {};
+    const areaId = this.props.location.state.areaId;
     let pId = this.state.provider;
-    // let area = {};
-    // console.log(slug);
 
-
-    if(catId){
-      category = this.props.categories[catId];
-      const {areas} = category;
-      let areaId = Object.keys(areas).filter((key) => areas[key].slug === slug);
-      area = areas[areaId];
-      var {providers} = area;
-    }
 
     const user = this.props.user;
 
@@ -216,12 +219,14 @@ class ProviderPicker extends React.Component {
     let pReviews = '';
     let tokenCounts = [];
 
+
     if(pId){
-      var provider = providers[pId];
+      var provider = providersObj[pId];
+
       pName = provider.name;
       pCost = provider.cost;
-      pCat = category.name;
-      pArea = area.name;
+      pCat = this.props.categories[catId].name;
+      pArea = this.props.areas[areaId].name;
       pRating = provider.rating;
       if ( provider.ratingArr ) {
         pRatingNum = provider.ratingArr.length;
@@ -235,7 +240,6 @@ class ProviderPicker extends React.Component {
         const total = parseInt(user.tokens, 10) + parseInt(pCost, 10);
 
         for (var i = user.tokens; i <= total; i++) {
-          // console.log((total)+' '+i);
           tokenCounts.push(<li key={i}>{i}</li>);
         }
       }
@@ -385,17 +389,22 @@ class ProviderPicker extends React.Component {
             </div>
           </ReactModal>
 
-          <h1 className="area-title">{area.name}</h1>
-          <Flickity
-            className="providers"
-            options={ flickityOptions }
-          >
+          <h1 className="area-title">{pArea}</h1>
           {
-            Object
-              .keys(providers)
-              .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} details={providers[key]} card={this.state.card} />)
+            pcheck && (
+            <Flickity
+              className="providers"
+              options={ flickityOptions }
+            >
+            {
+              Object
+                .keys(providersObj)
+                .filter((current) => providersObj[current].area === areaId)
+                .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} pId={providersObj[key].id} details={providersObj[key]} card={this.state.card} />)
+            }
+            </Flickity>
+            )
           }
-          </Flickity>
       </div>
     )
   }

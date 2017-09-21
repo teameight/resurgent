@@ -8,7 +8,7 @@ let key = 1;
 catRef.orderByChild('order').once('value').then(function(snapshot) {
   snapshot.forEach(function(data) {
     catObj[key] = data.val();
-    catObj[key].id = data.key
+    catObj[key].id = data.key;
     key++;
   });
 });
