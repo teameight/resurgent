@@ -194,7 +194,6 @@ class App extends React.Component {
 
 		tRef.push().set(transaction);
 
-		// TODO: Send email to provider and confirmation to user. Also admin?
 	}
 
 	login() {
@@ -315,7 +314,7 @@ class App extends React.Component {
 
   	const uid = userObj.uid;
 
-  	//TODO: add check of expiration timestamp. if is empty, proceed, if less than now, do not set user state, set expired state.
+  	// add check of expiration timestamp. if is empty, proceed, if less than now, do not set user state, set expired state.
   	let difference = 1;
 
   	if(userMeta.expiration && userMeta.expiration!=''){
