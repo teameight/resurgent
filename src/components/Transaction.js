@@ -18,15 +18,13 @@ class Transaction extends React.Component {
 
     if(catId){
       category = this.props.categories[catId];
-      const {areas} = category;
-      area = areas[aId];
-      var {providers} = area;
+      area = this.props.areas[aId];
     }
 
     let pName = '';
 
     if(pId){
-      var provider = providers[pId];
+      var provider = this.props.providers[pId];
       if(provider){
         pName = provider.name;
       }

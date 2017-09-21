@@ -275,7 +275,13 @@ class MyAccount extends React.Component {
                 {
                   Object
                     .keys(transactions)
-                    .map(key => <Transaction key={key} keyId={key} categories={this.props.categories} details={transactions[key]} />)
+                    .map(key => <Transaction 
+                      key={key} keyId={key} 
+                      categories={this.props.categories}
+                      areas={this.props.areas}
+                      providers={this.props.providers} 
+                      details={transactions[key]} 
+                    />)
                 }
                 </div>
             </section>

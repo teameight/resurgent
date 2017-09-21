@@ -477,6 +477,8 @@ class App extends React.Component {
 										user={this.state.user}
 										setUser={this.setUser}
 										categories={this.state.categories}
+										areas={this.state.areas}
+										providers={this.state.providers}
 										transactions={this.state.transactions}
 										setModal={this.setModal}
 									/>}
