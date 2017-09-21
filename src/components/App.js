@@ -1,22 +1,20 @@
 import React from 'react';
-import { Route, Router } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Header from './Header';
 import SubHeader from './SubHeader';
 import Login from './Login';
-import Start from './Start'; //dummy login page for now
 import firebase from '../fire';
-import fbAuth from '../fire';
 import axios from 'axios';
-//import Auth from '../Auth/Auth';
+
 import Notices from './Notices';
 import Callback from '../Callback/Callback';
-import styles from '../css/style.css';
 import AreaPicker from './AreaPicker';
 import ProviderPicker from './ProviderPicker';
 import MyAccount from './MyAccount';
 import Page from './Page';
 import Footer from './Footer';
 
+import '../css/style.css';
 
 class App extends React.Component {
 	constructor() {
@@ -27,6 +25,8 @@ class App extends React.Component {
 			users: {},
 			user: null,
 			categories: {},
+			areas: {},
+			providers: {},
 			transactions: {},
 			pages: {},
 			selectedProvider: null,
@@ -84,41 +84,37 @@ class App extends React.Component {
     this.props.history.replace(`/${route}`)
   }
 
-	updateReviews(data, ckey, akey, pkey) {
-		let categories = this.state.categories;
-		const catRef = firebase.database().ref('categories');
-
-		const formValues = data;
+	updateReviews(formValues, ckey, akey, pkey) {
+		let providers = this.state.providers;
+		const providersRef = firebase.database().ref('providers');
 		const tRef = firebase.database().ref('transactions');
-
 		const ukey = this.state.user.uid;
-		const uid = ukey;
 		const timestamp = Date.now();
 		let rating = '';
-		let review = '';
+		let newReview = '';
 
 		if ( formValues.newRating ) {
-			let ratingArr = categories[ckey]["areas"][akey]["providers"][pkey].ratingArr ? categories[ckey]["areas"][akey]["providers"][pkey].ratingArr : [];
+			let ratingArr = providers[pkey].ratingArr ? providers[pkey].ratingArr : [];
 			ratingArr.push(formValues.newRating)
-			categories[ckey]["areas"][akey]["providers"][pkey].ratingArr = ratingArr;
+			providers[pkey].ratingArr = ratingArr;
 			rating = formValues.newRating;
 
 			let sum = ratingArr.reduce((a, b) => a + b, 0 );
 			let percentage = Math.round((sum / ratingArr.length)/.05);
-			categories[ckey]["areas"][akey]["providers"][pkey].rating = percentage;
+			providers[pkey].rating = percentage;
 
-			const cInRef = firebase.database().ref('categories/'+ckey+'/areas/'+akey+'/providers/'+pkey);
+			// const singleProviderRe = firebase.database().ref('categories/'+ckey+'/areas/'+akey+'/providers/'+pkey);
 			// cInRef.on('value', (snapshot) => {
 			//   let items = snapshot.val();
 			//   console.log(items);
 			// });
 
-			cInRef.update({ratingArr:ratingArr, rating:percentage});
+			providersRef.child(pkey).update({ratingArr:ratingArr, rating:percentage});
 
 		}
 
 	  // get user info
-		axios.post('https://aqueous-eyrie-70803.herokuapp.com/review-submission', data)
+		axios.post('https://aqueous-eyrie-70803.herokuapp.com/review-submission', formValues)
 		  .then(function (response) {
 		    console.log(response);
 		  })
@@ -128,14 +124,15 @@ class App extends React.Component {
 
 
 		if ( formValues.message ) {
-			let reviews = categories[ckey]["areas"][akey]["providers"][pkey].reviews ? categories[ckey]["areas"][akey]["providers"][pkey].reviews : [];
+			let reviewsArr = providers[pkey].reviews ? providers[pkey].reviews : [];
 			let headline = formValues.headline ? formValues.headline : '';
-			reviews.push({ headline: headline, message: formValues.message });
-			categories[ckey]["areas"][akey]["providers"][pkey].reviews = reviews;
+			newReview = { headline: headline, message: formValues.message };
+			reviewsArr.push(newReview);
+			providers[pkey].reviews = reviewsArr;
 
-			review = { headline: headline, message: formValues.message };
+			providersRef.child(pkey).set({reviews: reviewsArr});
 		}
-		this.setState({categories});
+		this.setState({providers});
 
 		const transaction = {
 			area: akey,
@@ -143,7 +140,7 @@ class App extends React.Component {
 			provider: pkey,
 			date: timestamp,
 			rating: rating,
-			review: review,
+			review: newReview,
 			type: "rating-review",
 			uid: ukey
 		}
@@ -247,6 +244,22 @@ class App extends React.Component {
 		  });
 		});
 
+		const areaRef = firebase.database().ref('areas');
+		areaRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    areas: items
+		  });
+		});
+
+		const providerRef = firebase.database().ref('providers');
+		providerRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    providers: items
+		  });
+		});
+
 		this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -272,7 +285,6 @@ class App extends React.Component {
   refUser () {
   	if(this.state.authed){
 			var user = firebase.auth().currentUser;
-			var name, email, photoUrl, uid, emailVerified;
 
 			if (user != null) {
 
@@ -377,7 +389,7 @@ class App extends React.Component {
 			wrapClassName += ' flow-account';
 		}
 
-		if(isAuthed && this.props.location.pathname === '/terms' || this.props.location.pathname === '/privacy-policy' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
+		if( ( isAuthed && this.props.location.pathname === '/terms' ) || this.props.location.pathname === '/privacy-policy' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
 			wrapClassName += ' page';
 		}
 
@@ -418,7 +430,7 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/area/:slug/:cat" render={(props) =>
+								<Route path="/area/:slug" render={(props) =>
 									<ProviderPicker
 									 	clearNotices={this.clearNotices}
 										user={this.state.user}
@@ -427,6 +439,8 @@ class App extends React.Component {
 										updateReviews={this.updateReviews}
 										bookSessionTransaction={this.bookSessionTransaction}
 										categories={this.state.categories}
+										areas={this.state.areas}
+										providers={this.state.providers}
 										{...props}
 									/>}
 								/>
@@ -440,7 +454,6 @@ class App extends React.Component {
 										categories={this.state.categories}
 										transactions={this.state.transactions}
 										setModal={this.setModal}
-										user={this.state.user}
 									/>}
 								/>
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />

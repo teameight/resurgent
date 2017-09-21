@@ -189,7 +189,7 @@ class ProviderPicker extends React.Component {
   render() {
     // Get the slug
     const slug = this.props.match.params.slug;
-    const catId = this.props.match.params.cat;
+    const catId = this.props.location.state.catId;
     let category = {};
     let area = {};
     let pId = this.state.provider;
@@ -236,7 +236,7 @@ class ProviderPicker extends React.Component {
 
         for (var i = user.tokens; i <= total; i++) {
           // console.log((total)+' '+i);
-          tokenCounts.push(<li>{i}</li>);
+          tokenCounts.push(<li key={i}>{i}</li>);
         }
       }
 
@@ -393,7 +393,7 @@ class ProviderPicker extends React.Component {
           {
             Object
               .keys(providers)
-              .map(key => <Provider flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} details={providers[key]} card={this.state.card} />)
+              .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} details={providers[key]} card={this.state.card} />)
           }
           </Flickity>
       </div>

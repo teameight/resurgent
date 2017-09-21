@@ -1,6 +1,5 @@
 import React from 'react';
 import firebase from '../fire';
-import fbAuth from '../fire';
 
 class Login extends React.Component {
 
@@ -91,7 +90,7 @@ class Login extends React.Component {
         var errorCode = error.code;
         var errorMessage = error.message;
         // [START_EXCLUDE]
-        if (errorCode == 'auth/weak-password') {
+        if (errorCode === 'auth/weak-password') {
           alert('The password is too weak.');
         } else {
           alert(errorMessage);
@@ -109,7 +108,7 @@ class Login extends React.Component {
   render() {
   	let pTitle = 'Sign In';
   	let pMessage = 'Enter your details below';
-    
+
 
   	if(this.props.loggedOut){
   		pTitle = 'Success!';

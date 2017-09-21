@@ -185,19 +185,14 @@ class MyAccount extends React.Component {
   render() {
     const user = this.props.user;
     let uName = '';
-    // const { profile } = this.state;
-    let userId = '';
     let uTokens = '';
     let uEmail = '';
 
     if(user != null){
       uName = user.name;
       uTokens = user.tokens;
-      userId = user.uid;
       uEmail = user.email;
     }
-
-
 
     const transactions = this.props.transactions;
     // console.log(transactions);
@@ -280,7 +275,7 @@ class MyAccount extends React.Component {
                 {
                   Object
                     .keys(transactions)
-                    .map(key => <Transaction keyId={key} categories={this.props.categories} details={transactions[key]} />)
+                    .map(key => <Transaction key={key} keyId={key} categories={this.props.categories} details={transactions[key]} />)
                 }
                 </div>
             </section>
