@@ -7,8 +7,6 @@ class Login extends React.Component {
     super();
 
     this.toggleSignIn = this.toggleSignIn.bind(this);
-    this.handleSignUp = this.handleSignUp.bind(this);
-    this.setNotice = this.setNotice.bind(this);
 
   }
 
@@ -20,90 +18,52 @@ class Login extends React.Component {
 		this.props.auth.login();
 	}
 
-  toggleSignIn() {
-      if (firebase.auth().currentUser) {
-        // [START signout]
-        firebase.auth().signOut();
-        // [END signout]
-      } else {
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        if (email.length < 4) {
-          this.setNotice({
-            type: 'warning',
-            message: 'Please enter an email address.'
-          });
-          return;
-        }
-        if (password.length < 4) {
-          this.setNotice({
-            type: 'warning',
-            message: 'Please enter a password.'
-          });
-          return;
-        }
-        // Sign in with email and pass.
-        // [START authwithemail]
-        let that = this;
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          if (errorCode === 'auth/wrong-password') {
-            that.setNotice({
-              type: 'warning',
-              message: 'The email or password is invalid.'
-            });
-          } else {
-            that.setNotice({
-              type: 'warning',
-              message: ' ' + errorMessage
-            });
-          }
-        });
-        // [END authwithemail]
-      }
-      document.getElementById('quickstart-sign-in').disabled = true;
-    }
-
-    handleSignUp() {
-      var email = document.getElementById('email').value;
-      var password = document.getElementById('password').value;
+  toggleSignIn(e) {
+    e.preventDefault();
+    
+    if (firebase.auth().currentUser) {
+      // [START signout]
+      firebase.auth().signOut();
+      // [END signout]
+    } else {
+      var email = this.email.value;
+      var password = this.password.value;
       if (email.length < 4) {
-        this.setNotice({
+        this.props.setNotice({
           type: 'warning',
           message: 'Please enter an email address.'
         });
         return;
       }
       if (password.length < 4) {
-        this.setNotice({
+        this.props.setNotice({
           type: 'warning',
           message: 'Please enter a password.'
         });
         return;
       }
       // Sign in with email and pass.
-      // [START createwithemail]
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      // [START authwithemail]
+      let that = this;
+      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // [START_EXCLUDE]
-        if (errorCode === 'auth/weak-password') {
-          alert('The password is too weak.');
+        if (errorCode === 'auth/wrong-password') {
+          that.props.setNotice({
+            type: 'warning',
+            message: 'The email or password is invalid.'
+          });
         } else {
-          alert(errorMessage);
+          that.props.setNotice({
+            type: 'warning',
+            message: ' ' + errorMessage
+          });
         }
-        console.log(error);
-        // [END_EXCLUDE]
       });
-      // [END createwithemail]
+      // [END authwithemail]
     }
-
-    setNotice(notice) {
-      this.props.setNotice(notice);
-    }
+  }
 
   render() {
   	let pTitle = 'Sign In';
@@ -121,11 +81,11 @@ class Login extends React.Component {
               <h1 className="page-title">{pTitle}</h1>
               <p className="subtitle">{pMessage}</p>
           </header>
-          <form>
-              <input type="text" id="email" name="email" placeholder="Email"/>
-              <input type="password" id="password" name="password" placeholder="Password"/>
-              <button className="btn" id="quickstart-sign-in" onClick={  (e) => this.toggleSignIn() } type="button" name="signup">Sign in</button>
-          </form>
+          <form ref={(input) => this.signinForm = input}onSubmit={(e) => this.toggleSignIn(e)}>
+                <input ref={(input) => this.email = input}name="email" type="text" placeholder="email" required />
+                <input ref={(input) => this.password = input}name="password" type="password" placeholder="password" required />
+                <input className="btn" type="submit" value="Sign In" />
+              </form>
           <div className="prefooter">
             <p>Need Help?</p>
             <p><a href="#">contact the administrator</a></p>

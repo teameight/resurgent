@@ -6,7 +6,7 @@ class Footer extends React.Component {
 	render() {
 		let footerContent = '';
 
-		if(this.props.user) {
+		if(this.props.user && this.props.isReg) {
       footerContent = 
 	      <div className="wrap">
 		      <a className="terms" href="/terms">Terms</a>
@@ -14,8 +14,7 @@ class Footer extends React.Component {
 		          <a href="https://www.districtlegalstaffing.com/"><img src={require('../img/dls-logo.png')} alt="DLS - District Legal Staffing" /></a> 
 		      </div>
 	      </div>
-		}
-		if(!this.props.user) {
+		}else{
 			footerContent = 
 				<div className="wrap">
 					<div className="logo">

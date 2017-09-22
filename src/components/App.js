@@ -9,6 +9,7 @@ import axios from 'axios';
 import Notices from './Notices';
 import Callback from '../Callback/Callback';
 import AreaPicker from './AreaPicker';
+import Welcome from './Welcome';
 import ProviderPicker from './ProviderPicker';
 import MyAccount from './MyAccount';
 import Page from './Page';
@@ -49,8 +50,28 @@ class App extends React.Component {
     this.handleCloseNotice = this.handleCloseNotice.bind(this);
     this.setNotice = this.setNotice.bind(this);
     this.clearNotices = this.clearNotices.bind(this);
+    this.acceptTerms= this.acceptTerms.bind(this);
 
 	}
+
+
+  acceptTerms() {
+  	const usersRef = firebase.database().ref('users');
+  	const ukey = this.state.user.uid;
+  	let that = this;
+  	usersRef.child(ukey).update({unregistered:false})
+  	.then(function (response) {
+		    console.log(response);
+		    that.setNotice({
+					type: 'success',
+					message: 'You have completed registration.'
+				});
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+
+  };
 
 	setNotice(notice) {
     let newNotices = [];
@@ -409,15 +430,30 @@ class App extends React.Component {
 
 		let isAuthed = this.state.authed;
 
+		let isReg = false;
+
+		if(isAuthed && Object.keys(this.state.users).length > 0 && this.state.user){
+			let userMeta = this.state.users[this.state.user.uid];
+			if(!userMeta.unregistered){
+				isReg = true;
+			}
+		}
+
 		if(this.props.location.pathname === '/my-account'){
 			wrapClassName += ' flow-account';
 		}
 
-		if( ( isAuthed && this.props.location.pathname === '/terms' ) || this.props.location.pathname === '/privacy-policy' || this.props.location.pathname === '/about' || this.props.location.pathname === '/help'){
+		if( 
+			(isAuthed && !isReg) 
+			|| (isAuthed && this.props.location.pathname === '/terms' ) 
+			|| this.props.location.pathname === '/privacy-policy' 
+			|| this.props.location.pathname === '/about' 
+			|| this.props.location.pathname === '/help'
+			){
 			wrapClassName += ' page';
 		}
 
-		if(!isAuthed) {
+		if(!isAuthed || this.props.location.pathname === '/welcome' || !isReg) {
 			wrapClassName += ' flow-login';
 		}
 
@@ -425,7 +461,7 @@ class App extends React.Component {
 
 		return (
 			<div className={wrapClassName}>
-				<Header user={this.state.user} logOut={this.logout}  isModal={this.state.isModal} />
+				<Header user={this.state.user} isReg={isReg} logOut={this.logout}  isModal={this.state.isModal} />
 				{
           Object
             .keys(notices)
@@ -434,17 +470,27 @@ class App extends React.Component {
             )
         }
 					<Route path="/callback" render={(props) => <Callback />} />
+				{!isAuthed && (
+					<Route path="/welcome" render={(props) => <Welcome setNotice={this.setNotice} {...props} />} />
+					)
+				}
 				{ noData && (
 					<Callback />
 					)
 				}
 				{
-          !isAuthed &&  (
+          !isAuthed && this.props.location.pathname != '/welcome' && (
 	          	<Login loggedOut={this.state.loggedOut} clearNotices={this.clearNotices} notices={this.state.notices} setNotice={this.setNotice} />
             )
         }
         {
-          !noData && isAuthed && (
+          !noData && isAuthed && !isReg && (
+          		<Page noReg={true} acceptTerms={this.acceptTerms} page={this.state.pages["terms"]} />
+          	)
+        }
+        {
+          !noData && isAuthed && isReg && (
+
           		<div>
               	<Route exact path="/" render={(props) => <SubHeader user={this.state.user} />} />
 								<Route path="/area" render={(props) => <SubHeader user={this.state.user} />} />
@@ -489,7 +535,7 @@ class App extends React.Component {
               </div>
             )
         }
-				<Footer user={this.state.user} />
+				<Footer user={this.state.user} isReg={isReg} />
 			</div>
 		)
 	}
