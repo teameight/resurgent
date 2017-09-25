@@ -334,7 +334,7 @@ class ProviderPicker extends React.Component {
                   </header>
                   <hr />
                   <div className="stars-static" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA">
-                      <div className="stars-static-top" style={{width: pRating + '%'}}>
+                      <div className="stars-static-top" style={{width: (pRating ? pRating : 0) + '%'}}>
                           <span>&#9733;</span>
                           <span>&#9733;</span>
                           <span>&#9733;</span>
