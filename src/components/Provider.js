@@ -39,7 +39,7 @@ class Provider extends React.Component {
 						<img src={details.image} alt={details.name} />
 					</div>
 	        {/* <a className="video-link" src="#" title="Play Video"></a> TODO: video */}
-	        <p className="token-cost"><span>tokens</span><br />5</p>
+	        <p className="token-cost"><span>tokens</span><br />{details.cost}</p>
 	        <h1 className="provider-name">{details.name}</h1>
 	        <div className="bio">
 		        <p>{details.desc}</p>
@@ -49,7 +49,7 @@ class Provider extends React.Component {
 	            <a onClick={ (e) => this.openModal(e, keyId, 'rating') }>
 	                <h3>Ratings & Reviews</h3>
                   <div className="stars-static small" data-stars="https://codepen.io/ekeric13/project/editor/DkJYpA">
-                      <div className="stars-static-top" style={{width: details.rating + '%'}}>
+                      <div className="stars-static-top" style={{width: (details.rating ? details.rating : 0) + '%'}}>
                           <span>&#9733;</span>
                           <span>&#9733;</span>
                           <span>&#9733;</span>
