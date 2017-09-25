@@ -185,7 +185,7 @@ class ProviderPicker extends React.Component {
         formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
       });
     // get provider name and email address
-    const provider = firebase.database().ref('providers'); 
+    const provider = firebase.database().ref('providers');
     provider.child(pId).once('value', function(snapshot) {
         formValues.providerEmail = snapshot.val().email ? snapshot.val().email : adminEmail;
         formValues.providerName = snapshot.val().name ? snapshot.val().name : '';
@@ -202,9 +202,10 @@ class ProviderPicker extends React.Component {
   }
 
   render() {
-  
+
     const catId = this.props.location.state.catId;
     const areaId = this.props.location.state.areaId;
+    let areas = this.props.areas;
     let pId = this.state.provider;
 
 
@@ -213,7 +214,7 @@ class ProviderPicker extends React.Component {
     let pName = '';
     let pCost = '';
     let pCat = '';
-    let pArea = '';
+    let pArea = this.props.areas[areaId].name;
     let pRating = '';
     let pRatingNum = 0;
     let pReviews = '';
@@ -226,7 +227,6 @@ class ProviderPicker extends React.Component {
       pName = provider.name;
       pCost = provider.cost;
       pCat = this.props.categories[catId].name;
-      pArea = this.props.areas[areaId].name;
       pRating = provider.rating;
       if ( provider.ratingArr ) {
         pRatingNum = provider.ratingArr.length;
