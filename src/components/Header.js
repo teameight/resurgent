@@ -60,7 +60,8 @@ class Header extends React.Component {
 					<nav className={this.state.menuOpen ? 'main-menu open': 'main-menu'}>
             <ul>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/') }>Home</button></li>
-                <li><button type="button" onClick={	(e) => this.processLink(e, '/my-account')}>My Account</button></li>
+                <li><button type="button" onClick={ (e) => this.processLink(e, '/welcome')}>Welcome</button></li>
+                <li><button type="button" onClick={ (e) => this.processLink(e, '/my-account')}>My Account</button></li>
                 <li><button type="button" onClick={	(e) => this.processLink(e, '/about')}>About</button></li>
                 <li><button type="button" onClick={ (e) => this.processLink(e, '/help')}>Help</button></li>
                 <li><button type="button" onClick={ (e) => this.processLink(e, '/privacy-policy')}>Privacy Policy</button></li>
