@@ -151,7 +151,7 @@ class App extends React.Component {
 			reviewsArr.push(newReview);
 			providers[pkey].reviews = reviewsArr;
 
-			providersRef.child(pkey).set({reviews: reviewsArr});
+			providersRef.child(pkey).update({reviews: reviewsArr});
 		}
 		this.setState({providers});
 
