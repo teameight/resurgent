@@ -1,7 +1,7 @@
 import React from 'react';
 import firebase from '../fire';
 
-class Welcome extends React.Component {
+class Registration extends React.Component {
 
   constructor() {
     super();
@@ -115,7 +115,7 @@ class Welcome extends React.Component {
 
     if(this.state.regCode){
       title = 'Welcome';
-      subtitle = 'Enter your details below to register.';
+      subtitle = 'Create a password to register.';
     }
 
     return (
@@ -148,4 +148,4 @@ class Welcome extends React.Component {
     )
   }
 }
-export default Welcome;
+export default Registration;

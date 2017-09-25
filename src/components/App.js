@@ -9,7 +9,7 @@ import axios from 'axios';
 import Notices from './Notices';
 import Callback from '../Callback/Callback';
 import AreaPicker from './AreaPicker';
-import Welcome from './Welcome';
+import Registration from './Registration';
 import ProviderPicker from './ProviderPicker';
 import MyAccount from './MyAccount';
 import Page from './Page';
@@ -449,11 +449,12 @@ class App extends React.Component {
 			|| this.props.location.pathname === '/privacy-policy' 
 			|| this.props.location.pathname === '/about' 
 			|| this.props.location.pathname === '/help'
+			|| this.props.location.pathname === '/welcome'
 			){
 			wrapClassName += ' page';
 		}
 
-		if(!isAuthed || this.props.location.pathname === '/welcome' || !isReg) {
+		if(!isAuthed || this.props.location.pathname === '/registration' || !isReg) {
 			wrapClassName += ' flow-login';
 		}
 
@@ -471,7 +472,7 @@ class App extends React.Component {
         }
 					<Route path="/callback" render={(props) => <Callback />} />
 				{!isAuthed && (
-					<Route path="/welcome" render={(props) => <Welcome setNotice={this.setNotice} {...props} />} />
+					<Route path="/registration" render={(props) => <Registration setNotice={this.setNotice} {...props} />} />
 					)
 				}
 				{ noData && (
@@ -479,7 +480,7 @@ class App extends React.Component {
 					)
 				}
 				{
-          !isAuthed && this.props.location.pathname != '/welcome' && (
+          !isAuthed && this.props.location.pathname != '/registration' && (
 	          	<Login loggedOut={this.state.loggedOut} clearNotices={this.clearNotices} notices={this.state.notices} setNotice={this.setNotice} />
             )
         }
@@ -531,6 +532,7 @@ class App extends React.Component {
 								<Route path="/terms" render={(props) => <Page page={this.state.pages["terms"]} />} />
 								<Route path="/about" render={(props) => <Page page={this.state.pages["about"]} />} />
 								<Route path="/help" render={(props) => <Page page={this.state.pages["help"]} />} />
+								<Route path="/welcome" render={(props) => <Page page={this.state.pages["welcome"]} />} />
 								<Route path="/privacy-policy" render={(props) => <Page page={this.state.pages["privacy-policy"]} />} />
               </div>
             )
