@@ -443,11 +443,11 @@ class App extends React.Component {
 			wrapClassName += ' flow-account';
 		}
 
-		if( 
-			(isAuthed && !isReg) 
-			|| (isAuthed && this.props.location.pathname === '/terms' ) 
-			|| this.props.location.pathname === '/privacy-policy' 
-			|| this.props.location.pathname === '/about' 
+		if(
+			(isAuthed && !isReg)
+			|| (isAuthed && this.props.location.pathname === '/terms' )
+			|| this.props.location.pathname === '/privacy-policy'
+			|| this.props.location.pathname === '/about'
 			|| this.props.location.pathname === '/help'
 			|| this.props.location.pathname === '/welcome'
 			){
@@ -498,6 +498,8 @@ class App extends React.Component {
 								<Route exact path="/" render={(props) =>
 									<AreaPicker
 										categories={this.state.categories}
+										areas={this.state.areas}
+										providers={this.state.providers}
 										{...props}
 									/>}
 								/>

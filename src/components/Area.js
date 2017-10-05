@@ -24,6 +24,7 @@ class Area extends React.Component {
     super();
 
     this.passCatArea= this.passCatArea.bind(this);
+    this.filterAreas = this.filterAreas.bind(this);
   }
 
 
@@ -32,7 +33,22 @@ class Area extends React.Component {
     //this.props.passCatArea(catId, areaId);
   }
 
+  filterAreas() {
+    const providers = this.props.providers;
+    let areaArray = [];
+
+    Object
+      .keys(providers)
+      .forEach(function(provider) {
+        areaArray.push(providers[provider].area);
+      });
+
+    return areaArray;
+  }
+
 	render() {
+
+		let filterArray = this.filterAreas();
 		const categories = this.props.categories;
 		const catId = this.props.catId;
 		const categoryName = categories[catId].name;
@@ -50,7 +66,7 @@ class Area extends React.Component {
 	          {
 	            Object
 	              .keys(areaObj)
-	              .filter((current) => areaObj[current].category === this.props.catId)
+	              .filter((current) => areaObj[current].category === this.props.catId && filterArray.includes(areaObj[current].id))
 	              .map(key =>
 	                <div key={key} className="area carousel-cell" onClick={ (e) => this.passCatArea(areaObj[key].slug, this.props.catId, areaObj[key].id) }>
 										<img height="155" width="155" src={areaObj[key].image} alt={areaObj[key].name} />
