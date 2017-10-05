@@ -393,7 +393,7 @@ class ProviderPicker extends React.Component {
             {
               Object
                 .keys(providersObj)
-                .filter((current) => providersObj[current].area === areaId)
+                .filter((current) => providersObj[current].area === areaId && !providersObj[current].isArchived)
                 .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} pId={providersObj[key].id} details={providersObj[key]} card={this.state.card} />)
             }
             </Flickity>
