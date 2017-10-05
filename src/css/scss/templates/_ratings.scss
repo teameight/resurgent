@@ -9,9 +9,15 @@
     }
 
 
-    .read-ratings, .write-review {
-        text-align: center;
+    .read-ratings,
+    .write-review {
+        text-align: left;
         position: absolute;
+
+    }
+
+    .user-rating-count {
+        text-align: center;
     }
 
     .write-review {

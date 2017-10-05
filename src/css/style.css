@@ -1127,9 +1127,12 @@ h2.section-label {
   background: #df4678; }
   .flow-rating .tcon-remove:after, .flow-rating .tcon-remove:before {
     background: #57585A; }
-  .flow-rating .read-ratings, .flow-rating .write-review {
-    text-align: center;
+  .flow-rating .read-ratings,
+  .flow-rating .write-review {
+    text-align: left;
     position: absolute; }
+  .flow-rating .user-rating-count {
+    text-align: center; }
   .flow-rating .write-review {
     right: 0; }
   .flow-rating h1.page-title {

@@ -125,12 +125,6 @@ class App extends React.Component {
 			let percentage = Math.round((sum / ratingArr.length)/.05);
 			providers[pkey].rating = percentage;
 
-			// const singleProviderRe = firebase.database().ref('categories/'+ckey+'/areas/'+akey+'/providers/'+pkey);
-			// cInRef.on('value', (snapshot) => {
-			//   let items = snapshot.val();
-			//   console.log(items);
-			// });
-
 			providersRef.child(pkey).update({ratingArr:ratingArr, rating:percentage});
 
 		}
@@ -171,7 +165,7 @@ class App extends React.Component {
 
 		this.setNotice({
 			type: 'success',
-			message: 'Your review and/or rating has been saved.'
+			message: 'Thanks! We\'ve received your rating and/or review. It will be posted after moderation.'
 		});
 	}
 
@@ -266,6 +260,7 @@ class App extends React.Component {
   refUser () {
   	if(this.state.authed){
 			var user = firebase.auth().currentUser;
+
 			if (user !== null) {
 
 				const uid = user.uid;
@@ -300,7 +295,7 @@ class App extends React.Component {
   	// add check of expiration timestamp. if is empty, proceed, if less than now, do not set user state, set expired state.
   	let difference = 1;
 
-  	if(userMeta.expiration && userMeta.expiration!==''){
+  	if(userMeta.expiration && userMeta.expiration !== ''){
   		const today = new Date();
 			difference = userMeta.expiration - today.getTime();
   	}
@@ -464,11 +459,11 @@ class App extends React.Component {
 			wrapClassName += ' flow-account';
 		}
 
-		if( 
-			(isAuthed && !isReg) 
-			|| (isAuthed && this.props.location.pathname === '/terms' ) 
-			|| this.props.location.pathname === '/privacy-policy' 
-			|| this.props.location.pathname === '/about' 
+		if(
+			(isAuthed && !isReg)
+			|| (isAuthed && this.props.location.pathname === '/terms' )
+			|| this.props.location.pathname === '/privacy-policy'
+			|| this.props.location.pathname === '/about'
 			|| this.props.location.pathname === '/help'
 			|| this.props.location.pathname === '/welcome'
 			){
@@ -519,6 +514,8 @@ class App extends React.Component {
 								<Route exact path="/" render={(props) =>
 									<AreaPicker
 										categories={this.state.categories}
+										areas={this.state.areas}
+										providers={this.state.providers}
 										{...props}
 									/>}
 								/>
