@@ -343,13 +343,13 @@ class ProviderPicker extends React.Component {
                           <span>&#9733;</span>
                       </div>
                   </div>
-                  <p><em>({pRatingNum} user rating{pRatingNum !== 1 && ('s')})</em></p>
+                  <p className="user-rating-count"><em>({pRatingNum} user rating{pRatingNum !== 1 && ('s')})</em></p>
                   <hr />
                   {
                     pReviews && (
                       pReviews.map(function(review, index) {
                         return (
-                          <article className="review">
+                          <article key={index} className="review">
                               <h1>{review.headline}</h1>
                               <p>{review.message}</p>
                             {/* <a className="readmore" href="#">Read More</a> */}
