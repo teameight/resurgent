@@ -45,6 +45,7 @@ class App extends React.Component {
 		this.setUser = this.setUser.bind(this);
 		this.initUser = this.initUser.bind(this);
 		this.refUser = this.refUser.bind(this);
+    this.queryFb= this.queryFb.bind(this);
 		this.updateReviews = this.updateReviews.bind(this);
 		this.bookSessionTransaction = this.bookSessionTransaction.bind(this);
     this.handleCloseNotice = this.handleCloseNotice.bind(this);
@@ -240,46 +241,6 @@ class App extends React.Component {
 
 	componentWillMount() {
 
-		const usersRef = firebase.database().ref('users');
-		usersRef.on('value', (snapshot) => {
-		  let items = snapshot.val();
-		  this.setState({
-		    users: items
-		  });
-		});
-
-		const pagesRef = firebase.database().ref('pages');
-		pagesRef.on('value', (snapshot) => {
-		  let items = snapshot.val();
-		  this.setState({
-		    pages: items
-		  });
-		});
-
-		const catRef = firebase.database().ref('categories');
-		catRef.on('value', (snapshot) => {
-		  let items = snapshot.val();
-		  this.setState({
-		    categories: items
-		  });
-		});
-
-		const areaRef = firebase.database().ref('areas');
-		areaRef.on('value', (snapshot) => {
-		  let items = snapshot.val();
-		  this.setState({
-		    areas: items
-		  });
-		});
-
-		const providerRef = firebase.database().ref('providers');
-		providerRef.on('value', (snapshot) => {
-		  let items = snapshot.val();
-		  this.setState({
-		    providers: items
-		  });
-		});
-
 		this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
 	      this.setState({
@@ -305,8 +266,7 @@ class App extends React.Component {
   refUser () {
   	if(this.state.authed){
 			var user = firebase.auth().currentUser;
-
-			if (user != null) {
+			if (user !== null) {
 
 				const uid = user.uid;
 
@@ -318,15 +278,17 @@ class App extends React.Component {
 				  uid: user.uid
 				};
 
-				let initUser = this.initUser;
+				let that = this;
 
 				var userRef = firebase.database().ref('users/' + uid );
+			
 				userRef.on('value', function(snapshot) {
 				  let userMeta = snapshot.val();
-
-				  initUser(userMeta, userObj);
-
+				  	that.initUser(userMeta, userObj);
 				});
+
+				this.queryFb();
+				
 			}
 		}
   }
@@ -338,14 +300,14 @@ class App extends React.Component {
   	// add check of expiration timestamp. if is empty, proceed, if less than now, do not set user state, set expired state.
   	let difference = 1;
 
-  	if(userMeta.expiration && userMeta.expiration!=''){
+  	if(userMeta.expiration && userMeta.expiration!==''){
   		const today = new Date();
 			difference = userMeta.expiration - today.getTime();
   	}
 
   	if(difference > 0){
 
-			if(userMeta.name){
+			if(userMeta.email){
 
 	      userObj.tokens = userMeta.tokens;
 
@@ -358,7 +320,7 @@ class App extends React.Component {
 
 				let expiration = dat.getTime();
 
-	      let userMeta = {
+	      userMeta = {
 	        tokens: 50,
 	        uid: uid,
 	        email: userObj.email,
@@ -369,11 +331,26 @@ class App extends React.Component {
 
 	      userRef.set(userMeta);
 	      userObj.tokens = 50;
+
 	    }
+
+	    let usersMeta ={};
+      usersMeta[uid] = {
+        tokens: userMeta.tokens,
+        uid: uid,
+        email: userMeta.email,
+        name: userMeta.name,
+        unregistered: userMeta.unregistered,
+        expiration: userMeta.expiration
+      };
+
+      this.setState({
+		    users: usersMeta
+		  });
 
 			this.setState({
 	      user: userObj
-	    })
+	    });
 
 			var that = this;
 
@@ -410,6 +387,48 @@ class App extends React.Component {
 
   }
 
+  queryFb(){
+  // 			const usersRef = firebase.database().ref('users');
+		// usersRef.on('value', (snapshot) => {
+		//   let items = snapshot.val();
+		//   this.setState({
+		//     users: items
+		//   });
+		// });
+
+		const pagesRef = firebase.database().ref('pages');
+		pagesRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    pages: items
+		  });
+		});
+
+		const catRef = firebase.database().ref('categories');
+		catRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    categories: items
+		  });
+		});
+
+		const areaRef = firebase.database().ref('areas');
+		areaRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    areas: items
+		  });
+		});
+
+		const providerRef = firebase.database().ref('providers');
+		providerRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    providers: items
+		  });
+		});
+  }
+
   setModal(mstate) {
   	this.setState({
     	isModal: mstate
@@ -426,14 +445,16 @@ class App extends React.Component {
 		let categories = this.state.categories;
 
 		// let noUser = this.state.user === null ? true : false;
-		let noData = (Object.keys(categories).length === 0);
 
 		let isAuthed = this.state.authed;
 
 		let isReg = false;
+		// let noData = false;
+		let noData = (Object.keys(categories).length === 0);
 
 		if(isAuthed && Object.keys(this.state.users).length > 0 && this.state.user){
 			let userMeta = this.state.users[this.state.user.uid];
+			// console.log('reg '+ userMeta.unregistered);
 			if(!userMeta.unregistered){
 				isReg = true;
 			}
@@ -480,7 +501,7 @@ class App extends React.Component {
 					)
 				}
 				{
-          !isAuthed && this.props.location.pathname != '/registration' && (
+          !isAuthed && this.props.location.pathname !== '/registration' && (
 	          	<Login loggedOut={this.state.loggedOut} clearNotices={this.clearNotices} notices={this.state.notices} setNotice={this.setNotice} />
             )
         }
