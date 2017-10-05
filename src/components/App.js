@@ -170,7 +170,7 @@ class App extends React.Component {
 
 		this.setNotice({
 			type: 'success',
-			message: 'Your review and/or rating has been saved.'
+			message: 'Thanks! We\'ve received your rating and/or review. It will be posted after moderation.'
 		});
 	}
 
@@ -306,7 +306,7 @@ class App extends React.Component {
   	if(this.state.authed){
 			var user = firebase.auth().currentUser;
 
-			if (user != null) {
+			if (user !== null) {
 
 				const uid = user.uid;
 
@@ -338,7 +338,7 @@ class App extends React.Component {
   	// add check of expiration timestamp. if is empty, proceed, if less than now, do not set user state, set expired state.
   	let difference = 1;
 
-  	if(userMeta.expiration && userMeta.expiration!=''){
+  	if(userMeta.expiration && userMeta.expiration !== ''){
   		const today = new Date();
 			difference = userMeta.expiration - today.getTime();
   	}
@@ -480,7 +480,7 @@ class App extends React.Component {
 					)
 				}
 				{
-          !isAuthed && this.props.location.pathname != '/registration' && (
+          !isAuthed && this.props.location.pathname !== '/registration' && (
 	          	<Login loggedOut={this.state.loggedOut} clearNotices={this.clearNotices} notices={this.state.notices} setNotice={this.setNotice} />
             )
         }
