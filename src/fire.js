@@ -2,7 +2,7 @@ import firebase from 'firebase';
 
 
 // STAGING CONFIG
-var config = { 
+var config = {
   apiKey: "AIzaSyBnqHJKZ3shP1bRfo3wvHVl15lyXn-bfig",
 	authDomain: "resurgent-test.firebaseapp.com",
 	databaseURL: "https://resurgent-test.firebaseio.com"

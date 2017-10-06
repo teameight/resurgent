@@ -114,6 +114,8 @@ class App extends React.Component {
 		const timestamp = Date.now();
 		let rating = '';
 		let newReview = '';
+		// Set pkey in formValues for admin URL
+		formValues.pkey = pkey;
 
 		if ( formValues.newRating ) {
 			let ratingArr = providers[pkey].ratingArr ? providers[pkey].ratingArr : [];
@@ -132,10 +134,8 @@ class App extends React.Component {
 	  // get user info
 		axios.post('https://aqueous-eyrie-70803.herokuapp.com/review-submission', formValues)
 		  .then(function (response) {
-		    console.log(response);
 		  })
 		  .catch(function (error) {
-		    console.log(error);
 		  });
 
 
@@ -158,7 +158,9 @@ class App extends React.Component {
 			rating: rating,
 			review: newReview,
 			type: "rating-review",
-			uid: ukey
+			uid: ukey,
+			approved: false,
+			isArchived: false
 		}
 
 		tRef.push().set(transaction);
@@ -191,10 +193,8 @@ class App extends React.Component {
 		// send email
 		axios.post('https://aqueous-eyrie-70803.herokuapp.com/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
 		  .then(function (response) {
-		    console.log('axios response = ', response);
 		  })
 		  .catch(function (error) {
-		    console.log('axios error = ', error);
 		  });
 
 	  // create transaction record
