@@ -927,12 +927,12 @@ h2.section-label {
       /* fixes chrome bug for dissapearing positioned/backface elements during flickety animation */ }
   .provider .back {
     z-index: 7;
-    -webkit-transform: translateX(-100%) rotateY(-179deg);
-    transform: translateX(-100%) rotateY(-179deg);
+    -webkit-transform: translateX(-50%) rotateY(-90deg);
+    transform: translateX(-50%) rotateY(-90deg);
     /* -webkit-backface-visibility: hidden; 
         backface-visibility: hidden; */ }
     .provider .back .bio {
-      height: 240px;
+      height: 220px;
       overflow-y: auto;
       border-top: 1px solid gray;
       border-bottom: 1px solid gray;
@@ -1131,10 +1131,6 @@ h2.section-label {
   background: #df4678; }
   .flow-rating .tcon-remove:after, .flow-rating .tcon-remove:before {
     background: #57585A; }
-  .flow-rating .read-ratings,
-  .flow-rating .write-review {
-    text-align: left;
-    position: absolute; }
   .flow-rating .user-rating-count {
     text-align: center; }
   .flow-rating .write-review {

@@ -71,7 +71,7 @@ class Provider extends React.Component {
         <div className="back">
         	<div className="back-inner">
 	        	<h1 className="provider-name">{details.name}</h1>
-	        	<p><small>complete bio</small></p>
+	        	<p><small>bio and services</small></p>
 	        	<div className="bio">
 			        <p>{details.desc}</p>
 		        </div>
