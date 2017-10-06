@@ -1211,6 +1211,9 @@ h2.section-label {
   .provider .stars-static-top span {
     color: #df4678; }
 
+.flow-login .main.accept-terms {
+  background: #7d5297; }
+
 .main.accept-terms {
   background: #7d5297;
   padding-top: 32px;
