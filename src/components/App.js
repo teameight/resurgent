@@ -237,10 +237,6 @@ class App extends React.Component {
 
 		this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-	      this.setState({
-	        authed: true,
-	        loading: false
-	      });
 	      this.refUser();
       } else {
         this.setState({
@@ -258,33 +254,31 @@ class App extends React.Component {
   }
 
   refUser () {
-  	if(this.state.authed){
-			var user = firebase.auth().currentUser;
+  	var user = firebase.auth().currentUser;
 
-			if (user !== null) {
+		if (user !== null) {
 
-				const uid = user.uid;
+			const uid = user.uid;
 
-			  let userObj = {
-				  name: user.displayName,
-				  email: user.email,
-				  photoUrl: user.photoURL,
-				  emailVerified: user.emailVerified,
-				  uid: user.uid
-				};
+		  let userObj = {
+			  name: user.displayName,
+			  email: user.email,
+			  photoUrl: user.photoURL,
+			  emailVerified: user.emailVerified,
+			  uid: user.uid
+			};
 
-				let that = this;
+			let that = this;
 
-				var userRef = firebase.database().ref('users/' + uid );
+			var userRef = firebase.database().ref('users/' + uid );
+		
+			userRef.on('value', function(snapshot) {
+			  let userMeta = snapshot.val();
+			  	that.initUser(userMeta, userObj);
+			});
+
+			this.queryFb();
 			
-				userRef.on('value', function(snapshot) {
-				  let userMeta = snapshot.val();
-				  	that.initUser(userMeta, userObj);
-				});
-
-				this.queryFb();
-				
-			}
 		}
   }
 
@@ -347,6 +341,11 @@ class App extends React.Component {
 	      user: userObj
 	    });
 
+	    this.setState({
+	        authed: true,
+	        loading: false
+	      });
+
 			var that = this;
 
 	    const tRef = firebase.database().ref("transactions");
@@ -383,13 +382,13 @@ class App extends React.Component {
   }
 
   queryFb(){
-  // 			const usersRef = firebase.database().ref('users');
-		// usersRef.on('value', (snapshot) => {
-		//   let items = snapshot.val();
-		//   this.setState({
-		//     users: items
-		//   });
-		// });
+  			const usersRef = firebase.database().ref('users');
+		usersRef.on('value', (snapshot) => {
+		  let items = snapshot.val();
+		  this.setState({
+		    users: items
+		  });
+		});
 
 		const pagesRef = firebase.database().ref('pages');
 		pagesRef.on('value', (snapshot) => {
@@ -445,7 +444,7 @@ class App extends React.Component {
 
 		let isReg = false;
 		// let noData = false;
-		let noData = (Object.keys(categories).length === 0);
+		let noData = !(Object.keys(categories).length !== 0 && Object.keys(this.state.areas).length !== 0 && Object.keys(this.state.providers).length !== 0);
 
 		if(isAuthed && Object.keys(this.state.users).length > 0 && this.state.user){
 			let userMeta = this.state.users[this.state.user.uid];
@@ -486,7 +485,6 @@ class App extends React.Component {
               <Notices key={key} id={key} handleCloseNotice={this.handleCloseNotice} notice={notices[key]} />
             )
         }
-					<Route path="/callback" render={(props) => <Callback />} />
 				{!isAuthed && (
 					<Route path="/registration" render={(props) => <Registration setNotice={this.setNotice} {...props} />} />
 					)
@@ -496,7 +494,7 @@ class App extends React.Component {
 					)
 				}
 				{
-          !isAuthed && this.props.location.pathname !== '/registration' && (
+          !isAuthed && !this.state.loading && this.props.location.pathname !== '/registration' && (
 	          	<Login loggedOut={this.state.loggedOut} clearNotices={this.clearNotices} notices={this.state.notices} setNotice={this.setNotice} />
             )
         }
