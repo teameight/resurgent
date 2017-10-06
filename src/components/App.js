@@ -194,7 +194,7 @@ class App extends React.Component {
 		this.setState({users});
 
 		// send email
-		axios.post('https://aqueous-eyrie-70803.herokuapp.com/book-session', formValues)
+		axios.post('http://localhost:5000/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
 		  .then(function (response) {
 		    console.log(response);
 		  })

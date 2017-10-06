@@ -154,6 +154,11 @@ class ProviderPicker extends React.Component {
 
   handleBookSubmit(e, pCost) {
     e.preventDefault();
+    // Firebase refs
+    const settings = firebase.database().ref('settings');
+    const provider = firebase.database().ref('providers');
+
+    // Other vars
     const catId = this.props.location.state.catId;
     const areaId = this.props.location.state.areaId;
     const pId = providersObj[this.state.provider].id;
@@ -175,19 +180,28 @@ class ProviderPicker extends React.Component {
       zone : 2
     });
 
+    function getAdminEmail() {
+      return settings.child('adminEmail').once('value').then(function(snapshot) {
+        return snapshot.val();
+      });
+    }
+
+    console.log(getAdminEmail());
+
     // get admin email address
-    const settings = firebase.database().ref('settings');
     settings.once('value', function(snapshot) {
-        formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
+        formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'andrew@team-eight.com';
       });
     // get provider name and email address
-    const provider = firebase.database().ref('providers');
     provider.child(pId).once('value', function(snapshot) {
         formValues.providerEmail = snapshot.val().email ? snapshot.val().email : adminEmail;
         formValues.providerName = snapshot.val().name ? snapshot.val().name : '';
       }).then(function() {
         component.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues);
       });
+
+    console.log(formValues);
+
   }
 
   goToZone(e, znum) {
