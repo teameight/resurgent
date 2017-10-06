@@ -9,18 +9,6 @@ const flickityOptions = {
   pageDots: false
 }
 
-const providersRef = firebase.database().ref('providers');
-let providersObj = {};
-let pcheck = false;
-let key = 1;
-providersRef.orderByChild('order').once('value').then(function(snapshot) {
-  snapshot.forEach(function(data) {
-    providersObj[key] = data.val();
-    providersObj[key].id = data.key;
-    key++;
-  });
-  pcheck = true;
-});
 class ProviderPicker extends React.Component {
 
   constructor() {
@@ -33,7 +21,8 @@ class ProviderPicker extends React.Component {
       category: null,
       area: null,
       provider: null,
-      formValues: {name:''}
+      formValues: {name:''},
+      providersObj: {}
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -50,6 +39,26 @@ class ProviderPicker extends React.Component {
     this.flipCard= this.flipCard.bind(this);
   }
 
+
+  componentWillMount() {
+    let providersObj = {};
+    let key = 1;
+    let that = this;
+
+    const providersRef = firebase.database().ref('providers');
+    providersRef.orderByChild('order').once('value').then(function(snapshot) {
+      snapshot.forEach(function(data) {
+        providersObj[key] = data.val();
+        providersObj[key].id = data.key;
+        key++;
+      });
+    }).then(function(){
+      that.setState({
+        providersObj:providersObj
+      });
+    });
+
+  }
 
   componentWillUnmount () {
     this.props.clearNotices();
@@ -120,6 +129,8 @@ class ProviderPicker extends React.Component {
   handleReviewSubmit(e) {
     e.preventDefault();
 
+    const providersObj = this.state.providersObj;
+
     // Get the slug
     const catId = this.props.location.state.catId;
     const areaId = this.props.location.state.areaId;
@@ -154,6 +165,9 @@ class ProviderPicker extends React.Component {
 
   handleBookSubmit(e, pCost) {
     e.preventDefault();
+
+    const providersObj = this.state.providersObj;
+
     const catId = this.props.location.state.catId;
     const areaId = this.props.location.state.areaId;
     const pId = providersObj[this.state.provider].id;
@@ -203,6 +217,9 @@ class ProviderPicker extends React.Component {
     const areaId = this.props.location.state.areaId;
     let pId = this.state.provider;
 
+    let pcheck = (Object.keys(this.state.providersObj).length !== 0);
+    const providersObj = this.state.providersObj;
+
     const user = this.props.user;
 
     let pName = '';
@@ -215,7 +232,7 @@ class ProviderPicker extends React.Component {
     let tokenCounts = [];
 
 
-    if(pId){
+    if(pId && pcheck){
       var provider = providersObj[pId];
 
       pName = provider.name;

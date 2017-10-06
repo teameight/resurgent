@@ -30,6 +30,10 @@
 .flow-login {
     background: $gray-lt2;
 
+    .main {
+      background: $gray-lt2;
+    }
+
       .main header {
         margin:8*$vru auto;
         text-align: center;
