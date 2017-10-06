@@ -119,6 +119,9 @@ class ProviderPicker extends React.Component {
 
   handleReviewSubmit(e) {
     e.preventDefault();
+    // Firebase refs
+    const settings = firebase.database().ref('settings');
+    const provider = firebase.database().ref('providers');
 
     // Get the slug
     const catId = this.props.location.state.catId;
@@ -129,19 +132,20 @@ class ProviderPicker extends React.Component {
     // store `this` to use inside firebase promise
     let component = this;
 
-    // get admin email address
-    const settings = firebase.database().ref('settings');
-    settings.once('value', function(snapshot) {
-        formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'communicate@team-eight.com';
-      });
-    // get provider name and email address. WHY YOU NO CHANGE!?
-    const provider = firebase.database().ref('providers');
-    provider.child(pId).once('value', function(snapshot) {
-        formValues.providerEmail = snapshot.val().email ? snapshot.val().email : adminEmail;
-        formValues.providerName = snapshot.val().name ? snapshot.val().name : '';
+    function getFirebaseData() {
+      return settings.once('value').then(function(snapshot) {
+        formValues.adminEmail = snapshot.val().adminEmail;
+      }).then(function() {
+        return provider.child(pId).once('value').then(function(snapshot) {
+          formValues.providerName = snapshot.val().name;
+          formValues.providerEmail = snapshot.val().email;
+        });
       }).then(function() {
         component.props.updateReviews(formValues, catId, areaId, pId);
       });
+    }
+
+    getFirebaseData();
 
     this.handleCloseModal();
   }
@@ -180,27 +184,20 @@ class ProviderPicker extends React.Component {
       zone : 2
     });
 
-    function getAdminEmail() {
-      return settings.child('adminEmail').once('value').then(function(snapshot) {
-        return snapshot.val();
-      });
-    }
-
-    console.log(getAdminEmail());
-
-    // get admin email address
-    settings.once('value', function(snapshot) {
-        formValues.adminEmail = snapshot.val().adminEmail ? snapshot.val().adminEmail : 'andrew@team-eight.com';
-      });
-    // get provider name and email address
-    provider.child(pId).once('value', function(snapshot) {
-        formValues.providerEmail = snapshot.val().email ? snapshot.val().email : adminEmail;
-        formValues.providerName = snapshot.val().name ? snapshot.val().name : '';
+    function getFirebaseData() {
+      return settings.once('value').then(function(snapshot) {
+        formValues.adminEmail = snapshot.val().adminEmail;
+      }).then(function() {
+        return provider.child(pId).once('value').then(function(snapshot) {
+          formValues.providerEmail = snapshot.val().email;
+          formValues.providerName = snapshot.val().name;
+        });
       }).then(function() {
         component.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues);
       });
+    }
 
-    console.log(formValues);
+    getFirebaseData();
 
   }
 
@@ -287,11 +284,8 @@ class ProviderPicker extends React.Component {
                       <p>{pCat}: {pArea} <strong>({pCost} tokens)</strong></p>
                   </div>
                   <form ref={(input) => this.bookForm = input}onSubmit={(e) => this.handleBookSubmit(e, pCost)}>
-                      <input ref={(input) => this.subject = input}name="subject" type="text" placeholder="Subject" required />
-                      <textarea ref={(input) => this.body = input}name="message" rows="6" cols="50" required >Default form letter text. Lorem ipsum dolor sit amet.
-
-        Thanks!
-                      </textarea>
+                      <input ref={(input) => this.subject = input}name="subject" type="text" placeholder="Book your session" required defaultValue="Book your session" />
+                      <textarea ref={(input) => this.body = input}name="message" rows="6" cols="50" required defaultValue="Hello, I am seeking to book a session via Resurgent. I look forward to your reply."></textarea>
                       <input className="btn" type="submit" value="Send" />
                   </form>
               </section>

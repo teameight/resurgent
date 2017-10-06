@@ -189,12 +189,12 @@ class App extends React.Component {
 		this.setState({users});
 
 		// send email
-		axios.post('http://localhost:5000/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
+		axios.post('https://aqueous-eyrie-70803.herokuapp.com/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
 		  .then(function (response) {
-		    console.log(response);
+		    console.log('axios response = ', response);
 		  })
 		  .catch(function (error) {
-		    console.log(error);
+		    console.log('axios error = ', error);
 		  });
 
 	  // create transaction record
