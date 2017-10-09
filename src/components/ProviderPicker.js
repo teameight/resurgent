@@ -255,6 +255,8 @@ class ProviderPicker extends React.Component {
         pReviews = provider.reviews;
       }
 
+      // console.log(pReviews);
+
       if(user != null){
 
         const total = parseInt(user.tokens, 10) + parseInt(pCost, 10);
@@ -370,7 +372,9 @@ class ProviderPicker extends React.Component {
                   <hr />
                   {
                     pReviews && (
-                      pReviews.map(function(review, index) {
+                      pReviews
+                        .filter(current => current.approved && !current.isArchived)
+                        .map(function(review, index) {
                         return (
                           <article key={index} className="review">
                               <h1>{review.headline}</h1>

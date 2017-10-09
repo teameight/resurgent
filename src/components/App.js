@@ -109,7 +109,7 @@ class App extends React.Component {
 	updateReviews(formValues, ckey, akey, pkey) {
 		let providers = this.state.providers;
 		const providersRef = firebase.database().ref('providers');
-		const tRef = firebase.database().ref('transactions');
+		const tRef = firebase.database().ref('transactions').push();
 		const ukey = this.state.user.uid;
 		const timestamp = Date.now();
 		let rating = '';
@@ -131,24 +131,20 @@ class App extends React.Component {
 
 		}
 
-	  // get user info
-		axios.post('https://aqueous-eyrie-70803.herokuapp.com/review-submission', formValues)
-		  .then(function (response) {
-		  })
-		  .catch(function (error) {
-		  });
+	  // send emails
+		// axios.post('https://aqueous-eyrie-70803.herokuapp.com/review-submission', formValues)
+		//   .then(function (response) {
+		//   })
+		//   .catch(function (error) {
+		//   });
 
+		var tKey = tRef.key;
 
 		if ( formValues.message ) {
-			let reviewsArr = providers[pkey].reviews ? providers[pkey].reviews : [];
-			let headline = formValues.headline ? formValues.headline : '';
-			newReview = { headline: headline, message: formValues.message };
-			reviewsArr.push(newReview);
-			providers[pkey].reviews = reviewsArr;
-
-			providersRef.child(pkey).update({reviews: reviewsArr});
+			var reviewsArr = providers[pkey].reviews ? providers[pkey].reviews : [];
+			var headline = formValues.headline ? formValues.headline : '';
+			newReview = { headline: headline, message: formValues.message, transaction: tKey, approved: false, isArchived: false };
 		}
-		this.setState({providers});
 
 		const transaction = {
 			area: akey,
@@ -160,10 +156,18 @@ class App extends React.Component {
 			type: "rating-review",
 			uid: ukey,
 			approved: false,
-			isArchived: false
+			isArchived: false,
 		}
 
-		tRef.push().set(transaction);
+		tRef.set(transaction);
+
+		if ( formValues.message ) {
+			reviewsArr.push(newReview);
+			providers[pkey].reviews = reviewsArr;
+
+			providersRef.child(pkey).update({reviews: reviewsArr});
+		}
+		this.setState({providers});
 
 		this.setNotice({
 			type: 'success',
