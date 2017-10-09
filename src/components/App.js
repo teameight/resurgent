@@ -292,15 +292,14 @@ class App extends React.Component {
 
   	// add check of expiration timestamp. if is empty, proceed, if less than now, do not set user state, set expired state.
   	let difference = 1;
-
-  	if(userMeta.expiration && userMeta.expiration !== ''){
+  	if(userMeta !== null && userMeta.expiration && userMeta.expiration !== ''){
   		const today = new Date();
 			difference = userMeta.expiration - today.getTime();
   	}
 
   	if(difference > 0){
 
-			if(userMeta.email){
+			if(userMeta !== null && userMeta.email){
 
 	      userObj.tokens = userMeta.tokens;
 
