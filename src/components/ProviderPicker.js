@@ -146,6 +146,7 @@ class ProviderPicker extends React.Component {
       return settings.once('value').then(function(snapshot) {
         formValues.adminEmail = snapshot.val().adminEmail;
         formValues.adminUrl = snapshot.val().adminUrl;
+        formValues.nodeUrl = snapshot.val().nodeUrl;
       }).then(function() {
         return provider.child(pId).once('value').then(function(snapshot) {
           formValues.providerName = snapshot.val().name;
@@ -198,6 +199,7 @@ class ProviderPicker extends React.Component {
     function getFirebaseData() {
       return settings.once('value').then(function(snapshot) {
         formValues.adminEmail = snapshot.val().adminEmail;
+        formValues.nodeUrl = snapshot.val().nodeUrl;
       }).then(function() {
         return provider.child(pId).once('value').then(function(snapshot) {
           formValues.providerEmail = snapshot.val().email;

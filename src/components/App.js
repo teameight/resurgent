@@ -131,11 +131,15 @@ class App extends React.Component {
 
 		}
 
+		// console.log(formValues.nodeUrl);
+
 	  // send emails
-		axios.post('https://sheltered-crag-45942.herokuapp.com/review-submission', formValues)
+		axios.post(formValues.nodeUrl + '/review-submission', formValues) // formValues.nodeUrl
 		  .then(function (response) {
+		  	console.log(response);
 		  })
 		  .catch(function (error) {
+		  	console.log(error);
 		  });
 
 		var tKey = tRef.key;
@@ -195,7 +199,7 @@ class App extends React.Component {
 		this.setState({users});
 
 		// send email
-		axios.post('https://sheltered-crag-45942.herokuapp.com/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
+		axios.post(formValues.nodeUrl + '/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
 		  .then(function (response) {
 		  })
 		  .catch(function (error) {
