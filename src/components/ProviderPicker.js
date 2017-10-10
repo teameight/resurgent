@@ -139,13 +139,13 @@ class ProviderPicker extends React.Component {
     const areaId = this.props.location.state.areaId;
     const pId = providersObj[this.state.provider].id;
     let formValues = this.state.formValues;
-    let adminEmail = '';
     // store `this` to use inside firebase promise
     let component = this;
 
     function getFirebaseData() {
       return settings.once('value').then(function(snapshot) {
         formValues.adminEmail = snapshot.val().adminEmail;
+        formValues.adminUrl = snapshot.val().adminUrl;
       }).then(function() {
         return provider.child(pId).once('value').then(function(snapshot) {
           formValues.providerName = snapshot.val().name;
@@ -181,7 +181,6 @@ class ProviderPicker extends React.Component {
     const user = this.props.user;
     const uTokens = user.tokens;
     user.tokens = uTokens - pCost;
-    let adminEmail = '';
     let formValues = {
       subject: this.subject.value,
       body: this.body.value,

@@ -132,11 +132,11 @@ class App extends React.Component {
 		}
 
 	  // send emails
-		// axios.post('https://aqueous-eyrie-70803.herokuapp.com/review-submission', formValues)
-		//   .then(function (response) {
-		//   })
-		//   .catch(function (error) {
-		//   });
+		axios.post('https://sheltered-crag-45942.herokuapp.com/review-submission', formValues)
+		  .then(function (response) {
+		  })
+		  .catch(function (error) {
+		  });
 
 		var tKey = tRef.key;
 
@@ -195,7 +195,7 @@ class App extends React.Component {
 		this.setState({users});
 
 		// send email
-		axios.post('https://aqueous-eyrie-70803.herokuapp.com/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
+		axios.post('https://sheltered-crag-45942.herokuapp.com/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
 		  .then(function (response) {
 		  })
 		  .catch(function (error) {
@@ -275,14 +275,13 @@ class App extends React.Component {
 			let that = this;
 
 			var userRef = firebase.database().ref('users/' + uid );
-		
 			userRef.on('value', function(snapshot) {
 			  let userMeta = snapshot.val();
 			  	that.initUser(userMeta, userObj);
 			});
 
 			this.queryFb();
-			
+
 		}
   }
 
