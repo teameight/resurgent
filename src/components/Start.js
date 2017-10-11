@@ -17,7 +17,7 @@ class Start extends React.Component {
           </form>
           <div className="prefooter">
             <p>Need Help?</p>
-            <p><a href="#">contact the administrator</a></p>
+            <p><a href="mailto:emily@districtlegalstaffing.com">contact the administrator</a></p>
           </div>
       </section>
     )
