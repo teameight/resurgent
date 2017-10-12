@@ -139,13 +139,14 @@ class ProviderPicker extends React.Component {
     const areaId = this.props.location.state.areaId;
     const pId = providersObj[this.state.provider].id;
     let formValues = this.state.formValues;
-    let adminEmail = '';
     // store `this` to use inside firebase promise
     let component = this;
 
     function getFirebaseData() {
       return settings.once('value').then(function(snapshot) {
         formValues.adminEmail = snapshot.val().adminEmail;
+        formValues.adminUrl = snapshot.val().adminUrl;
+        formValues.nodeUrl = snapshot.val().nodeUrl;
       }).then(function() {
         return provider.child(pId).once('value').then(function(snapshot) {
           formValues.providerName = snapshot.val().name;
@@ -181,7 +182,6 @@ class ProviderPicker extends React.Component {
     const user = this.props.user;
     const uTokens = user.tokens;
     user.tokens = uTokens - pCost;
-    let adminEmail = '';
     let formValues = {
       subject: this.subject.value,
       body: this.body.value,
@@ -199,6 +199,7 @@ class ProviderPicker extends React.Component {
     function getFirebaseData() {
       return settings.once('value').then(function(snapshot) {
         formValues.adminEmail = snapshot.val().adminEmail;
+        formValues.nodeUrl = snapshot.val().nodeUrl;
       }).then(function() {
         return provider.child(pId).once('value').then(function(snapshot) {
           formValues.providerEmail = snapshot.val().email;
@@ -254,6 +255,8 @@ class ProviderPicker extends React.Component {
       if ( provider.reviews ) {
         pReviews = provider.reviews;
       }
+
+      // console.log(pReviews);
 
       if(user != null){
 
@@ -370,7 +373,9 @@ class ProviderPicker extends React.Component {
                   <hr />
                   {
                     pReviews && (
-                      pReviews.map(function(review, index) {
+                      pReviews
+                        .filter(current => current.approved && !current.isArchived)
+                        .map(function(review, index) {
                         return (
                           <article key={index} className="review">
                               <h1>{review.headline}</h1>

@@ -17,6 +17,57 @@ import Footer from './Footer';
 
 import '../css/style.css';
 
+if (!Array.prototype.includes) {
+  Object.defineProperty(Array.prototype, 'includes', {
+    value: function(searchElement, fromIndex) {
+
+      // 1. Let O be ? ToObject(this value).
+      if (this == null) {
+        throw new TypeError('"this" is null or not defined');
+      }
+
+      var o = Object(this);
+
+      // 2. Let len be ? ToLength(? Get(O, "length")).
+      var len = o.length >>> 0;
+
+      // 3. If len is 0, return false.
+      if (len === 0) {
+        return false;
+      }
+
+      // 4. Let n be ? ToInteger(fromIndex).
+      //    (If fromIndex is undefined, this step produces the value 0.)
+      var n = fromIndex | 0;
+
+      // 5. If n ≥ 0, then
+      //  a. Let k be n.
+      // 6. Else n < 0,
+      //  a. Let k be len + n.
+      //  b. If k < 0, let k be 0.
+      var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+      function sameValueZero(x, y) {
+        return x === y || (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y));
+      }
+
+      // 7. Repeat, while k < len
+      while (k < len) {
+        // a. Let elementK be the result of ? Get(O, ! ToString(k)).
+        // b. If SameValueZero(searchElement, elementK) is true, return true.
+        // c. Increase k by 1.
+        if (sameValueZero(o[k], searchElement)) {
+          return true;
+        }
+        k++;
+      }
+
+      // 8. Return false
+      return false;
+    }
+  });
+}
+
 class App extends React.Component {
 	constructor() {
 		super();
@@ -109,7 +160,7 @@ class App extends React.Component {
 	updateReviews(formValues, ckey, akey, pkey) {
 		let providers = this.state.providers;
 		const providersRef = firebase.database().ref('providers');
-		const tRef = firebase.database().ref('transactions');
+		const tRef = firebase.database().ref('transactions').push();
 		const ukey = this.state.user.uid;
 		const timestamp = Date.now();
 		let rating = '';
@@ -131,24 +182,24 @@ class App extends React.Component {
 
 		}
 
-	  // get user info
-		axios.post('https://aqueous-eyrie-70803.herokuapp.com/review-submission', formValues)
+		// console.log(formValues.nodeUrl);
+
+	  // send emails
+		axios.post(formValues.nodeUrl + '/review-submission', formValues) // formValues.nodeUrl
 		  .then(function (response) {
+		  	console.log(response);
 		  })
 		  .catch(function (error) {
+		  	console.log(error);
 		  });
 
+		var tKey = tRef.key;
 
 		if ( formValues.message ) {
-			let reviewsArr = providers[pkey].reviews ? providers[pkey].reviews : [];
-			let headline = formValues.headline ? formValues.headline : '';
-			newReview = { headline: headline, message: formValues.message };
-			reviewsArr.push(newReview);
-			providers[pkey].reviews = reviewsArr;
-
-			providersRef.child(pkey).update({reviews: reviewsArr});
+			var reviewsArr = providers[pkey].reviews ? providers[pkey].reviews : [];
+			var headline = formValues.headline ? formValues.headline : '';
+			newReview = { headline: headline, message: formValues.message, transaction: tKey, approved: false, isArchived: false };
 		}
-		this.setState({providers});
 
 		const transaction = {
 			area: akey,
@@ -160,10 +211,18 @@ class App extends React.Component {
 			type: "rating-review",
 			uid: ukey,
 			approved: false,
-			isArchived: false
+			isArchived: false,
 		}
 
-		tRef.push().set(transaction);
+		tRef.set(transaction);
+
+		if ( formValues.message ) {
+			reviewsArr.push(newReview);
+			providers[pkey].reviews = reviewsArr;
+
+			providersRef.child(pkey).update({reviews: reviewsArr});
+		}
+		this.setState({providers});
 
 		this.setNotice({
 			type: 'success',
@@ -191,7 +250,7 @@ class App extends React.Component {
 		this.setState({users});
 
 		// send email
-		axios.post('https://aqueous-eyrie-70803.herokuapp.com/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
+		axios.post(formValues.nodeUrl + '/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
 		  .then(function (response) {
 		  })
 		  .catch(function (error) {
@@ -271,14 +330,13 @@ class App extends React.Component {
 			let that = this;
 
 			var userRef = firebase.database().ref('users/' + uid );
-		
 			userRef.on('value', function(snapshot) {
 			  let userMeta = snapshot.val();
 			  	that.initUser(userMeta, userObj);
 			});
 
 			this.queryFb();
-			
+
 		}
   }
 
