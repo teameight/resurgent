@@ -8,6 +8,7 @@ class Registration extends React.Component {
 
     this.state = {
       regCode:false,
+      loading:true,
       email:''
     };
 
@@ -35,11 +36,15 @@ class Registration extends React.Component {
       .then(function(email) {
         that.setState({
           regCode:code,
+          loading:false,
           email:email
         });
       })
       .catch(function(error) {
         console.log(error);
+        that.setState({
+          loading:false
+        });
       });
     }
   }
@@ -120,9 +125,11 @@ class Registration extends React.Component {
 
     return (
       <section className="main sign-in">
+        { !this.state.loading && (
+          <div>
           <header>
-              <h1 className="page-title">{title}</h1>
-              <p className="subtitle">{subtitle}</p>
+            <h1 className="page-title">{title}</h1>
+            <p className="subtitle">{subtitle}</p>
           </header>
           {
             this.state.regCode && (
@@ -144,6 +151,9 @@ class Registration extends React.Component {
             <p>Need Help?</p>
             <p><a href="#">contact the administrator</a></p>
           </div>
+          </div>
+        )
+      }
       </section>
     )
   }

@@ -65,7 +65,8 @@ body {
   margin: 0;
   border-bottom: 1px solid #da2c1d;
   position: relative;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  z-index: 5; }
   .notice.success {
     background: #3e9a56;
     border-bottom: #262626; }
