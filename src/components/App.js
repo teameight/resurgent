@@ -508,6 +508,9 @@ class App extends React.Component {
 			// console.log('reg '+ userMeta.unregistered);
 			if(!userMeta.unregistered){
 				isReg = true;
+				if(this.props.location.pathname === '/registration'){
+					this.props.location.pathname = '/';
+				}
 			}
 		}
 
@@ -542,11 +545,11 @@ class App extends React.Component {
               <Notices key={key} id={key} handleCloseNotice={this.handleCloseNotice} notice={notices[key]} />
             )
         }
-				{!isAuthed && (
+				{!isAuthed && !this.state.loading && (
 					<Route path="/registration" render={(props) => <Registration setNotice={this.setNotice} {...props} />} />
 					)
 				}
-				{ noData && (
+				{ this.state.loading && (
 					<Callback />
 					)
 				}

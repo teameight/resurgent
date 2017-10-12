@@ -21,6 +21,10 @@ class Registration extends React.Component {
   componentWillMount () {
     if(this.props.location.search){
       this.handleAuthString();
+    }else{
+      this.setState({
+        loading:false
+      });
     }
   }
 
@@ -32,6 +36,7 @@ class Registration extends React.Component {
       code = codeSplit.split("&")[0];
 
       let that = this;
+      console.log('authstring');
       firebase.auth().verifyPasswordResetCode(code)
       .then(function(email) {
         that.setState({
@@ -122,6 +127,7 @@ class Registration extends React.Component {
       title = 'Welcome';
       subtitle = 'Create a password to register.';
     }
+    console.log("IMHEEERREE!");
 
     return (
       <section className="main sign-in">
