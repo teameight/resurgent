@@ -30,8 +30,8 @@ class Registration extends React.Component {
 
   handleAuthString() {
     const search = this.props.location.search;
-    if(search.includes('oobCode=')){
-      let code = ''; 
+    if(search.search('oobCode=') >= 0 ){
+      let code = '';
       let codeSplit = search.split("oobCode=")[1];
       code = codeSplit.split("&")[0];
 
@@ -51,12 +51,16 @@ class Registration extends React.Component {
           loading:false
         });
       });
+    } else {
+      this.setState({
+        loading:false
+      });
     }
   }
 
   handleRegister(e) {
     e.preventDefault();
-    let code = this.state.regCode; 
+    let code = this.state.regCode;
     let newPassword = this.password.value;
     let that = this;
     firebase.auth().confirmPasswordReset(code, newPassword)
@@ -127,7 +131,6 @@ class Registration extends React.Component {
       title = 'Welcome';
       subtitle = 'Create a password to register.';
     }
-    console.log("IMHEEERREE!");
 
     return (
       <section className="main sign-in">
@@ -143,7 +146,7 @@ class Registration extends React.Component {
                 <input ref={(input) => this.password = input}name="password" type="password" placeholder="password" required />
                 <input className="btn" type="submit" value="Register" />
               </form>
-            )     
+            )
           }
           {
             !this.state.regCode && (
@@ -151,7 +154,7 @@ class Registration extends React.Component {
                 <input ref={(input) => this.email = input}name="email" type="text" placeholder="email" required />
                 <input className="btn" type="submit" value="Resend Invitation" />
               </form>
-            )     
+            )
           }
           <div className="prefooter">
             <p>Need Help?</p>
