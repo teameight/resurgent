@@ -230,7 +230,7 @@ class App extends React.Component {
 		});
 	}
 
-	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues) {
+	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues, iStream = false) {
 		const users = this.state.users;
 		const usersRef = firebase.database().ref('users');
 		const tRef = firebase.database().ref('transactions');
@@ -244,6 +244,12 @@ class App extends React.Component {
 			let currentTokens = users[ukey].tokens;
 			let newTokens = currentTokens - subtractTokens;
 			usersRef.child(ukey).update({ "tokens":newTokens });
+
+			if(iStream){
+				usersRef.child(ukey).update({ "istream":true });
+				users[ukey].istream = true;
+			}
+
 			users[ukey].tokens = newTokens;
 		}
 
@@ -356,6 +362,7 @@ class App extends React.Component {
 			if(userMeta !== null && userMeta.email){
 
 	      userObj.tokens = userMeta.tokens;
+	      userObj.istream = userMeta.istream;
 
 	    }else{
 	      let userRef = firebase.database().ref('users/' + uid );
@@ -377,12 +384,14 @@ class App extends React.Component {
 
 	      userRef.set(userMeta);
 	      userObj.tokens = 50;
+	      userObj.istream = false;
 
 	    }
 
 	    let usersMeta ={};
       usersMeta[uid] = {
         tokens: userMeta.tokens,
+        istream: userMeta.istream,
         uid: uid,
         email: userMeta.email,
         name: userMeta.name,
@@ -580,6 +589,7 @@ class App extends React.Component {
 								<Route path="/area/:slug" render={(props) =>
 									<ProviderPicker
 									 	clearNotices={this.clearNotices}
+									 	setNotice={this.setNotice}
 										user={this.state.user}
 										setModal={this.setModal}
 										selectProvider={this.selectProvider}

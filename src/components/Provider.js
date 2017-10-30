@@ -32,6 +32,28 @@ class Provider extends React.Component {
 	    pClass += ' flipped';
 	  }
 
+    let isInterviewStream = false;
+    if(details.name === "InterviewStream"){
+      isInterviewStream = true;
+      pClass += ' i-stream';
+    }
+
+    let hasIstream = false;
+    if(isInterviewStream){
+    	hasIstream = this.props.hasIstream;
+    }
+    console.log('hasIstream', hasIstream);
+
+
+    let canPay = false;
+    if(this.props.tokensLeft > 0){
+    	const total = parseInt(this.props.tokensLeft, 10) - parseInt(details.cost, 10);
+      console.log(total);
+      if(total >= 0){
+        canPay = true;
+      }
+    }
+
 		return (
 			<div className={pClass}>
 				<div className="front">
@@ -66,7 +88,26 @@ class Provider extends React.Component {
                   </div>
 	            </a>
 	        </div>
-	        <button className="btn" onClick={ (e) => this.openModal(e, keyId, 'book') }>Book a Session</button>
+	        { !isInterviewStream && canPay && (
+	        		<button className="btn" onClick={ (e) => this.openModal(e, keyId, 'book') }>Book a Session</button>
+	        	)
+	        }
+	        { isInterviewStream && !hasIstream && canPay && (
+	        		<button className="btn" onClick={ (e) => this.openModal(e, keyId, 'istream') }>Launch Practice Interviews</button>
+	        	)
+	        }
+	        { hasIstream && (
+	        		<a className="btn" href="https://isprep.interviewstream.com" target="_blank">Relaunch Practice Interviews</a>
+	        	)
+	        }
+	        { !canPay && !hasIstream && (
+	        		<p><em>You do not have enough tokens left for this provider.</em></p>
+	        	)
+	        }
+	        { canPay && isInterviewStream && !hasIstream && (
+	        		<p>({details.cost} tokens)</p>
+	        	)
+	        }
         </div>
         <div className="back">
         	<div className="back-inner">

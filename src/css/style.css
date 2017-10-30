@@ -1062,6 +1062,21 @@ h2.section-label {
       -moz-osx-font-smoothing: grayscale;
       margin-bottom: 0; }
 
+.i-stream .front .btn {
+  font-size: 13px;
+  width: 110%;
+  box-sizing: border-box;
+  display: block;
+  margin-left: -5%;
+  margin-bottom: 3px; }
+  .i-stream .front .btn + p {
+    font-size: 12px; }
+
+.modal-zones.i-stream-zone {
+  width: 100vw; }
+  .modal-zones.i-stream-zone .btn + p {
+    margin-top: 32px; }
+
 .ReactModalPortal .flow-book-session {
   background: #7d5297; }
   .ReactModalPortal .flow-book-session .form-intro .messaging strong {
@@ -1111,8 +1126,7 @@ h2.section-label {
       margin: 0;
       list-style: none;
       transform: translateY(-100%);
-      margin-top: 100%; }
-    .m-zone-2 .book-confirm .token-spinner ul {
+      margin-top: 100%;
       -moz-transition: transform 1s ease, margin 0.3s ease;
       -o-transition: transform 1s ease, margin 0.3s ease;
       -webkit-transition: transform 1s ease, margin 0.3s ease;

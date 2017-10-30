@@ -280,5 +280,26 @@
 
     }
 }
+.i-stream {
+    .front .btn {
+        font-size: 13px;
+        width: 110%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: -5%;
+        margin-bottom: 3px;
 
+        & + p {
+            font-size: 12px;
+        }
+    }
+}
+
+.i-stream-zone .modal-zones {
+    width:100vw;
+
+    .btn + p {
+        margin-top:32px;
+    }
+}
 

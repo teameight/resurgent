@@ -57,8 +57,6 @@
             transform:translateY(-100%);
             margin-top:100%;
 
-        }
-        .m-zone-2 & ul {
             @include transition(transform 1s ease, margin .3s ease);
             animation: token-spinner 1.5s ease 1s 1;
             animation-fill-mode: forwards;
