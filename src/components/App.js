@@ -11,6 +11,7 @@ import Callback from '../Callback/Callback';
 import AreaPicker from './AreaPicker';
 import Registration from './Registration';
 import ProviderPicker from './ProviderPicker';
+import Headhunter from './Headhunter';
 import MyAccount from './MyAccount';
 import Page from './Page';
 import Footer from './Footer';
@@ -586,21 +587,44 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/area/:slug" render={(props) =>
-									<ProviderPicker
-									 	clearNotices={this.clearNotices}
-									 	setNotice={this.setNotice}
-										user={this.state.user}
-										setModal={this.setModal}
-										selectProvider={this.selectProvider}
-										updateReviews={this.updateReviews}
-										bookSessionTransaction={this.bookSessionTransaction}
-										categories={this.state.categories}
-										areas={this.state.areas}
-										providers={this.state.providers}
-										{...props}
-									/>}
-								/>
+								{
+									this.props.location.pathname === '/area/finding-your-headhunter2' && (
+										<Route path="/area/:slug" render={(props) =>
+											<Headhunter
+											 	clearNotices={this.clearNotices}
+											 	setNotice={this.setNotice}
+												user={this.state.user}
+												setModal={this.setModal}
+												selectProvider={this.selectProvider}
+												updateReviews={this.updateReviews}
+												bookSessionTransaction={this.bookSessionTransaction}
+												categories={this.state.categories}
+												areas={this.state.areas}
+												providers={this.state.providers}
+												{...props}
+											/>}
+										/>
+										)
+								}
+								{
+									this.props.location.pathname !== '/area/finding-your-headhunter2' && (
+										<Route path="/area/:slug" render={(props) =>
+											<ProviderPicker
+											 	clearNotices={this.clearNotices}
+											 	setNotice={this.setNotice}
+												user={this.state.user}
+												setModal={this.setModal}
+												selectProvider={this.selectProvider}
+												updateReviews={this.updateReviews}
+												bookSessionTransaction={this.bookSessionTransaction}
+												categories={this.state.categories}
+												areas={this.state.areas}
+												providers={this.state.providers}
+												{...props}
+											/>}
+										/>
+										)
+								}
 								<Route path="/my-account" render={(props) =>
 									<MyAccount
 									 	setNotice={this.setNotice}
