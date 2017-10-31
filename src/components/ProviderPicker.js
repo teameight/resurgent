@@ -206,8 +206,6 @@ class ProviderPicker extends React.Component {
       pCost = providersObj[this.state.provider].cost
     }
 
-    if(uTokens - pCost > 0){
-
       user.tokens = uTokens - pCost;
 
       let formValues = {};
@@ -251,13 +249,6 @@ class ProviderPicker extends React.Component {
       }
 
       getFirebaseData();
-    }else{
-      this.handleCloseModal();
-      this.props.setNotice({
-        type: 'warning',
-        message: 'You do not have enough tokens left for this provider.'
-      });
-    }
 
 
 
@@ -295,6 +286,9 @@ class ProviderPicker extends React.Component {
 
     let zoneClass = 'modal-zones ';
     zoneClass += 'm-zone-' + this.state.zone;
+    if(this.state.zone === 2){
+      zoneClass += ' m-zone-tokens';
+    }
     
     let hasIstream = false;
     
@@ -322,6 +316,7 @@ class ProviderPicker extends React.Component {
 
       if(pName === "InterviewStream"){
         isInterviewStream = true;
+        zoneClass += ' m-zone-tokens';
       }
 
       // console.log(pReviews);

@@ -1072,9 +1072,9 @@ h2.section-label {
   .i-stream .front .btn + p {
     font-size: 12px; }
 
-.modal-zones.i-stream-zone {
+.i-stream-zone .modal-zones {
   width: 100vw; }
-  .modal-zones.i-stream-zone .btn + p {
+  .i-stream-zone .modal-zones .btn + p {
     margin-top: 32px; }
 
 .ReactModalPortal .flow-book-session {
@@ -1126,7 +1126,8 @@ h2.section-label {
       margin: 0;
       list-style: none;
       transform: translateY(-100%);
-      margin-top: 100%;
+      margin-top: 100%; }
+    .m-zone-tokens .book-confirm .token-spinner ul {
       -moz-transition: transform 1s ease, margin 0.3s ease;
       -o-transition: transform 1s ease, margin 0.3s ease;
       -webkit-transition: transform 1s ease, margin 0.3s ease;

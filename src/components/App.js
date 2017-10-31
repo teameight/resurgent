@@ -269,7 +269,7 @@ class App extends React.Component {
 			cost: pTokens,
 			date: timestamp,
 			provider: pkey,
-			type: "book-a-session",
+			type: "interview-stream",
 			uid: ukey
 		};
 
