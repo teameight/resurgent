@@ -120,7 +120,7 @@ class Provider extends React.Component {
 		        	)
 		        }
 		        { hasIstream && (
-		        		<a className="btn" href="https://isprep.interviewstream.com" target="_blank">Relaunch Practice Interviews</a>
+		        		<a className="btn" href="" onClick={this.props.launchInterviewStream}>Relaunch Practice Interviews</a>
 		        	)
 		        }
 		        { !canPay && !hasIstream && (

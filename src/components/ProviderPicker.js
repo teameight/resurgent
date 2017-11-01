@@ -4,6 +4,7 @@ import Flickity from 'react-flickity-component';
 import ReactModal from 'react-modal';
 import RatingStars from './RatingStars';
 import firebase from '../fire';
+import axios from 'axios';
 
 const flickityOptions = {
   pageDots: false
@@ -23,7 +24,8 @@ class ProviderPicker extends React.Component {
       area: null,
       provider: null,
       formValues: {name:''},
-      providersObj: {}
+      providersObj: {},
+      iStreamValue: ''
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -38,6 +40,7 @@ class ProviderPicker extends React.Component {
 
     this.passProvider= this.passProvider.bind(this);
     this.flipCard= this.flipCard.bind(this);
+    this.launchInterviewStream = this.launchInterviewStream.bind(this);
   }
 
 
@@ -222,7 +225,7 @@ class ProviderPicker extends React.Component {
           body: this.body.value,
           userEmail: user.email,
           userName: user.name
-        };      
+        };
       }
 
       // store `this` to use inside firebase promise
@@ -231,7 +234,7 @@ class ProviderPicker extends React.Component {
       if(!istream){
         this.setState({
           zone : 2
-        }); 
+        });
       }
 
       function getFirebaseData() {
@@ -259,6 +262,37 @@ class ProviderPicker extends React.Component {
     this.setState({
       zone : znum
     });
+  }
+
+  launchInterviewStream(e) {
+    e.preventDefault();
+    const settings = firebase.database().ref('settings');
+    let nodeUrl = '';
+
+    function getFirebaseData() {
+      return settings.once('value').then(function(snapshot) {
+        nodeUrl = snapshot.val().nodeUrl;
+      });
+    }
+
+    function fireForm() {
+
+    }
+
+    getFirebaseData();
+
+    let that = this;
+
+    axios.post('//localhost:5000/interview-stream')
+      .then(function (response) {
+        that.setState({ iStreamValue: response.data}, function() {
+          that.inputElement.click();
+        });
+        console.log('iStreamValue', response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
@@ -319,6 +353,8 @@ class ProviderPicker extends React.Component {
         zoneClass += ' m-zone-tokens';
       }
 
+      console.log(isInterviewStream);
+
       // console.log(pReviews);
 
 
@@ -370,7 +406,7 @@ class ProviderPicker extends React.Component {
                   </div>
                   <span>Tokens</span>
               </div>
-              <a className="btn" href="https://isprep.interviewstream.com" target="_blank">Launch InterviewStream</a>
+              <a className="btn" href="" onClick={this.launchInterviewStream}>Launch InterviewStream</a>
               <p>Your account now includes unlimited visits to InterviewStream. Come back to this card to login and access practice interviews.</p>
           </section>
           </div>
@@ -523,11 +559,17 @@ class ProviderPicker extends React.Component {
               Object
                 .keys(providersObj)
                 .filter((current) => providersObj[current].area === areaId && !providersObj[current].isArchived)
-                .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} pId={providersObj[key].id} pArea={pArea} tokensLeft={tokensLeft} hasIstream={hasIstream} details={providersObj[key]} card={this.state.card} />)
+                .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} launchInterviewStream={this.launchInterviewStream} passProvider={this.passProvider} keyId={key} pId={providersObj[key].id} pArea={pArea} tokensLeft={tokensLeft} hasIstream={hasIstream} details={providersObj[key]} card={this.state.card} />)
             }
             </Flickity>
             )
           }
+          {
+            pArea === 'Mock Interviews' && (
+              <form name='form' action='https://isprep.interviewstream.com/SSO/SSO_SC' target="_blank" method='post'><input type='hidden' name='login' value={this.state.iStreamValue} /><input type="submit" ref={input => this.inputElement = input} /></form>
+            )
+          }
+
       </div>
     )
   }
