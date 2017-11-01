@@ -268,31 +268,30 @@ class ProviderPicker extends React.Component {
     e.preventDefault();
     const settings = firebase.database().ref('settings');
     let nodeUrl = '';
+    let that = this;
+    const email = this.props.user.email;
+    const name = this.props.user.name;
+    console.log('launch IS');
 
     function getFirebaseData() {
       return settings.once('value').then(function(snapshot) {
         nodeUrl = snapshot.val().nodeUrl;
+      }).then(function() {
+        axios.post(nodeUrl + '/interview-stream', {email: email, name: name})
+          .then(function (response) {
+            that.setState({ iStreamValue: response.data}, function() {
+              that.inputElement.click();
+            });
+            console.log('iStreamValue = ', response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       });
-    }
-
-    function fireForm() {
-
     }
 
     getFirebaseData();
 
-    let that = this;
-
-    axios.post('//localhost:5000/interview-stream')
-      .then(function (response) {
-        that.setState({ iStreamValue: response.data}, function() {
-          that.inputElement.click();
-        });
-        console.log('iStreamValue', response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   render() {
