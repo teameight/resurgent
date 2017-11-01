@@ -36,7 +36,6 @@ class Registration extends React.Component {
       code = codeSplit.split("&")[0];
 
       let that = this;
-      console.log('authstring');
       firebase.auth().verifyPasswordResetCode(code)
       .then(function(email) {
         that.setState({
@@ -83,7 +82,7 @@ class Registration extends React.Component {
           type: 'success',
           message: 'Your password has been set'
         });
-        that.props.history.push('/');
+        //that.props.history.push('/');
     })
     .catch(function(error) {
       // Handle Errors here.
