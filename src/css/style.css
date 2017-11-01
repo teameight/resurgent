@@ -1018,6 +1018,8 @@ h2.section-label {
     overflow: hidden;
     position: relative;
     text-align: left; }
+    .provider .bio a {
+      text-decoration: underline; }
     .provider .bio p {
       font-size: 14px;
       line-height: 20px; }
