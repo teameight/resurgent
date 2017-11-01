@@ -1098,6 +1098,11 @@ h2.section-label {
             display:none;
         }*/ }
 
+.istream-form {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden; }
+
 .ReactModalPortal .flow-book-session {
   background: #7d5297; }
   .ReactModalPortal .flow-book-session .form-intro .messaging strong {
