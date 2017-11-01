@@ -16,6 +16,7 @@ class ProviderPicker extends React.Component {
     this.state = {
       showModal: false,
       showRating: false,
+      showIStream: false,
       card: false,
       zone: 1,
       category: null,
@@ -67,8 +68,11 @@ class ProviderPicker extends React.Component {
   passProvider(keyId, mname) {
     this.props.selectProvider(keyId);
     this.handleOpenModal(mname);
-    this.setState({ provider: keyId });
-
+    this.setState({ provider: keyId }, function() {
+      if(mname === 'istream'){
+        this.handleBookSubmit(false, '0', true);
+      }
+    });
     this.forceUpdate();
   }
 
@@ -84,21 +88,35 @@ class ProviderPicker extends React.Component {
     if(mname === 'book'){
       this.setState({
         showModal: true,
-        showRating: false
-      });
-    }else{
-      this.setState({
-        showModal: false,
-        showRating: true
+        showRating: false,
+        showIStream: false
       });
     }
+
+    if(mname === 'rating'){
+      this.setState({
+        showModal: false,
+        showRating: true,
+        showIStream: false
+      });
+    }
+
+    if(mname === 'istream'){
+      this.setState({
+        showModal: false,
+        showRating: false,
+        showIStream: true
+      });
+    }
+
     this.props.setModal(true);
   }
 
   handleCloseModal() {
     this.setState({
       showModal: false,
-      showRating: false
+      showRating: false,
+      showIStream: false
     });
     this.props.setModal(false);
     setTimeout(() => {
@@ -146,6 +164,7 @@ class ProviderPicker extends React.Component {
       return settings.once('value').then(function(snapshot) {
         formValues.adminEmail = snapshot.val().adminEmail;
         formValues.adminUrl = snapshot.val().adminUrl;
+        formValues.nodeUrl = snapshot.val().nodeUrl;
       }).then(function() {
         return provider.child(pId).once('value').then(function(snapshot) {
           formValues.providerName = snapshot.val().name;
@@ -167,8 +186,10 @@ class ProviderPicker extends React.Component {
     this.props.history.push(path);
   }
 
-  handleBookSubmit(e, pCost) {
-    e.preventDefault();
+  handleBookSubmit(e, pCost, istream = false) {
+    if(!istream){
+      e.preventDefault();
+    }
     // Firebase refs
     const settings = firebase.database().ref('settings');
     const provider = firebase.database().ref('providers');
@@ -180,35 +201,56 @@ class ProviderPicker extends React.Component {
     const pId = providersObj[this.state.provider].id;
     const user = this.props.user;
     const uTokens = user.tokens;
-    user.tokens = uTokens - pCost;
-    let formValues = {
-      subject: this.subject.value,
-      body: this.body.value,
-      userEmail: user.email,
-      userName: user.name
-    };
 
-    // store `this` to use inside firebase promise
-    let component = this;
-
-    this.setState({
-      zone : 2
-    });
-
-    function getFirebaseData() {
-      return settings.once('value').then(function(snapshot) {
-        formValues.adminEmail = snapshot.val().adminEmail;
-      }).then(function() {
-        return provider.child(pId).once('value').then(function(snapshot) {
-          formValues.providerEmail = snapshot.val().email;
-          formValues.providerName = snapshot.val().name;
-        });
-      }).then(function() {
-        component.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues);
-      });
+    if(istream){
+      pCost = providersObj[this.state.provider].cost
     }
 
-    getFirebaseData();
+      user.tokens = uTokens - pCost;
+
+      let formValues = {};
+      if(istream){
+        formValues = {
+          subject: 'Resurgent: You are now signed up for InterviewStream',
+          body: 'Congratulations! You have signed up to InterviewStream through Resurgent Outplacement. Visit https://resurgentoutplacement.com/area/mock-interview to log in and start sharpening your interview skills.',
+          userEmail: user.email,
+          userName: user.name
+        };
+      }else{
+        formValues = {
+          subject: this.subject.value,
+          body: this.body.value,
+          userEmail: user.email,
+          userName: user.name
+        };      
+      }
+
+      // store `this` to use inside firebase promise
+      let component = this;
+
+      if(!istream){
+        this.setState({
+          zone : 2
+        }); 
+      }
+
+      function getFirebaseData() {
+        return settings.once('value').then(function(snapshot) {
+          formValues.adminEmail = snapshot.val().adminEmail;
+          formValues.nodeUrl = snapshot.val().nodeUrl;
+        }).then(function() {
+          return provider.child(pId).once('value').then(function(snapshot) {
+            formValues.providerEmail = snapshot.val().email;
+            formValues.providerName = snapshot.val().name;
+          });
+        }).then(function() {
+          component.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues, true);
+        });
+      }
+
+      getFirebaseData();
+
+
 
   }
 
@@ -224,6 +266,7 @@ class ProviderPicker extends React.Component {
     const catId = this.props.location.state.catId;
     const areaId = this.props.location.state.areaId;
     let pId = this.state.provider;
+    let isInterviewStream = false;
 
     let pcheck = (Object.keys(this.state.providersObj).length !== 0);
     const providersObj = this.state.providersObj;
@@ -237,8 +280,25 @@ class ProviderPicker extends React.Component {
     let pRating = '';
     let pRatingNum = 0;
     let pReviews = '';
+    let tokensLeft = 0;
     let tokenCounts = [];
 
+
+    let zoneClass = 'modal-zones ';
+    zoneClass += 'm-zone-' + this.state.zone;
+    if(this.state.zone === 2){
+      zoneClass += ' m-zone-tokens';
+    }
+    
+    let hasIstream = false;
+    
+    if(user != null){
+      if(user.istream){
+        hasIstream = true;
+      }
+      
+      tokensLeft = user.tokens;
+    }
 
     if(pId && pcheck){
       var provider = providersObj[pId];
@@ -254,7 +314,13 @@ class ProviderPicker extends React.Component {
         pReviews = provider.reviews;
       }
 
+      if(pName === "InterviewStream"){
+        isInterviewStream = true;
+        zoneClass += ' m-zone-tokens';
+      }
+
       // console.log(pReviews);
+
 
       if(user != null){
 
@@ -263,67 +329,104 @@ class ProviderPicker extends React.Component {
         for (var i = user.tokens; i <= total; i++) {
           tokenCounts.push(<li key={i}>{i}</li>);
         }
+
+
       }
 
     }
 
-    let zoneClass = 'modal-zones ';
-    zoneClass += 'm-zone-' + this.state.zone;
 
     return (
       <div>
         <ReactModal
-             isOpen={this.state.showModal}
-             contentLabel="onRequestClose"
-             onRequestClose={this.handleCloseModal}
-             className="flow-book-session"
-             overlayClassName="Overlay"
-             closeTimeoutMS={500}
-          >
-            <header className="header-modal">
-              <div className="logo">
-                <a href="#" onClick={ (e) => this.processLink(e, '/') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
-              </div>
-              <div className="menu-icon" >
-                <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
-                  <span className="tcon-visuallyhidden">Close</span>
-                </button>
-              </div>
-            </header>
-            <div className={zoneClass}>
-              <section className="main">
-                  <header>
-                      <h1 className="page-title">Book A Session</h1>
-                  </header>
-                  <div className="form-intro">
-                      <p className="messaging"><strong>Messaging:</strong> {pName}</p>
-                      <p>{pCat}: {pArea} <strong>({pCost} tokens)</strong></p>
-                  </div>
-                  <form ref={(input) => this.bookForm = input}onSubmit={(e) => this.handleBookSubmit(e, pCost)}>
-                      <input ref={(input) => this.subject = input}name="subject" type="text" placeholder="Book your session" required defaultValue="Book your session" />
-                      <textarea ref={(input) => this.body = input}name="message" rows="6" cols="50" required defaultValue="Hello, I am seeking to book a session via Resurgent. I look forward to your reply."></textarea>
-                      <input className="btn" type="submit" value="Send" />
-                  </form>
-              </section>
-              <section className="main book-confirm">
-                <header>
-                    <p className="subtitle">You have requested a session with</p>
-                    <h1 className="page-title">{pName}</h1>
-                </header>
-                <p className="instruction">You will receive an email confirmation</p>
-                <div className="token-wrap">
-                    <div className="token-spinner">
-                        <ul>
-                          { tokenCounts }
-                        </ul>
-                    </div>
-                    <span>Tokens</span>
-                </div>
-                <a className="btn" onClick={this.handleCloseModal}>Back to Provider</a>
-            </section>
+           isOpen={this.state.showIStream}
+           contentLabel="onRequestClose"
+           onRequestClose={this.handleCloseModal}
+           className="flow-book-session i-stream-zone"
+           overlayClassName="Overlay"
+           closeTimeoutMS={500}
+        >
+          <header className="header-modal">
+            <div className="logo">
+              <a href="#" onClick={ (e) => this.processLink(e, '/') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
             </div>
-          </ReactModal>
+            <div className="menu-icon" >
+              <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
+                <span className="tcon-visuallyhidden">Close</span>
+              </button>
+            </div>
+          </header>
+          <div className={zoneClass}>
+            <section className="main book-confirm">
+              <header>
+                  <p className="subtitle">You now have access to</p>
+                  <h1 className="page-title">InterviewStream</h1>
+              </header>
+              <div className="token-wrap">
+                  <div className="token-spinner">
+                      <ul>
+                        { tokenCounts }
+                      </ul>
+                  </div>
+                  <span>Tokens</span>
+              </div>
+              <a className="btn" href="https://isprep.interviewstream.com" target="_blank">Launch InterviewStream</a>
+              <p>Your account now includes unlimited visits to InterviewStream. Come back to this card to login and access practice interviews.</p>
+          </section>
+          </div>
+        </ReactModal>
 
+        <ReactModal
+           isOpen={this.state.showModal}
+           contentLabel="onRequestClose"
+           onRequestClose={this.handleCloseModal}
+           className="flow-book-session"
+           overlayClassName="Overlay"
+           closeTimeoutMS={500}
+        >
+          <header className="header-modal">
+            <div className="logo">
+              <a href="#" onClick={ (e) => this.processLink(e, '/') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
+            </div>
+            <div className="menu-icon" >
+              <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
+                <span className="tcon-visuallyhidden">Close</span>
+              </button>
+            </div>
+          </header>
+          <div className={zoneClass}>
+            <section className="main">
+                <header>
+                    <h1 className="page-title">Book A Session</h1>
+                </header>
+                <div className="form-intro">
+                    <p className="messaging"><strong>Messaging:</strong> {pName}</p>
+                    <p>{pCat}: {pArea} <strong>({pCost} tokens)</strong></p>
+                </div>
+                <form ref={(input) => this.bookForm = input}onSubmit={(e) => this.handleBookSubmit(e, pCost)}>
+                    <input ref={(input) => this.subject = input}name="subject" type="text" placeholder="Book your session" required defaultValue="Book your session" />
+                    <textarea ref={(input) => this.body = input}name="message" rows="6" cols="50" required defaultValue="Hello, I am seeking to book a session via Resurgent. I look forward to your reply."></textarea>
+                    <input className="btn" type="submit" value="Send" />
+                </form>
+            </section>
+            <section className="main book-confirm">
+              <header>
+                  <p className="subtitle">You have requested a session with</p>
+                  <h1 className="page-title">{pName}</h1>
+              </header>
+              <p className="instruction">You will receive an email confirmation</p>
+              <div className="token-wrap">
+                  <div className="token-spinner">
+                      <ul>
+                        { tokenCounts }
+                      </ul>
+                  </div>
+                  <span>Tokens</span>
+              </div>
+              <a className="btn" onClick={this.handleCloseModal}>Back to Provider</a>
+          </section>
+          </div>
+        </ReactModal>
 
         <ReactModal
              isOpen={this.state.showRating}
@@ -420,7 +523,7 @@ class ProviderPicker extends React.Component {
               Object
                 .keys(providersObj)
                 .filter((current) => providersObj[current].area === areaId && !providersObj[current].isArchived)
-                .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} pId={providersObj[key].id} details={providersObj[key]} card={this.state.card} />)
+                .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} passProvider={this.passProvider} keyId={key} pId={providersObj[key].id} pArea={pArea} tokensLeft={tokensLeft} hasIstream={hasIstream} details={providersObj[key]} card={this.state.card} />)
             }
             </Flickity>
             )

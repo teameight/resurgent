@@ -11,11 +11,63 @@ import Callback from '../Callback/Callback';
 import AreaPicker from './AreaPicker';
 import Registration from './Registration';
 import ProviderPicker from './ProviderPicker';
+import Headhunter from './Headhunter';
 import MyAccount from './MyAccount';
 import Page from './Page';
 import Footer from './Footer';
 
 import '../css/style.css';
+
+if (!Array.prototype.includes) {
+  Object.defineProperty(Array.prototype, 'includes', {
+    value: function(searchElement, fromIndex) {
+
+      // 1. Let O be ? ToObject(this value).
+      if (this == null) {
+        throw new TypeError('"this" is null or not defined');
+      }
+
+      var o = Object(this);
+
+      // 2. Let len be ? ToLength(? Get(O, "length")).
+      var len = o.length >>> 0;
+
+      // 3. If len is 0, return false.
+      if (len === 0) {
+        return false;
+      }
+
+      // 4. Let n be ? ToInteger(fromIndex).
+      //    (If fromIndex is undefined, this step produces the value 0.)
+      var n = fromIndex | 0;
+
+      // 5. If n ≥ 0, then
+      //  a. Let k be n.
+      // 6. Else n < 0,
+      //  a. Let k be len + n.
+      //  b. If k < 0, let k be 0.
+      var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+      function sameValueZero(x, y) {
+        return x === y || (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y));
+      }
+
+      // 7. Repeat, while k < len
+      while (k < len) {
+        // a. Let elementK be the result of ? Get(O, ! ToString(k)).
+        // b. If SameValueZero(searchElement, elementK) is true, return true.
+        // c. Increase k by 1.
+        if (sameValueZero(o[k], searchElement)) {
+          return true;
+        }
+        k++;
+      }
+
+      // 8. Return false
+      return false;
+    }
+  });
+}
 
 class App extends React.Component {
 	constructor() {
@@ -131,11 +183,15 @@ class App extends React.Component {
 
 		}
 
+		// console.log(formValues.nodeUrl);
+
 	  // send emails
-		axios.post('https://sheltered-crag-45942.herokuapp.com/review-submission', formValues)
+		axios.post(formValues.nodeUrl + '/review-submission', formValues) // formValues.nodeUrl
 		  .then(function (response) {
+		  	console.log(response);
 		  })
 		  .catch(function (error) {
+		  	console.log(error);
 		  });
 
 		var tKey = tRef.key;
@@ -175,7 +231,7 @@ class App extends React.Component {
 		});
 	}
 
-	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues) {
+	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues, iStream = false) {
 		const users = this.state.users;
 		const usersRef = firebase.database().ref('users');
 		const tRef = firebase.database().ref('transactions');
@@ -189,13 +245,19 @@ class App extends React.Component {
 			let currentTokens = users[ukey].tokens;
 			let newTokens = currentTokens - subtractTokens;
 			usersRef.child(ukey).update({ "tokens":newTokens });
+
+			if(iStream){
+				usersRef.child(ukey).update({ "istream":true });
+				users[ukey].istream = true;
+			}
+
 			users[ukey].tokens = newTokens;
 		}
 
 		this.setState({users});
 
 		// send email
-		axios.post('https://sheltered-crag-45942.herokuapp.com/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
+		axios.post(formValues.nodeUrl + '/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
 		  .then(function (response) {
 		  })
 		  .catch(function (error) {
@@ -208,7 +270,7 @@ class App extends React.Component {
 			cost: pTokens,
 			date: timestamp,
 			provider: pkey,
-			type: "book-a-session",
+			type: "interview-stream",
 			uid: ukey
 		};
 
@@ -301,6 +363,7 @@ class App extends React.Component {
 			if(userMeta !== null && userMeta.email){
 
 	      userObj.tokens = userMeta.tokens;
+	      userObj.istream = userMeta.istream;
 
 	    }else{
 	      let userRef = firebase.database().ref('users/' + uid );
@@ -322,12 +385,14 @@ class App extends React.Component {
 
 	      userRef.set(userMeta);
 	      userObj.tokens = 50;
+	      userObj.istream = false;
 
 	    }
 
 	    let usersMeta ={};
       usersMeta[uid] = {
         tokens: userMeta.tokens,
+        istream: userMeta.istream,
         uid: uid,
         email: userMeta.email,
         name: userMeta.name,
@@ -453,6 +518,9 @@ class App extends React.Component {
 			// console.log('reg '+ userMeta.unregistered);
 			if(!userMeta.unregistered){
 				isReg = true;
+				if(this.props.location.pathname === '/registration'){
+					this.props.location.pathname = '/';
+				}
 			}
 		}
 
@@ -487,11 +555,11 @@ class App extends React.Component {
               <Notices key={key} id={key} handleCloseNotice={this.handleCloseNotice} notice={notices[key]} />
             )
         }
-				{!isAuthed && (
+				{!isAuthed && !this.state.loading && (
 					<Route path="/registration" render={(props) => <Registration setNotice={this.setNotice} {...props} />} />
 					)
 				}
-				{ noData && (
+				{ this.state.loading && (
 					<Callback />
 					)
 				}
@@ -519,20 +587,44 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/area/:slug" render={(props) =>
-									<ProviderPicker
-									 	clearNotices={this.clearNotices}
-										user={this.state.user}
-										setModal={this.setModal}
-										selectProvider={this.selectProvider}
-										updateReviews={this.updateReviews}
-										bookSessionTransaction={this.bookSessionTransaction}
-										categories={this.state.categories}
-										areas={this.state.areas}
-										providers={this.state.providers}
-										{...props}
-									/>}
-								/>
+								{
+									this.props.location.pathname === '/area/finding-your-headhunter2' && (
+										<Route path="/area/:slug" render={(props) =>
+											<Headhunter
+											 	clearNotices={this.clearNotices}
+											 	setNotice={this.setNotice}
+												user={this.state.user}
+												setModal={this.setModal}
+												selectProvider={this.selectProvider}
+												updateReviews={this.updateReviews}
+												bookSessionTransaction={this.bookSessionTransaction}
+												categories={this.state.categories}
+												areas={this.state.areas}
+												providers={this.state.providers}
+												{...props}
+											/>}
+										/>
+										)
+								}
+								{
+									this.props.location.pathname !== '/area/finding-your-headhunter2' && (
+										<Route path="/area/:slug" render={(props) =>
+											<ProviderPicker
+											 	clearNotices={this.clearNotices}
+											 	setNotice={this.setNotice}
+												user={this.state.user}
+												setModal={this.setModal}
+												selectProvider={this.selectProvider}
+												updateReviews={this.updateReviews}
+												bookSessionTransaction={this.bookSessionTransaction}
+												categories={this.state.categories}
+												areas={this.state.areas}
+												providers={this.state.providers}
+												{...props}
+											/>}
+										/>
+										)
+								}
 								<Route path="/my-account" render={(props) =>
 									<MyAccount
 									 	setNotice={this.setNotice}

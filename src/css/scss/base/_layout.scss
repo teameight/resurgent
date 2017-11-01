@@ -84,6 +84,7 @@ body {
 	border-bottom:1px solid $red;
 	position: relative;
 	box-sizing: border-box;
+	z-index:5;
 
 	&.success {
 		background: $green;
