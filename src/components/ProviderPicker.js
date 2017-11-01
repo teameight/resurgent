@@ -565,7 +565,7 @@ class ProviderPicker extends React.Component {
           }
           {
             pArea === 'Mock Interviews' && (
-              <form name='form' action='https://isprep.interviewstream.com/SSO/SSO_SC' method='post'><input type='hidden' name='login' value={this.state.iStreamValue} /><input type="submit" ref={input => this.inputElement = input} /></form>
+              <form className='istream-form' name='form' action='https://isprep.interviewstream.com/SSO/SSO_SC' method='post'><input type='hidden' name='login' value={this.state.iStreamValue} /><input type="submit" ref={input => this.inputElement = input} /></form>
             )
           }
 

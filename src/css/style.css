@@ -1018,6 +1018,8 @@ h2.section-label {
     overflow: hidden;
     position: relative;
     text-align: left; }
+    .provider .bio a {
+      text-decoration: underline; }
     .provider .bio p {
       font-size: 14px;
       line-height: 20px; }
@@ -1095,6 +1097,11 @@ h2.section-label {
         &:after, &:before {
             display:none;
         }*/ }
+
+.istream-form {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden; }
 
 .ReactModalPortal .flow-book-session {
   background: #7d5297; }

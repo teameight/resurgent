@@ -238,6 +238,10 @@
         position: relative;
         text-align:left;
 
+        a {
+            text-decoration: underline;
+        }
+
         p {
             font-size: 14px;
             line-height: 20px;
@@ -323,5 +327,10 @@
             display:none;
         }*/
     }
+}
+.istream-form {
+    visibility:hidden;
+    height: 0;
+    overflow:hidden;
 }
 
