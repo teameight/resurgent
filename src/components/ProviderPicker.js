@@ -217,14 +217,16 @@ class ProviderPicker extends React.Component {
           subject: 'Resurgent: You are now signed up for InterviewStream',
           body: 'Congratulations! You have signed up to InterviewStream through Resurgent Outplacement. Visit https://resurgentoutplacement.com/area/mock-interview to log in and start sharpening your interview skills.',
           userEmail: user.email,
-          userName: user.name
+          userName: user.name,
+          type: 'iStream'
         };
       }else{
         formValues = {
           subject: this.subject.value,
           body: this.body.value,
           userEmail: user.email,
-          userName: user.name
+          userName: user.name,
+          type: 'normal'
         };
       }
 
@@ -272,7 +274,6 @@ class ProviderPicker extends React.Component {
     const email = this.props.user.email;
     const name = this.props.user.name;
     const lastname = this.props.user.lastname;
-    console.log('launch IS');
 
     function getFirebaseData() {
       return settings.once('value').then(function(snapshot) {
@@ -323,14 +324,14 @@ class ProviderPicker extends React.Component {
     if(this.state.zone === 2){
       zoneClass += ' m-zone-tokens';
     }
-    
+
     let hasIstream = false;
-    
+
     if(user != null){
       if(user.istream){
         hasIstream = true;
       }
-      
+
       tokensLeft = user.tokens;
     }
 
