@@ -293,7 +293,8 @@ class App extends React.Component {
 			that.setState({
 				loggedOut:true,
 				authed: false,
-				user:null
+				user:null,
+				transactions:{}
 			});
 		}).catch(function(error) {
 		});
@@ -417,12 +418,14 @@ class App extends React.Component {
 
 			var that = this;
 
+			console.log(uid);
+
 	    const tRef = firebase.database().ref("transactions");
 
 	    tRef.orderByChild('uid').equalTo(uid).on("child_added", function(snapshot) {
 	      let items = snapshot.val();
 	      // console.log(items.type);
-	      if(items.type === "book-a-session"){
+	      if(items.type === "book-a-session" || items.type === "interview-stream" && items.isArchived === false){
 		      let currentTs = that.state.transactions;
 
 		      currentTs[snapshot.key] = items;
