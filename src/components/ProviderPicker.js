@@ -292,7 +292,7 @@ class ProviderPicker extends React.Component {
     }
 
     getFirebaseData();
-
+     //this is where I'm making a small change. erase it please.
   }
 
   render() {
