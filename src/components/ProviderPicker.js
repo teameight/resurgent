@@ -273,7 +273,6 @@ class ProviderPicker extends React.Component {
     let that = this;
     const email = this.props.user.email;
     const name = this.props.user.name;
-    console.log('launch IS');
 
     function getFirebaseData() {
       return settings.once('value').then(function(snapshot) {
@@ -324,14 +323,14 @@ class ProviderPicker extends React.Component {
     if(this.state.zone === 2){
       zoneClass += ' m-zone-tokens';
     }
-    
+
     let hasIstream = false;
-    
+
     if(user != null){
       if(user.istream){
         hasIstream = true;
       }
-      
+
       tokensLeft = user.tokens;
     }
 
