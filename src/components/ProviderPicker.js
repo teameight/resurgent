@@ -217,14 +217,16 @@ class ProviderPicker extends React.Component {
           subject: 'Resurgent: You are now signed up for InterviewStream',
           body: 'Congratulations! You have signed up to InterviewStream through Resurgent Outplacement. Visit https://resurgentoutplacement.com/area/mock-interview to log in and start sharpening your interview skills.',
           userEmail: user.email,
-          userName: user.name
+          userName: user.name,
+          type: 'iStream'
         };
       }else{
         formValues = {
           subject: this.subject.value,
           body: this.body.value,
           userEmail: user.email,
-          userName: user.name
+          userName: user.name,
+          type: 'normal'
         };
       }
 
@@ -565,7 +567,7 @@ class ProviderPicker extends React.Component {
           }
           {
             pArea === 'Mock Interviews' && (
-              <form className='istream-form' name='form' action='https://isprep.interviewstream.com/SSO/SSO_SC' method='post'><input type='hidden' name='login' value={this.state.iStreamValue} /><input type="submit" ref={input => this.inputElement = input} /></form>
+              <form name='form' action='https://isprep.interviewstream.com/SSO/SSO_SC' method='post'><input type='hidden' name='login' value={this.state.iStreamValue} /><input type="submit" ref={input => this.inputElement = input} /></form>
             )
           }
 
