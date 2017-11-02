@@ -273,12 +273,13 @@ class ProviderPicker extends React.Component {
     let that = this;
     const email = this.props.user.email;
     const name = this.props.user.name;
+    const lastname = this.props.user.lastname;
 
     function getFirebaseData() {
       return settings.once('value').then(function(snapshot) {
         nodeUrl = snapshot.val().nodeUrl;
       }).then(function() {
-        axios.post(nodeUrl + '/interview-stream', {email: email, name: name})
+        axios.post(nodeUrl + '/interview-stream', {email: email, name: name, lastname: lastname})
           .then(function (response) {
             that.setState({ iStreamValue: response.data}, function() {
               that.inputElement.click();

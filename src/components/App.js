@@ -364,6 +364,7 @@ class App extends React.Component {
 
 	      userObj.tokens = userMeta.tokens;
 	      userObj.istream = userMeta.istream;
+	      userObj.lastname = userMeta.lastname;
 
 	    }else{
 	      let userRef = firebase.database().ref('users/' + uid );
@@ -396,6 +397,7 @@ class App extends React.Component {
         uid: uid,
         email: userMeta.email,
         name: userMeta.name,
+	      lastname: userObj.lastname,
         unregistered: userMeta.unregistered,
         expiration: userMeta.expiration
       };
