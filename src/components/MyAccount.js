@@ -62,6 +62,7 @@ class MyAccount extends React.Component {
   handleUserDetails() {
 
     var name = document.getElementById('name').value;
+    var lastname = document.getElementById('lastname').value;
     var email = document.getElementById('email').value;
     var pword = document.getElementById('pword').value;
     if (email.length < 4 && email.length > 0) {
@@ -73,10 +74,10 @@ class MyAccount extends React.Component {
       return;
     }
 
-    this.updateUser(name, email, pword);
+    this.updateUser(name, lastname, email, pword);
   }
 
-  updateUser(name,email,pword) {
+  updateUser(name,lastname,email,pword) {
     var user = firebase.auth().currentUser;
     const userRef = firebase.database().ref('users/'+user.uid);
 
@@ -100,14 +101,24 @@ class MyAccount extends React.Component {
         that.handleCloseModal();
         that.setNotice({
           type: 'success',
-          message: 'Your username has been updated.'
+          message: 'Your first name has been updated.'
         });
       }).catch(function(error) {
         that.setNotice({
           type: 'warning',
-          message: 'There was an error updating your username.'
+          message: 'There was an error updating your first name.'
         });
       });
+    }
+
+    if(lastname.length>0){
+      userObj.lastname = lastname;
+        userRef.update({lastname: lastname});
+        that.handleCloseModal();
+        that.setNotice({
+          type: 'success',
+          message: 'Your last name has been updated.'
+        });
     }
 
     if(email.length>0){
@@ -187,11 +198,13 @@ class MyAccount extends React.Component {
     let uName = '';
     let uTokens = '';
     let uEmail = '';
+    let lastName = '';
 
     if(user != null){
       uName = user.name;
       uTokens = user.tokens;
       uEmail = user.email;
+      lastName = user.lastname;
     }
 
     const transactions = this.props.transactions;
@@ -227,7 +240,8 @@ class MyAccount extends React.Component {
                           <h1 className="page-title">Edit My Account Details</h1>
                         </header>
                         <form>
-                          <input name="name" id="name" type="text" placeholder="new username" />
+                          <input name="name" id="name" type="text" placeholder="update first name" />
+                          <input name="lastname" id="lastname" type="text" placeholder="update last name" />
                           <input name="email" id="email"  type="email" placeholder="new e-mail" />
                           <input name="pword" id="pword" type="text" placeholder="new password" />
                           <input className="btn" onClick={this.handleUserDetails} type="button" value="Save" />
@@ -259,7 +273,7 @@ class MyAccount extends React.Component {
 
                 <div className="details-box solo">
                 <div className="details-row">
-                    <p>{uName}</p>
+                    <p>{uName} {lastName}</p>
                     <p><a className="text-link" href="#" onClick={ (e) => this.handleOpenModal(e) }>edit details</a></p>
                 </div>
                 <div className="details-row">

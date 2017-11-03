@@ -44,7 +44,7 @@ body {
       text-align: center;
       border-bottom: 1px solid gray;
       padding: 12px 0 32px; }
-    .page .main .bio-img {
+    .page .main img {
       margin: 20px auto;
       width: 60%;
       max-width: 200px;
@@ -1018,6 +1018,8 @@ h2.section-label {
     overflow: hidden;
     position: relative;
     text-align: left; }
+    .provider .bio a {
+      text-decoration: underline; }
     .provider .bio p {
       font-size: 14px;
       line-height: 20px; }
@@ -1061,6 +1063,45 @@ h2.section-label {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       margin-bottom: 0; }
+
+.i-stream .front .btn {
+  font-size: 13px;
+  width: 110%;
+  box-sizing: border-box;
+  display: block;
+  margin-left: -5%;
+  margin-bottom: 3px; }
+  .i-stream .front .btn + p {
+    font-size: 12px; }
+
+.i-stream-zone .modal-zones {
+  width: 100vw; }
+  .i-stream-zone .modal-zones .btn + p {
+    margin-top: 32px; }
+
+.headhunters.provider .front .bio {
+  height: 290px;
+  overflow: auto;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  margin: 16px 0;
+  padding: 16px 0 24px;
+  box-sizing: border-box;
+  max-height: none; }
+
+.headhunters.provider .bio-handle {
+  /*white-space: normal;
+        line-height: 1.2; 
+        cursor:pointer;
+
+        &:after, &:before {
+            display:none;
+        }*/ }
+
+.istream-form {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden; }
 
 .ReactModalPortal .flow-book-session {
   background: #7d5297; }
@@ -1112,7 +1153,7 @@ h2.section-label {
       list-style: none;
       transform: translateY(-100%);
       margin-top: 100%; }
-    .m-zone-2 .book-confirm .token-spinner ul {
+    .m-zone-tokens .book-confirm .token-spinner ul {
       -moz-transition: transform 1s ease, margin 0.3s ease;
       -o-transition: transform 1s ease, margin 0.3s ease;
       -webkit-transition: transform 1s ease, margin 0.3s ease;

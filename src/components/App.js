@@ -11,6 +11,7 @@ import Callback from '../Callback/Callback';
 import AreaPicker from './AreaPicker';
 import Registration from './Registration';
 import ProviderPicker from './ProviderPicker';
+import Headhunter from './Headhunter';
 import MyAccount from './MyAccount';
 import Page from './Page';
 import Footer from './Footer';
@@ -230,7 +231,7 @@ class App extends React.Component {
 		});
 	}
 
-	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues) {
+	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues, iStream = false) {
 		const users = this.state.users;
 		const usersRef = firebase.database().ref('users');
 		const tRef = firebase.database().ref('transactions');
@@ -244,6 +245,12 @@ class App extends React.Component {
 			let currentTokens = users[ukey].tokens;
 			let newTokens = currentTokens - subtractTokens;
 			usersRef.child(ukey).update({ "tokens":newTokens });
+
+			if(iStream){
+				usersRef.child(ukey).update({ "istream":true });
+				users[ukey].istream = true;
+			}
+
 			users[ukey].tokens = newTokens;
 		}
 
@@ -263,7 +270,7 @@ class App extends React.Component {
 			cost: pTokens,
 			date: timestamp,
 			provider: pkey,
-			type: "book-a-session",
+			type: "interview-stream",
 			uid: ukey
 		};
 
@@ -286,7 +293,8 @@ class App extends React.Component {
 			that.setState({
 				loggedOut:true,
 				authed: false,
-				user:null
+				user:null,
+				transactions:{}
 			});
 		}).catch(function(error) {
 		});
@@ -356,6 +364,8 @@ class App extends React.Component {
 			if(userMeta !== null && userMeta.email){
 
 	      userObj.tokens = userMeta.tokens;
+	      userObj.istream = userMeta.istream;
+	      userObj.lastname = userMeta.lastname;
 
 	    }else{
 	      let userRef = firebase.database().ref('users/' + uid );
@@ -377,15 +387,18 @@ class App extends React.Component {
 
 	      userRef.set(userMeta);
 	      userObj.tokens = 50;
+	      userObj.istream = false;
 
 	    }
 
 	    let usersMeta ={};
       usersMeta[uid] = {
         tokens: userMeta.tokens,
+        istream: userMeta.istream,
         uid: uid,
         email: userMeta.email,
         name: userMeta.name,
+	      lastname: userObj.lastname,
         unregistered: userMeta.unregistered,
         expiration: userMeta.expiration
       };
@@ -410,7 +423,7 @@ class App extends React.Component {
 	    tRef.orderByChild('uid').equalTo(uid).on("child_added", function(snapshot) {
 	      let items = snapshot.val();
 	      // console.log(items.type);
-	      if(items.type === "book-a-session"){
+	      if(items.type === "book-a-session" || items.type === "interview-stream" && items.isArchived === false){
 		      let currentTs = that.state.transactions;
 
 		      currentTs[snapshot.key] = items;
@@ -577,20 +590,44 @@ class App extends React.Component {
 										{...props}
 									/>}
 								/>
-								<Route path="/area/:slug" render={(props) =>
-									<ProviderPicker
-									 	clearNotices={this.clearNotices}
-										user={this.state.user}
-										setModal={this.setModal}
-										selectProvider={this.selectProvider}
-										updateReviews={this.updateReviews}
-										bookSessionTransaction={this.bookSessionTransaction}
-										categories={this.state.categories}
-										areas={this.state.areas}
-										providers={this.state.providers}
-										{...props}
-									/>}
-								/>
+								{
+									this.props.location.pathname === '/area/finding-your-headhunter2' && (
+										<Route path="/area/:slug" render={(props) =>
+											<Headhunter
+											 	clearNotices={this.clearNotices}
+											 	setNotice={this.setNotice}
+												user={this.state.user}
+												setModal={this.setModal}
+												selectProvider={this.selectProvider}
+												updateReviews={this.updateReviews}
+												bookSessionTransaction={this.bookSessionTransaction}
+												categories={this.state.categories}
+												areas={this.state.areas}
+												providers={this.state.providers}
+												{...props}
+											/>}
+										/>
+										)
+								}
+								{
+									this.props.location.pathname !== '/area/finding-your-headhunter2' && (
+										<Route path="/area/:slug" render={(props) =>
+											<ProviderPicker
+											 	clearNotices={this.clearNotices}
+											 	setNotice={this.setNotice}
+												user={this.state.user}
+												setModal={this.setModal}
+												selectProvider={this.selectProvider}
+												updateReviews={this.updateReviews}
+												bookSessionTransaction={this.bookSessionTransaction}
+												categories={this.state.categories}
+												areas={this.state.areas}
+												providers={this.state.providers}
+												{...props}
+											/>}
+										/>
+										)
+								}
 								<Route path="/my-account" render={(props) =>
 									<MyAccount
 									 	setNotice={this.setNotice}
