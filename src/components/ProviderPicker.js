@@ -252,10 +252,7 @@ class ProviderPicker extends React.Component {
           component.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues, true);
         });
       }
-
       getFirebaseData();
-
-
 
   }
 
@@ -298,8 +295,29 @@ class ProviderPicker extends React.Component {
 
   render() {
 
-    const catId = this.props.location.state.catId;
-    const areaId = this.props.location.state.areaId;
+    let catId = null;
+    let areaId = null;
+
+
+    if(this.props.location.state && Object.keys(this.props.location.state).length !== 0){
+
+      catId = this.props.location.state.catId;
+      areaId = this.props.location.state.areaId;
+
+    }
+
+    if(!catId || !areaId){
+      const slug = this.props.location.pathname.split("area/")[1];
+
+      const areas = this.props.areas;
+
+      Object
+        .keys(areas)
+        .filter((current) => areas[current].slug === slug)
+        .map(key => {areaId = key; catId = areas[key].category});
+
+    }
+
     let pId = this.state.provider;
     let isInterviewStream = false;
 
@@ -354,10 +372,6 @@ class ProviderPicker extends React.Component {
         zoneClass += ' m-zone-tokens';
       }
 
-      console.log(isInterviewStream);
-
-      // console.log(pReviews);
-
 
       if(user != null){
 
@@ -371,7 +385,6 @@ class ProviderPicker extends React.Component {
       }
 
     }
-
 
     return (
       <div>

@@ -47,7 +47,6 @@ class Provider extends React.Component {
     let canPay = false;
     if(this.props.tokensLeft > 0){
     	const total = parseInt(this.props.tokensLeft, 10) - parseInt(details.cost, 10);
-      console.log(total);
       if(total >= 0){
         canPay = true;
       }
