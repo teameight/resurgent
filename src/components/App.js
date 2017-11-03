@@ -418,8 +418,6 @@ class App extends React.Component {
 
 			var that = this;
 
-			console.log(uid);
-
 	    const tRef = firebase.database().ref("transactions");
 
 	    tRef.orderByChild('uid').equalTo(uid).on("child_added", function(snapshot) {
