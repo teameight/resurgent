@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+var HtmlToReactParser = require('html-to-react').Parser;
 
 class Provider extends React.Component {
 
@@ -85,9 +86,7 @@ class Provider extends React.Component {
 		        {/* <a className="video-link" src="#" title="Play Video"></a> TODO: video */}
 		        <p className="token-cost"><span>tokens</span><br />{details.cost}</p>
 		        <h1 className="provider-name">{details.name}</h1>
-		        <div className="bio">
-			        <p>{details.desc}</p>
-		        </div>
+		        <div className="bio" dangerouslySetInnerHTML={{__html: details.desc}}></div>
 		        <a href="#" onClick={ (e) => this.flipCard(e) } className="bio-handle">Read More</a>
 		        <div className="rating">
 		            <a onClick={ (e) => this.openModal(e, keyId, 'rating') }>
@@ -139,9 +138,7 @@ class Provider extends React.Component {
 	        	<div className="back-inner">
 		        	<h1 className="provider-name">{details.name}</h1>
 		        	<p><small>{backLabel}</small></p>
-		        	<div className="bio">
-				        <p>{descText}</p>
-			        </div>
+		        	<div className="bio" dangerouslySetInnerHTML={{__html: descText}}></div>
 		        	<p><a className="text-link" href="#" onClick={ (e) => this.flipCard(e) }>{backText}</a></p>
 		        </div>
 	        </div>
