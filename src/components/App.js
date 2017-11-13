@@ -231,7 +231,7 @@ class App extends React.Component {
 		});
 	}
 
-	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues, iStream = false) {
+	bookSessionTransaction(pTokens, ckey, akey, pkey, formValues, ptype = false) {
 		const users = this.state.users;
 		const usersRef = firebase.database().ref('users');
 		const tRef = firebase.database().ref('transactions');
@@ -246,9 +246,14 @@ class App extends React.Component {
 			let newTokens = currentTokens - subtractTokens;
 			usersRef.child(ukey).update({ "tokens":newTokens });
 
-			if(iStream){
+			if(ptype === 'istream'){
 				usersRef.child(ukey).update({ "istream":true });
 				users[ukey].istream = true;
+			}
+
+			if(ptype === 'videos'){
+				usersRef.child(ukey).update({ "videos":true });
+				users[ukey].videos = true;
 			}
 
 			users[ukey].tokens = newTokens;
@@ -257,20 +262,25 @@ class App extends React.Component {
 		this.setState({users});
 
 		// send email
-		axios.post(formValues.nodeUrl + '/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
-		  .then(function (response) {
-		  })
-		  .catch(function (error) {
-		  });
+		// axios.post(formValues.nodeUrl + '/book-session', formValues) //https://aqueous-eyrie-70803.herokuapp.com/book-session
+		//   .then(function (response) {
+		//   })
+		//   .catch(function (error) {
+		//   });
 
 	  // create transaction record
+	  let tType = 'book-a-session';
+	  if(ptype === 'istream'){
+	  	tType = 'interview-stream';
+	  }
+
 		const transaction = {
 			area: akey,
 			category: ckey,
 			cost: pTokens,
 			date: timestamp,
 			provider: pkey,
-			type: "interview-stream",
+			type: tType,
 			uid: ukey
 		};
 
@@ -365,6 +375,7 @@ class App extends React.Component {
 
 	      userObj.tokens = userMeta.tokens;
 	      userObj.istream = userMeta.istream;
+	      userObj.videos = userMeta.videos;
 	      userObj.lastname = userMeta.lastname;
 
 	    }else{

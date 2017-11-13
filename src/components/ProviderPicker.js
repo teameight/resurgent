@@ -18,6 +18,7 @@ class ProviderPicker extends React.Component {
       showModal: false,
       showRating: false,
       showIStream: false,
+      showVideoModal: false,
       card: false,
       zone: 1,
       category: null,
@@ -72,8 +73,8 @@ class ProviderPicker extends React.Component {
     this.props.selectProvider(keyId);
     this.handleOpenModal(mname);
     this.setState({ provider: keyId }, function() {
-      if(mname === 'istream'){
-        this.handleBookSubmit(false, '0', true);
+      if(mname === 'istream' || mname === 'videos'){
+        this.handleBookSubmit(false, '0', mname);
       }
     });
     this.forceUpdate();
@@ -92,7 +93,8 @@ class ProviderPicker extends React.Component {
       this.setState({
         showModal: true,
         showRating: false,
-        showIStream: false
+        showIStream: false,
+        showVideoModal: false
       });
     }
 
@@ -100,7 +102,8 @@ class ProviderPicker extends React.Component {
       this.setState({
         showModal: false,
         showRating: true,
-        showIStream: false
+        showIStream: false,
+        showVideoModal: false
       });
     }
 
@@ -108,7 +111,17 @@ class ProviderPicker extends React.Component {
       this.setState({
         showModal: false,
         showRating: false,
-        showIStream: true
+        showIStream: true,
+        showVideoModal: false
+      });
+    }
+
+    if(mname === 'videos'){
+      this.setState({
+        showModal: false,
+        showRating: false,
+        showIStream: false,
+        showVideoModal: true
       });
     }
 
@@ -119,7 +132,8 @@ class ProviderPicker extends React.Component {
     this.setState({
       showModal: false,
       showRating: false,
-      showIStream: false
+      showIStream: false,
+      showVideoModal: false
     });
     this.props.setModal(false);
     setTimeout(() => {
@@ -189,8 +203,8 @@ class ProviderPicker extends React.Component {
     this.props.history.push(path);
   }
 
-  handleBookSubmit(e, pCost, istream = false) {
-    if(!istream){
+  handleBookSubmit(e, pCost, ptype = false) {
+    if(ptype !== 'istream' && ptype !== 'videos'){
       e.preventDefault();
     }
     // Firebase refs
@@ -205,14 +219,16 @@ class ProviderPicker extends React.Component {
     const user = this.props.user;
     const uTokens = user.tokens;
 
-    if(istream){
+    if(ptype === 'istream' || ptype === 'videos'){
       pCost = providersObj[this.state.provider].cost
     }
 
       user.tokens = uTokens - pCost;
 
+      console.log(ptype);
+
       let formValues = {};
-      if(istream){
+      if(ptype === 'istream'){
         formValues = {
           subject: 'Resurgent: You are now signed up for InterviewStream',
           body: 'Congratulations! You have signed up to InterviewStream through Resurgent Outplacement. Visit https://resurgentoutplacement.com/area/mock-interview to log in and start sharpening your interview skills.',
@@ -220,7 +236,7 @@ class ProviderPicker extends React.Component {
           userName: user.name,
           type: 'iStream'
         };
-      }else{
+      }else if(ptype !== 'videos'){
         formValues = {
           subject: this.subject.value,
           body: this.body.value,
@@ -233,7 +249,7 @@ class ProviderPicker extends React.Component {
       // store `this` to use inside firebase promise
       let component = this;
 
-      if(!istream){
+      if(ptype !== 'istream' && ptype !== 'videos'){
         this.setState({
           zone : 2
         });
@@ -249,10 +265,11 @@ class ProviderPicker extends React.Component {
             formValues.providerName = snapshot.val().name;
           });
         }).then(function() {
-          component.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues, true);
+          component.props.bookSessionTransaction(pCost, catId, areaId, pId, formValues, ptype);
         });
       }
       getFirebaseData();
+      
 
   }
 
@@ -344,10 +361,14 @@ class ProviderPicker extends React.Component {
     }
 
     let hasIstream = false;
+    let hasVideo = false;
 
     if(user != null){
       if(user.istream){
         hasIstream = true;
+      }
+      if(user.videos){
+        hasVideo = true;
       }
 
       tokensLeft = user.tokens;
@@ -367,13 +388,17 @@ class ProviderPicker extends React.Component {
         pReviews = provider.reviews;
       }
 
-      if(pName === "InterviewStream"){
+      if(provider.type === "interviewstream" || provider.type === "watchvideos"){
         isInterviewStream = true;
         zoneClass += ' m-zone-tokens';
       }
 
 
       if(user != null){
+
+        console.log('render', user.tokens);
+        console.log('render', pCost);
+
 
         const total = parseInt(user.tokens, 10) + parseInt(pCost, 10);
 
@@ -388,6 +413,44 @@ class ProviderPicker extends React.Component {
 
     return (
       <div>
+        <ReactModal
+           isOpen={this.state.showVideoModal}
+           contentLabel="onRequestClose"
+           onRequestClose={this.handleCloseModal}
+           className="flow-book-session i-stream-zone"
+           overlayClassName="Overlay"
+           closeTimeoutMS={500}
+        >
+          <header className="header-modal">
+            <div className="logo">
+              <a href="#" onClick={ (e) => this.processLink(e, '/') }><img src={require('../img/logo.png')} alt="Resurgent - Legal Outplacement" /></a>
+            </div>
+            <div className="menu-icon" >
+              <button type="button" className="tcon tcon-remove" aria-label="remove item"  onClick={this.handleCloseModal}>
+                <span className="tcon-visuallyhidden">Close</span>
+              </button>
+            </div>
+          </header>
+          <div className={zoneClass}>
+            <section className="main book-confirm">
+              <header>
+                  <p className="subtitle">You now have access to videos by</p>
+                  <h1 className="page-title">{pName}</h1>
+              </header>
+              <div className="token-wrap">
+                  <div className="token-spinner">
+                      <ul>
+                        { tokenCounts }
+                      </ul>
+                  </div>
+                  <span>Tokens</span>
+              </div>
+              <a className="btn" href="https://vimeopro.com/studiobdc/resurgent-outplacement-media" target="_blank">Watch Videos Now</a>
+              <p>Your account now includes unlimited visits to videos by {pName}. Return to this card for access.</p>
+          </section>
+          </div>
+        </ReactModal>
+
         <ReactModal
            isOpen={this.state.showIStream}
            contentLabel="onRequestClose"
@@ -573,7 +636,7 @@ class ProviderPicker extends React.Component {
               Object
                 .keys(providersObj)
                 .filter((current) => providersObj[current].area === areaId && !providersObj[current].isArchived)
-                .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} launchInterviewStream={this.launchInterviewStream} passProvider={this.passProvider} keyId={key} pId={providersObj[key].id} pArea={pArea} tokensLeft={tokensLeft} hasIstream={hasIstream} details={providersObj[key]} card={this.state.card} />)
+                .map(key => <Provider key={key} flipCard={this.flipCard} handleCloseModal={this.handleCloseModal} launchInterviewStream={this.launchInterviewStream} passProvider={this.passProvider} keyId={key} pId={providersObj[key].id} pArea={pArea} tokensLeft={tokensLeft} hasIstream={hasIstream} hasVideo={hasVideo} details={providersObj[key]} card={this.state.card} />)
             }
             </Flickity>
             )

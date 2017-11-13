@@ -34,7 +34,7 @@ class Provider extends React.Component {
 	  }
 
     let isInterviewStream = false;
-    if(details.name === "InterviewStream"){
+    if(details.type === "interviewstream"){
       isInterviewStream = true;
       pClass += ' i-stream';
     }
@@ -44,6 +44,20 @@ class Provider extends React.Component {
     	hasIstream = this.props.hasIstream;
     }
 
+    let isHeadhunter = false;
+    if(details.type === "headhunter"){
+      isHeadhunter = true;
+    }
+
+    let isVideoProvider = false;
+    if(details.type === "watchvideos"){
+      isVideoProvider = true;
+    }
+
+    let hasVideo = false;
+    if(isVideoProvider){
+    	hasVideo = this.props.hasVideo;
+    }
 
     let canPay = false;
     if(this.props.tokensLeft > 0){
@@ -69,7 +83,7 @@ class Provider extends React.Component {
 		return (
 			<div className={pClass}>
 			{
-				pArea === "Finding your Headhunter" && (
+				isHeadhunter && (
 					<div className="front">
 		        {/* <a className="video-link" src="#" title="Play Video"></a> TODO: video */}
 		        <h1 className="provider-name">{details.name}</h1>
@@ -78,7 +92,7 @@ class Provider extends React.Component {
 				)
 			}
 			{
-				pArea !== "Finding your Headhunter" && (
+				!isHeadhunter && (
 					<div className="front">
 						<div className="profile-img">
 							<img src={details.image} alt={details.name} />
@@ -109,8 +123,13 @@ class Provider extends React.Component {
 	                  </div>
 		            </a>
 		        </div>
-		        { !isInterviewStream && canPay && (
+		        { !isVideoProvider && !isInterviewStream && canPay && (
 		        		<button className="btn" onClick={ (e) => this.openModal(e, keyId, 'book') }>Book a Session</button>
+		        	)
+		        }
+
+		        { isVideoProvider &&  !hasVideo && canPay && (
+		        		<button className="btn" onClick={ (e) => this.openModal(e, keyId, 'videos') }>Watch Videos Now</button>
 		        	)
 		        }
 		        { isInterviewStream && !hasIstream && canPay && (
@@ -121,7 +140,11 @@ class Provider extends React.Component {
 		        		<a className="btn" href="" onClick={this.props.launchInterviewStream}>Relaunch Practice Interviews</a>
 		        	)
 		        }
-		        { !canPay && !hasIstream && (
+		        { hasVideo && (
+		        		<a className="btn" href="https://vimeopro.com/studiobdc/resurgent-outplacement-media">Return to Videos</a>
+		        	)
+		        }
+		        { !canPay && !hasIstream && !hasVideo && (
 		        		<p><em>You do not have enough tokens left for this provider.</em></p>
 		        	)
 		        }
@@ -133,7 +156,7 @@ class Provider extends React.Component {
 	      )
 			}
 			{
-				pArea !== "Finding your Headhunter" && (
+				!isHeadhunter && (
 					<div className="back">
 	        	<div className="back-inner">
 		        	<h1 className="provider-name">{details.name}</h1>
